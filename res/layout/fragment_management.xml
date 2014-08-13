@@ -44,6 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:alpha="0.8"
+            android:background="@drawable/mybutton"
             android:text="@string/string_addstranger_customgame" />
 
         <Button
@@ -52,6 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:alpha="0.8"
+             android:background="@drawable/mybutton"
             android:text="@string/string_addfriend_customgame" />
 
         <Button
@@ -60,6 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:alpha="0.8"
+             android:background="@drawable/mybutton"
             android:text="@string/string_clear_customgame" />
 
          <Button
@@ -68,7 +71,8 @@
              android:layout_height="wrap_content"
              android:layout_weight="1"
              android:alpha="0.8"
-             android:text="@string/string_readytoplay_quickstart" />
+              android:background="@drawable/mybutton"
+             android:text="@string/string_startgame_customgame" />
 
     </LinearLayout>
 <!--   <RelativeLayout

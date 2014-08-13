@@ -11,7 +11,7 @@
         android:layout_centerVertical="true"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:textAlignment="center" />
+         />
 
     <TextView
         android:id="@+id/textView2_quickstart"
@@ -41,13 +41,34 @@
 
     <Button
         android:id="@+id/button_quickstart"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/spinner_quickstart"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:alpha="0.8"
+         android:background="@drawable/mybutton"
         android:text="@string/string_readytoplay_quickstart" />
+     <Button
+        android:id="@+id/button_customgame_quickstart"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_quickstart"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="3dp"
+        android:alpha="0.8"
+         android:background="@drawable/mybutton"
+        android:text="@string/title_section1" />
+     <Button
+        android:id="@+id/button_setting_quickstart"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_customgame_quickstart"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="3dp"
+        android:alpha="0.8"
+         android:background="@drawable/mybutton"
+        android:text="@string/button_quickstartfragment_setting" />
 
     <TextView
         android:id="@+id/textView_gametitle"

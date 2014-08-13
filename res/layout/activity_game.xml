@@ -5,87 +5,44 @@
     android:background="@drawable/background_excution"
     android:orientation="vertical" >
 
- <FrameLayout
-      android:id="@+id/content_top_gameactivity"
-     android:layout_width="match_parent"
-     android:layout_height="wrap_content"
-     android:layout_weight="0">
-
-     <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="top|center_horizontal"
-        android:orientation="vertical" >
-
-         <RelativeLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content" >
-
-             <ImageView
-                 android:id="@+id/imageView_game"
-                 android:layout_width="@dimen/small_image_size"
-                 android:layout_height="@dimen/small_image_size"
-                 android:layout_alignParentLeft="true"
-                 android:contentDescription="@string/app_name"
-                 android:scaleType="centerCrop"
-                 android:src="@drawable/help" />
-
-             <TextView
-                 android:id="@+id/textview_topStatus_Game"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_alignParentRight="true"
-                 android:layout_centerVertical="true"
-                 android:textColor="@android:color/white"
-                 android:textSize="@dimen/small_text_size" />
-
-         </RelativeLayout>
-
-   <GridView
-       android:id="@+id/grid_top"
-       android:layout_width="fill_parent"
-       android:layout_height="wrap_content"
-       android:columnWidth="@dimen/itemSize"
-       android:gravity="center"
-       android:horizontalSpacing="4dp"
-       android:numColumns="auto_fit"
-       android:scrollbarStyle="insideOverlay"
-       android:scrollbars="vertical"
-       android:stretchMode="columnWidth"
-       android:verticalSpacing="4dp" >
-
-</GridView>
-	<!--  
-   <TextView
-       android:id="@+id/textView_spacer"
-       android:layout_width="wrap_content"
-       android:layout_height="wrap_content"
-       android:layout_weight="0" />
--->
-    </LinearLayout>
-</FrameLayout>
-
-<FrameLayout
-    android:id="@+id/content_gameactivity"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1" >
-
-    <RelativeLayout
+    <FrameLayout
+        android:id="@+id/content_top_gameactivity"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/layout_middle_game " >
+        android:layout_height="wrap_content"
+        android:layout_weight="0" >
 
         <LinearLayout
-          
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:layout_alignParentTop="true"
+            android:id="@+id/linearLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="top|center_horizontal"
             android:orientation="vertical" >
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageView
+                    android:id="@+id/imageView_game"
+                    android:layout_width="@dimen/small_image_size"
+                    android:layout_height="@dimen/small_image_size"
+                    android:layout_alignParentLeft="true"
+                    android:contentDescription="@string/app_name"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/help" />
+
+                <TextView
+                    android:id="@+id/textview_topStatus_Game"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="#619883"
+                    android:textSize="@dimen/small_text_size" />
+            </RelativeLayout>
+
             <GridView
-                android:id="@+id/grid"
+                android:id="@+id/grid_top"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:columnWidth="@dimen/itemSize"
@@ -96,7 +53,43 @@
                 android:scrollbars="vertical"
                 android:stretchMode="columnWidth"
                 android:verticalSpacing="4dp" >
-            </GridView><TextView
+            </GridView>
+
+        </LinearLayout>
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/content_gameactivity"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+
+        <RelativeLayout
+            android:id="@+id/layout_middle_game "
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignParentTop="true"
+                android:orientation="vertical" >
+
+                <GridView
+                    android:id="@+id/grid"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:columnWidth="@dimen/itemSize"
+                    android:gravity="center"
+                    android:horizontalSpacing="4dp"
+                    android:numColumns="auto_fit"
+                    android:scrollbarStyle="insideOverlay"
+                    android:scrollbars="vertical"
+                    android:stretchMode="columnWidth"
+                    android:verticalSpacing="4dp" >
+                </GridView>
+
+                <TextView
                     android:id="@+id/textView_indentity_Game"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -105,12 +98,15 @@
 
                 <Button
                     android:id="@+id/button_showIndentity_Game"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:alpha="0.8"
-                    android:longClickable="true"
-                    android:padding="@dimen/padding_layout" />
+                    android:background="@android:color/transparent"
+                   android:drawableTop="@drawable/propose"
+                    android:gravity="bottom|center_horizontal"
+                    android:padding="@dimen/padding_layout"
+                    android:textColor="@android:color/white" />
 
                 <LinearLayout
                     android:id="@+id/layout_share"
@@ -120,55 +116,97 @@
                     android:orientation="horizontal"
                     android:visibility="gone" >
 
-                    <Button
-                        android:id="@+id/button_share_twitter"
+                    <RelativeLayout
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Twitter" />
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" >
 
-                    <Button
-                        android:id="@+id/button_share_facebook"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Facebook" />
+                        <Button
+                            android:id="@+id/button_replay"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                             android:layout_centerInParent="true"
+                            android:drawableTop="@drawable/replay"
+                            android:background="@android:color/transparent"
+                            android:gravity="bottom|center_horizontal"
+                            android:text="@string/string_topstatus3_game"
+                            android:textColor="@android:color/white" />
 
-                    <Button
-                        android:id="@+id/button_share_weibo"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Weibo" />
+                    </RelativeLayout>
 
-                    <Button
-                        android:id="@+id/button_share_wechat"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="WeChat" />
+                    <RelativeLayout
+                         android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" >
+
+                        <Button
+                            android:id="@+id/button_share_gplus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                             android:layout_centerInParent="true"
+                            android:background="@android:color/transparent"
+                            android:drawableTop="@drawable/gplus"
+                            android:gravity="bottom|center_horizontal"
+                            android:text="gplus"
+                            android:textColor="@android:color/white" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                          android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" >
+
+                        <Button
+                            android:id="@+id/button_share_facebook"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                             android:layout_centerInParent="true"
+                            android:background="@android:color/transparent"
+                            android:drawableTop="@drawable/facebook"
+                            android:gravity="bottom|center_horizontal"
+                            android:text="Facebook"
+                            android:textColor="@android:color/white" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                         android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" >
+
+                        <Button
+                            android:id="@+id/button_share_wechat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                             android:layout_centerInParent="true"
+                            android:background="@android:color/transparent"
+                            android:drawableTop="@drawable/circle"
+                            android:gravity="bottom|center_horizontal"
+                            android:text="WeChat"
+                            android:textColor="@android:color/white" />
+                    </RelativeLayout>
                 </LinearLayout>
                 <!-- Hold four share buttons -->
 
             </LinearLayout>
 
-        <GridView
-            android:id="@+id/grid_bottom"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:gravity="center"
-            android:horizontalSpacing="4dp"
-            android:numColumns="6"
-            android:scrollbarStyle="insideOverlay"
-            android:scrollbars="vertical"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="4dp" >
-
-        </GridView>
-
-    </RelativeLayout>
-
-</FrameLayout>
+            <GridView
+                android:id="@+id/grid_bottom"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:horizontalSpacing="4dp"
+                android:numColumns="6"
+                android:scrollbarStyle="insideOverlay"
+                android:scrollbars="vertical"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="4dp" >
+            </GridView>
+        </RelativeLayout>
+    </FrameLayout>
 
 </LinearLayout>

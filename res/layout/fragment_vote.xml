@@ -38,6 +38,7 @@
             android:background="@drawable/vote_aye"
             android:gravity="bottom|center_horizontal"
             android:text="@string/string_vote_aye"
+            android:typeface="monospace"
             android:textStyle="bold" />
 
     </RelativeLayout>

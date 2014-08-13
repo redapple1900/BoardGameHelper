@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory 
+
+  android:title="Setting"
+
+  android:key="setting">
+<!--  
+  <CheckBoxPreference 
+
+android:key="language"
+
+android:summary="Enable or disable data updates"
+
+android:title="Lan" 
+
+android:defaultValue="true"
+
+  />
+-->
+  <ListPreference 
+
+android:key="language"
+
+android:title="Language"
+
+android:summary="Game Language"
+
+android:defaultValue="default" 
+
+android:entries="@array/language"
+
+android:entryValues="@array/languageValues"/>
+
+<!--  android:dependency="perform_updates"-->
+
+     
+<!--  
+    </PreferenceCategory>
+
+    <PreferenceCategory 
+
+  android:title="Second Category"
+
+  android:key="second_category">
+
+  <EditTextPreference
+
+android:key="welcome_message"
+
+android:title="Welcome Message" 
+
+android:summary="Define the Welcome message to be shown"
+
+android:dialogTitle="Welcome Message"
+
+android:dialogMessage="Provide a message"    
+
+android:defaultValue="Default welcome message" />
+-->
+    </PreferenceCategory>
+
+</PreferenceScreen>

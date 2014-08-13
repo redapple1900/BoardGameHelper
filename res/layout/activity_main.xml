@@ -5,7 +5,7 @@
     android:background="@drawable/background_excution"
     android:orientation="vertical" >
 
-  <LinearLayout
+    <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -16,17 +16,16 @@
             android:id="@+id/textView_gamesetting_main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/string_gamesetting_main"
             android:textColor="@android:color/white"
             android:textColorLink="@android:color/white"
-            android:textSize="30sp"
-            android:layout_gravity="center_horizontal"
-            android:text="@string/string_gamesetting_main" />
+            android:textSize="30sp" />
 
         <TextView
             android:id="@+id/textView_hint_excution"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-           />
+            android:layout_height="wrap_content" />
 
         <GridView
             android:id="@+id/grid"
@@ -45,56 +44,68 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:text="@string/title_main"
             android:textColor="@android:color/white"
             android:textColorLink="@android:color/white"
             android:textSize="30sp"
-            android:gravity="center_horizontal"
             android:textStyle="bold" />
-
-
-
     </LinearLayout>
 
-   <FrameLayout
-       android:id="@+id/layout_content_main"
-       android:layout_width="match_parent"
-       android:layout_height="0dp"
-       android:layout_weight="1" >
+    <FrameLayout
+        android:id="@+id/layout_content_main"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
 
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_gravity="center"
-           android:gravity="center"
-           android:longClickable="false"
-           android:orientation="vertical" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:longClickable="false"
+            android:orientation="horizontal" >
 
-           <TextView
-               android:id="@+id/textView_indentity_Main"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_gravity="center"
-               android:textAppearance="?android:attr/textAppearanceLarge" />
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
 
-           <Button
-               android:id="@+id/button_playsound_Main"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:alpha="0.8"
-               android:text="@string/string_playsound" />
+                <Button
+                    android:id="@+id/button_playsound_Main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:alpha="0.8"
+                    android:background="@android:color/transparent"
+                    android:drawableTop="@drawable/play"
+                    android:gravity="bottom|center_horizontal"
+                    android:text="@string/string_playsound"
+                    android:textColor="@android:color/white" />
 
-           <Button
-               android:id="@+id/button_showIndentity_Main"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_gravity="center"
-               android:alpha="0.8"
-               android:text="@string/button_main"
-               android:textColor="@android:color/black"
-               android:textColorHint="@android:color/tertiary_text_light" />
+            </RelativeLayout>
 
-       </LinearLayout>
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" >
 
-   </FrameLayout>
+               <Button
+                    android:id="@+id/button_showIndentity_Main"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     android:layout_centerInParent="true"
+                    android:layout_gravity="center"
+                    android:alpha="0.8"
+                    android:drawableTop="@drawable/next"
+                    android:background="@android:color/transparent"
+                    android:gravity="bottom|center_horizontal"
+                    android:text="@string/button_main"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/tertiary_text_light" />
+            </RelativeLayout>
+        </LinearLayout>
+    </FrameLayout>
+
 </LinearLayout>
