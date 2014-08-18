@@ -1,8 +1,6 @@
 package com.yuanwei.resistance;
 
 
-import game.redapple1900.resistance.R;
-
 import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -15,7 +13,8 @@ import android.widget.TextView;
 public class TopResultFragment extends Fragment{
 	private TextView text;
 
-	 public View onCreateView(LayoutInflater inflater, ViewGroup container,  
+	 @Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,  
 	            Bundle savedInstanceState) {  
 	        View v = inflater.inflate(R.layout.fragment_topresult, container, false);
 	        text=(TextView)v.findViewById(R.id.textView_topresult);

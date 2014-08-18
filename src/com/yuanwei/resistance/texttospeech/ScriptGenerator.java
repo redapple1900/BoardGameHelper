@@ -1,9 +1,7 @@
 package com.yuanwei.resistance.texttospeech;
 
-import game.redapple1900.resistance.R;
-
 import java.util.HashMap;
-
+import com.yuanwei.resistance.R;
 import android.content.Context;
 import android.speech.tts.TextToSpeech;
 

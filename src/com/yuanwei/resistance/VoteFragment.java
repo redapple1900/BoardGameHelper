@@ -2,8 +2,6 @@ package com.yuanwei.resistance;
 
 import com.yuanwei.resistance.widget.ButtonOnTouchListener;
 
-import game.redapple1900.resistance.R;
-
 import android.app.Activity;
 
 import android.os.Bundle;
@@ -34,7 +32,8 @@ OnVoteResultListener mCallback;
     }
 
 	private Button button_negative,button_positive;	
-	 public View onCreateView(LayoutInflater inflater, ViewGroup container,  
+	 @Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,  
 	            Bundle savedInstanceState) {  
 	        View v = inflater.inflate(R.layout.fragment_vote, container, false);  
 	        button_negative=(Button)v.findViewById(R.id.button_nay_vote);

@@ -1,6 +1,6 @@
 package com.yuanwei.resistance;
 
-import game.redapple1900.resistance.R;
+
 
 
 import android.content.Intent;
@@ -17,7 +17,8 @@ public class ContactFragment extends Fragment{
 	private Button button;
 	private EditText editText;
 	
-	 public View onCreateView(LayoutInflater inflater, ViewGroup container,  
+	 @Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,  
 	            Bundle savedInstanceState) {  
 	        View Layout = inflater.inflate(R.layout.fragment_gamerules, container, false); 
 	        Log.d("tag","allright");

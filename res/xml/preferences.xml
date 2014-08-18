@@ -34,6 +34,20 @@ android:entries="@array/language"
 
 android:entryValues="@array/languageValues"/>
 
+<ListPreference 
+
+android:key="theme"
+
+android:title="Theme"
+
+android:summary="Game Theme"
+
+android:defaultValue="default" 
+
+android:entries="@array/theme"
+
+android:entryValues="@array/themeValues"/>
+
 <!--  android:dependency="perform_updates"-->
 
      

@@ -1,12 +1,10 @@
 package com.yuanwei.resistance.gridviewtest;
 
-
+import com.yuanwei.resistance.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import game.redapple1900.resistance.R;
-
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,6 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+@SuppressLint("InflateParams")
 public class TableGridAdapter extends BaseAdapter{
    public static class Item{
        public String text;

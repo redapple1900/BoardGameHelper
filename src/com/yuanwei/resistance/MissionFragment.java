@@ -4,8 +4,6 @@ import java.util.Random;
 
 import com.yuanwei.resistance.widget.ButtonOnTouchListener;
 
-import game.redapple1900.resistance.R;
-
 import android.widget.ImageView;
 import android.app.Activity;
 import android.content.Context;
@@ -43,7 +41,8 @@ public class MissionFragment extends Fragment implements OnClickListener{
 		private View sabotageLayout;
 		private ImageView image;
 		private int identity;
-	 public View onCreateView(LayoutInflater inflater, ViewGroup container,  
+	 @Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,  
 	            Bundle savedInstanceState) { 
 		 	Random random =new Random(System.currentTimeMillis());
 		 	View v;

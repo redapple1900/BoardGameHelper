@@ -20,11 +20,10 @@ import com.yuanwei.resistance.playerdatabase.Player;
 import com.yuanwei.resistance.playerdatabase.PlayerDataSource;
 import com.yuanwei.resistance.widget.ButtonOnTouchListener;
 
-import game.redapple1900.resistance.R;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.ActivityNotFoundException;
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -201,17 +200,18 @@ public class GameActivity extends FragmentActivity implements
 		idlist = bundle.getLongArray("idlist");
 		image = bundle.getIntArray("image");
 		textview_topStatus = (TextView) findViewById(R.id.textview_topStatus_Game);
-		layout = (View) findViewById(R.id.layout_middle_game);
+		layout = findViewById(R.id.layout_middle_game);
 		setTopStatus(currentStatus, TOTAL_PLAYERS);
 		mGridAdapter = new GridAdapter(getApplicationContext());
 		for (int i = 0; i < TOTAL_PLAYERS; i++) {
 			GridAdapter.Item item = new GridAdapter.Item();
 			item.text = name[i];
 			item.resId = image[i];
-			if (i == 0)
-				item.text_top = getString(R.string.string_leader);
+			//if (i == 0)
+				//item.text_top = getString(R.string.string_leader);
 			mGridAdapter.addItem(item);
 		}
+		setLeader(0);
 		mGridAdapter_top = new GridAdapter(getApplicationContext());
 		mTableGridAdapter_bottom = new TableGridAdapter(getApplicationContext());
 		for (int i = 0; i < 6 * 3; i++) {
@@ -249,19 +249,6 @@ public class GameActivity extends FragmentActivity implements
 				mTableGridAdapter_bottom.addItem(item);
 			}
 		}
-		/*
-		 * if (i >= 0 && i < 5) { TableGridAdapter.Item item = new
-		 * TableGridAdapter.Item(); item.text = ""; item.resId =
-		 * R.drawable.waiting; mTableGridAdapter_bottom.addItem(item); } else if
-		 * (i >= 5 && i < 10) { TableGridAdapter.Item item = new
-		 * TableGridAdapter.Item(); item.text = "" +
-		 * DataSet.NumOfMembersPerMission[TOTAL_PLAYERS][i - 5]; item.resId =
-		 * R.drawable.blank; mTableGridAdapter_bottom.addItem(item);
-		 * 
-		 * } else { TableGridAdapter.Item item = new TableGridAdapter.Item();
-		 * item.text = ""; item.resId = R.drawable.waiting;
-		 * mTableGridAdapter_bottom.addItem(item); }
-		 */
 
 		view = (GridView) findViewById(R.id.grid);
 		view_top = (GridView) findViewById(R.id.grid_top);
@@ -365,6 +352,7 @@ public class GameActivity extends FragmentActivity implements
 		negative.setPadding(1, 1, 1, 1);
 
 		negative.setOnClickListener(new Button.OnClickListener() {
+			@Override
 			public void onClick(View v) {
 
 				dialog.dismiss();
@@ -514,8 +502,8 @@ public class GameActivity extends FragmentActivity implements
 					}
 					CandidatesId[MemberSelected] = -1;
 					GridAdapter.Item item = new GridAdapter.Item();
-					item.text = (MemberSelected + 1)
-							+ getString(R.string.string_item_game);
+					item.text = 
+							 getString(R.string.string_item_game)+(MemberSelected + 1);
 					item.resId = R.drawable.index;
 					mGridAdapter_top.replaceItem(item, MemberSelected);
 					mGridAdapter_top.notifyDataSetChanged();
@@ -533,19 +521,23 @@ public class GameActivity extends FragmentActivity implements
 		return false;
 
 	}
-
+	private final void setLeader(int id){
+		mGridAdapter.setLeader(
+				(GridAdapter.Item) mGridAdapter.getItem(id), id);
+		//mGridAdapter.notifyDataSetChanged();
+	}
 	private final void selectPlayer(int id) {
 		isPlayerSelected[id] = 1;
-		mGridAdapter.changeSelection(
-				(GridAdapter.Item) mGridAdapter.getItem(id), id);
-		mGridAdapter.notifyDataSetChanged();
+		//mGridAdapter.changeSelection(
+				//(GridAdapter.Item) mGridAdapter.getItem(id), id);
+		//mGridAdapter.notifyDataSetChanged();
 	}
 
 	private final void deselectPlayer(int id) {
 		isPlayerSelected[id] = 0;
-		mGridAdapter.deSelection((GridAdapter.Item) mGridAdapter.getItem(id),
-				id);
-		mGridAdapter.notifyDataSetChanged();
+		//mGridAdapter.deSelection((GridAdapter.Item) mGridAdapter.getItem(id),
+				//id);
+		//mGridAdapter.notifyDataSetChanged();
 	}
 
 	private final void winGame() {
@@ -567,7 +559,7 @@ public class GameActivity extends FragmentActivity implements
 		view_bottom.setVisibility(View.GONE);
 		for (int i = 0; i < CandidatesId.length; i++) {
 			MissionResult[currentMission][i] = (CandidatesId[i] + 1)
-					* (int) (identity[CandidatesId[i]] / 100);
+					* (identity[CandidatesId[i]] / 100);
 		}
 		if (GameResult == 1) {
 			labelToken(GridAdapter.Token.WIN);
@@ -580,7 +572,8 @@ public class GameActivity extends FragmentActivity implements
 		}
 		currentStatus = 3;
 		button.setText(getString(R.string.string_topstatus3_game));
-		View layout_top = (View) findViewById(R.id.linearLayout1);
+		button.setVisibility(View.GONE);
+		View layout_top = findViewById(R.id.linearLayout1);
 		layout_top.setVisibility(View.INVISIBLE);
 		layout.setVisibility(View.VISIBLE);
 		// hideFragments();
@@ -597,13 +590,17 @@ public class GameActivity extends FragmentActivity implements
 			}
 		}
 		for (int i = 0; i < TOTAL_PLAYERS; i++) {
-			GridAdapter.Item item = (GridAdapter.Item) mGridAdapter.getItem(i);
+			//GridAdapter.Item item = (GridAdapter.Item) mGridAdapter.getItem(i);
+			/*
 			if (identity[i] < 0) {
 				item.text_top = getString(R.string.string_identity_negative);
 			} else if (identity[i] > 0) {
 				item.text_top = getString(R.string.string_identity_positive);
 			}
-			mGridAdapter.replaceItem(item, i);
+			*/
+			if (identity[i]<0)
+				mGridAdapter.revealIdentity(i);
+			//mGridAdapter.replaceItem(item, i);
 		}
 
 		if (TOTAL_PLAYERS < 7) {
@@ -617,9 +614,10 @@ public class GameActivity extends FragmentActivity implements
 
 		View share_layout = findViewById(R.id.layout_share);
 		share_layout.setVisibility(View.VISIBLE);
-		
-		Button button_facebook = (Button) findViewById(R.id.button_share_facebook);
-		Button button_gplus = (Button) findViewById(R.id.button_share_gplus);
+		Button button_replay = (Button)findViewById(R.id.button_replay);
+		Button button_rate = (Button)findViewById(R.id.button_rate);
+		//Button button_facebook = (Button) findViewById(R.id.button_share_facebook);
+		//Button button_gplus = (Button) findViewById(R.id.button_share_gplus);
 		Button button_wechat = (Button) findViewById(R.id.button_share_wechat);
 
 		Thread databaseThread = new Thread(new Runnable() {
@@ -723,9 +721,12 @@ public class GameActivity extends FragmentActivity implements
 		 * e.printStackTrace(); }
 		 */
 		// May need a handler to activiate share button??07.30.2014@Yuanwei
-		button_facebook.setOnTouchListener(new ButtonOnTouchListener(this));
-		button_gplus.setOnTouchListener(new ButtonOnTouchListener(this));
+		button_replay.setOnTouchListener(new ButtonOnTouchListener(this));
+		button_rate.setOnTouchListener(new ButtonOnTouchListener(this));
+		//button_facebook.setOnTouchListener(new ButtonOnTouchListener(this));
+		//button_gplus.setOnTouchListener(new ButtonOnTouchListener(this));
 		button_wechat.setOnTouchListener(new ButtonOnTouchListener(this));
+		/*
 		button_facebook.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -744,7 +745,7 @@ public class GameActivity extends FragmentActivity implements
 
 			}
 		});
-
+		/*
 		button_gplus.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -760,12 +761,28 @@ public class GameActivity extends FragmentActivity implements
 				 * intent.putExtra(Intent.EXTRA_TEXT,"This is a test");
 				 * //intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
 				 * startActivity(intent);
-				 */
+				 
 				mThread.start();
 
 			}
 		});
-
+		*/
+		button_replay.setOnClickListener(new View.OnClickListener() {
+			
+			
+			@Override
+			public void onClick(View v) {
+				changeStatus_Positive(currentStatus,TOTAL_PLAYERS,currentMission);				
+			}
+		});
+		button_rate.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				rateAppOnGooglePlay();
+			}
+		});
 		button_wechat.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -773,22 +790,8 @@ public class GameActivity extends FragmentActivity implements
 			
 				mThread.start();
 				share_option = 3;
-				/*
-				 * Intent intent = new Intent(); ComponentName comp = new
-				 * ComponentName("com.tencent.mm",
-				 * "com.tencent.mm.ui.tools.ShareToTimeLineUI");
-				 * intent.setComponent(comp);
-				 * intent.setAction("android.intent.action.SEND");
-				 * //intent.setType("text/plain"); intent.setType("image/*");
-				 * intent.putExtra(Intent.EXTRA_TEXT,"Resistance!");
-				 * intent.putExtra(Intent.EXTRA_STREAM,
-				 * Uri.fromFile(mediaFile)); startActivity(intent);
-				 */
-
 			}
 		});
-
-		//
 	}
 
 	private void hideFragments() {
@@ -1012,15 +1015,17 @@ public class GameActivity extends FragmentActivity implements
 				}
 			}
 			// Change the leader;
-			GridAdapter.Item item = (GridAdapter.Item) mGridAdapter
-					.getItem(round % TOTAL_PLAYERS);
-			item.text_top = "";
-			mGridAdapter.replaceItem(item, round % TOTAL_PLAYERS);
+			//GridAdapter.Item item = (GridAdapter.Item) mGridAdapter
+					//.getItem(round % TOTAL_PLAYERS);
+			//item.text_top = "";
+			//mGridAdapter.replaceItem(item, round % TOTAL_PLAYERS);
+			setLeader(round%TOTAL_PLAYERS);
 			round++;
-			item = (GridAdapter.Item) mGridAdapter.getItem(round
-					% TOTAL_PLAYERS);
-			item.text_top = getString(R.string.string_leader);
-			mGridAdapter.replaceItem(item, round % TOTAL_PLAYERS);
+			setLeader(round%TOTAL_PLAYERS);
+			//item = (GridAdapter.Item) mGridAdapter.getItem(round
+			//		% TOTAL_PLAYERS);
+			//item.text_top = getString(R.string.string_leader);
+			//mGridAdapter.replaceItem(item, round % TOTAL_PLAYERS);
 			mGridAdapter.notifyDataSetChanged();
 
 			if (checkMissionResult(failurecount, currentMission, TOTAL_PLAYERS) == true) {
@@ -1163,15 +1168,12 @@ public class GameActivity extends FragmentActivity implements
 
 	private void changeStatus_Negative(final int CurrentStatus,
 			int Total_Players, int Mission_Number) {
-		// 07.28.2014 @Yuanwei
-		// Remove the dialog
+
 		setTeamProposedStatus(timeOfTeamPropose, false);
 		timeOfTeamPropose++;
 		view_top.setEnabled(true);
-		GridAdapter.Item item = (GridAdapter.Item) mGridAdapter.getItem(round
-				% TOTAL_PLAYERS);
-		item.text_top = "";
-		mGridAdapter.replaceItem(item, round % TOTAL_PLAYERS);
+
+		setLeader(round%TOTAL_PLAYERS);
 		round++;
 		setTopStatus(0, TOTAL_PLAYERS);
 		setBottomStatus(currentMission, 0);
@@ -1196,55 +1198,39 @@ public class GameActivity extends FragmentActivity implements
 				.setPositiveButton(
 						getString(R.string.string_builder_positive_game), null)
 				.show();
-		item = (GridAdapter.Item) mGridAdapter.getItem(round % TOTAL_PLAYERS);
-		item.text_top = getString(R.string.string_leader);
-		mGridAdapter.replaceItem(item, round % TOTAL_PLAYERS);
+		//item = (GridAdapter.Item) mGridAdapter.getItem(round % TOTAL_PLAYERS);
+		//item.text_top = getString(R.string.string_leader);
+		//mGridAdapter.replaceItem(item, round % TOTAL_PLAYERS);
+		setLeader(round%TOTAL_PLAYERS);
 		mGridAdapter.notifyDataSetChanged();
 
-		/*
-		 * Construct a dialog box
-		 */
-		/*
-		 * builder_vote.setCancelable(false).setMessage(getString(R.string.
-		 * string_builder_message_team_veto_game
-		 * ,DataSet.NumOfMinPass[TOTAL_PLAYERS]))
-		 * .setPositiveButton(getString(R.string.string_builder_positive_game),
-		 * new DialogInterface.OnClickListener() {
-		 * 
-		 * @Override public void onClick(DialogInterface dialog, int which) {
-		 * 
-		 * setTeamProposedStatus(timeOfTeamPropose,false); timeOfTeamPropose++;
-		 * view_top.setEnabled(true); GridAdapter.Item item =(GridAdapter.Item)
-		 * mGridAdapter.getItem(round%TOTAL_PLAYERS); item.text_top="";
-		 * mGridAdapter.replaceItem(item, round%TOTAL_PLAYERS); round++;
-		 * setTopStatus(0,TOTAL_PLAYERS); setBottomStatus(currentMission,0);
-		 * layout.setVisibility(View.VISIBLE);
-		 * button.setText(getString(R.string.string_button_propose_game));
-		 * button.setVisibility(View.INVISIBLE); for (int
-		 * i=0;i<CandidatesId.length;i++){ deselectPlayer(CandidatesId[i]); }
-		 * resetCandidates(); MemberSelected=0;currentStatus=0; hideFragments();
-		 * showFragments(-1);
-		 * builder_result.setIcon(R.drawable.veto).setTitle(getString
-		 * (R.string.string_title_veto_game))
-		 * .setMessage(getString(R.string.string_message_veto_game
-		 * )+":"+name[round
-		 * %TOTAL_PLAYERS]).setPositiveButton(getString(R.string.
-		 * string_builder_positive_game),null).show(); item =(GridAdapter.Item)
-		 * mGridAdapter.getItem(round%TOTAL_PLAYERS);
-		 * item.text_top=getString(R.string.string_leader);
-		 * mGridAdapter.replaceItem(item, round%TOTAL_PLAYERS);
-		 * mGridAdapter.notifyDataSetChanged(); }
-		 * }).setNegativeButton(getString(
-		 * R.string.string_builder_negative_game),new
-		 * DialogInterface.OnClickListener() {
-		 * 
-		 * @Override public void onClick(DialogInterface dialog, int which) {
-		 * 
-		 * } }); if (mDialog==null||(!mDialog.isShowing())){
-		 * mDialog=builder_vote.create(); mDialog.show(); }
-		 */
 	}
-
+	private boolean myStartActivity(Intent intent) {
+	    try
+	    {
+	        startActivity(intent);
+	        return true;
+	    }
+	    catch (ActivityNotFoundException e)
+	    {
+	        return false;
+	    }
+	}
+	 
+	//On click event for rate this app button
+	public void rateAppOnGooglePlay() {
+	    Intent intent = new Intent(Intent.ACTION_VIEW);
+	    //Try Google play
+	    intent.setData(Uri.parse("market://details?id="+"com.yuanwei.resistance"));
+	    if (!myStartActivity(intent)) {
+	        //Market (Google play) app seems not installed, let's try to open a webbrowser
+	        intent.setData(Uri.parse("https://play.google.com/store/apps/details?"+"com.yuanwei.resistance"));
+	        if (!myStartActivity(intent)) {
+	            //Well if this also fails, we have run out of options, inform the user.
+	            Toast.makeText(this, "Could not open Google Play, please install the market app.", Toast.LENGTH_SHORT).show();
+	        }
+	    }
+	}
 	@Override
 	public void onMissionExcuted(int id) {
 
@@ -1370,7 +1356,7 @@ public class GameActivity extends FragmentActivity implements
 				intent.setType("image/*");
 				intent.putExtra(Intent.EXTRA_TEXT, "Resistance!");
 				intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(mediaFile));
-				startActivity(intent);
+				myStartActivity(intent);
 
 				break;
 			case 0:

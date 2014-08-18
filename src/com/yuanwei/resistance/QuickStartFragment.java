@@ -1,8 +1,6 @@
 package com.yuanwei.resistance;
 
 
-import game.redapple1900.resistance.R;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -25,7 +23,8 @@ public class QuickStartFragment extends Fragment{
 	private static final String[] NumOfGamers={"5","6","7","8","9","10"};
 	private ArrayAdapter<String> adapter;
 	
-	 public View onCreateView(LayoutInflater inflater, ViewGroup container,  
+	 @Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,  
 	            Bundle savedInstanceState) {  
 	        View quickstartLayout = inflater.inflate(R.layout.fragment_quickstart, container, false);  
 	        button=(Button)quickstartLayout.findViewById(R.id.button_quickstart);

@@ -13,6 +13,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.TextToSpeech.OnInitListener;
 import android.speech.tts.TextToSpeech.OnUtteranceCompletedListener;
@@ -50,8 +51,6 @@ import com.yuanwei.resistance.texttospeech.Config;
 import com.yuanwei.resistance.texttospeech.ScriptGenerator;
 import com.yuanwei.resistance.widget.ButtonOnTouchListener;
 
-import game.redapple1900.resistance.R;
-
 @SuppressWarnings("deprecation")
 public class MainActivity extends FragmentActivity implements OnInitListener,
 		ExecutionFragment.OnPreMissionExcutionListener,
@@ -66,9 +65,7 @@ public class MainActivity extends FragmentActivity implements OnInitListener,
 	private static String name[];
 	private static int image[];
 
-	private int pictures[] = { R.drawable.pic1, R.drawable.pic2,
-			R.drawable.pic3, R.drawable.pic4, R.drawable.pic5, R.drawable.pic6,
-			R.drawable.pic7, R.drawable.pic8, R.drawable.pic9, R.drawable.pic10 };
+	private TypedArray pictures;
 	private int TOTAL_PLAYERS;
 	private int NORMAL_PLAYERS;
 	private int SHUFFLE_COUNT;
@@ -82,6 +79,8 @@ public class MainActivity extends FragmentActivity implements OnInitListener,
 	private TextToSpeech mTTS;
 	private ScriptGenerator mGenerator;
 	private Config mConfig;
+	private boolean isSoundPlayed;
+	private SharedPreferences share;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +92,7 @@ public class MainActivity extends FragmentActivity implements OnInitListener,
 		
 		setContentView(R.layout.activity_main);
 		fragmentManager = getSupportFragmentManager();
+		share = PreferenceManager.getDefaultSharedPreferences(this);
 		initViews();
 		shuffle(TOTAL_PLAYERS, NORMAL_PLAYERS);
 		shufflePicture(TOTAL_PLAYERS, NORMAL_PLAYERS);
@@ -155,6 +155,13 @@ public class MainActivity extends FragmentActivity implements OnInitListener,
 		if (idlist == null) 
 			idlist = new long[TOTAL_PLAYERS];
 		
+		if (share.getString(DataSet.THEME,"").equals(DataSet.THEME_MILITARY)){
+			pictures = getResources().obtainTypedArray(R.array.images);
+			pictures.recycle();
+		}		
+		else{ pictures=getResources().obtainTypedArray(R.array.icon);
+		pictures.recycle();
+		}
 		image = new int[TOTAL_PLAYERS];
 		// mediaPlayer=MediaPlayer.create(getApplicationContext(),
 		// R.raw.sound_male);
@@ -292,23 +299,9 @@ public class MainActivity extends FragmentActivity implements OnInitListener,
 							@Override
 							public void onClick(DialogInterface arg0, int arg1) {
 
-								if (SHUFFLE_COUNT == TOTAL_PLAYERS) {
-									Intent intent = new Intent();
-									Bundle bundle = new Bundle();
-									bundle.putIntArray("identity", identity);
-									bundle.putStringArray("name", name);
-									bundle.putInt("TOTAL_PLAYERS",
-											TOTAL_PLAYERS);
-									bundle.putIntArray("image", image);
-									bundle.putLongArray("idlist", idlist);
-									intent.putExtras(bundle);
-									intent.setClass(getApplicationContext(),
-											GameActivity.class);
-									startActivity(intent);
-									finish();
-								}
+								if (SHUFFLE_COUNT == TOTAL_PLAYERS) 
+									startNextActivity();							
 							}
-							// TODO Auto-generated method stub
 						})
 				.setNeutralButton(
 						getString(R.string.string_main_sound_neutral),
@@ -323,8 +316,12 @@ public class MainActivity extends FragmentActivity implements OnInitListener,
 											getApplicationContext(),
 											getString(R.string.string_playsound_toast),
 											Toast.LENGTH_LONG).show();
-								} else
+								} else{
 									playSound();
+									isSoundPlayed=true;
+								}
+									
+								
 							}
 						});
 
@@ -338,7 +335,11 @@ public class MainActivity extends FragmentActivity implements OnInitListener,
 
 			@Override
 			public void onClick(View v) {
+				if (!isSoundPlayed)
 				builder_last.show();
+				else 
+					startNextActivity();
+					
 			}
 
 		});
@@ -356,6 +357,7 @@ public class MainActivity extends FragmentActivity implements OnInitListener,
 				} else{
 					playSound();
 					button_playsound.setEnabled(false);
+					isSoundPlayed=true;
 				}
 				
 			}
@@ -368,9 +370,25 @@ public class MainActivity extends FragmentActivity implements OnInitListener,
 		mTTS = new TextToSpeech(this, this);
 		mConfig = new Config();
 		mConfig.load(this);
+		
+		isSoundPlayed=false;
 	}
-
-	public void shuffle(int TotalPlayers, int NormalPlayers) {
+	private void startNextActivity(){
+		Intent intent = new Intent();
+		Bundle bundle = new Bundle();
+		bundle.putIntArray("identity", identity);
+		bundle.putStringArray("name", name);
+		bundle.putInt("TOTAL_PLAYERS",
+				TOTAL_PLAYERS);
+		bundle.putIntArray("image", image);
+		bundle.putLongArray("idlist", idlist);
+		intent.putExtras(bundle);
+		intent.setClass(getApplicationContext(),
+				GameActivity.class);
+		startActivity(intent);
+		finish();
+	}
+	private void shuffle(int TotalPlayers, int NormalPlayers) {
 		Random random = new Random(System.currentTimeMillis());
 		int i, j;
 		for (i = 0; i < TOTAL_PLAYERS; i++) {
@@ -392,7 +410,7 @@ public class MainActivity extends FragmentActivity implements OnInitListener,
 		int temp[] = new int[10];
 		int temp2[] = new int[10];
 		for (int i = 0; i < 10; i++) {
-			temp[i] = pictures[i];
+			temp[i] = pictures.getResourceId(i, -1);
 		}
 		int count = 10;
 		for (int i = 0; i < 10; i++) {
@@ -469,6 +487,7 @@ public class MainActivity extends FragmentActivity implements OnInitListener,
 			negative.setPadding(1, 1, 1, 1);
 			negative.setVisibility(View.GONE);
 			positive.setOnClickListener(new Button.OnClickListener() {
+				@Override
 				public void onClick(View v) {
 					if (ed.getText().toString().isEmpty()
 							|| ed.getText().toString().trim().contentEquals("")) {
@@ -644,6 +663,7 @@ public class MainActivity extends FragmentActivity implements OnInitListener,
 						android.R.color.darker_gray));
 				((Button) v).setTextColor(getResources().getColor(
 						android.R.color.primary_text_light));
+			
 				v.invalidate();
 
 				break;
@@ -657,8 +677,7 @@ public class MainActivity extends FragmentActivity implements OnInitListener,
 	public void onInit(int status) {
 		if (status == TextToSpeech.SUCCESS) {
 			mGenerator = new ScriptGenerator(this, mTTS);
-			// For Test Purpose TODO
-			SharedPreferences share = PreferenceManager.getDefaultSharedPreferences(this);
+			
 			String language=share.getString(DataSet.LANGUAGE, Locale.getDefault().getDisplayLanguage());
 			mTTS.setLanguage( new Locale(language));
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
@@ -667,8 +686,7 @@ public class MainActivity extends FragmentActivity implements OnInitListener,
 				setMTTSlistener();
 		}
 		if (status == TextToSpeech.ERROR) {
-			// TODO: Handle error situation
-			Log.d("No sound","No sound");
+			//TODO Handle the error
 		}
 	}
 
@@ -684,7 +702,7 @@ public class MainActivity extends FragmentActivity implements OnInitListener,
 
 			@Override
 			public void onDone(String utteranceId) {
-				button_playsound.setEnabled(true);
+				
 
 			}
 

@@ -1,7 +1,5 @@
 package com.yuanwei.resistance;
 
-import game.redapple1900.resistance.R;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -34,7 +32,8 @@ OnCheckResultListener mCallback;
 	private Button button;
 	private Chronometer chronometer;
 	//private AlertDialog.Builder builder;
-	 public View onCreateView(LayoutInflater inflater, ViewGroup container,  
+	 @Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,  
 	            Bundle savedInstanceState) {  
 	        View v = inflater.inflate(R.layout.fragment_timer, container, false);  
 	        button=(Button)v.findViewById(R.id.button_timer);

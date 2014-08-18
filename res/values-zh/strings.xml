@@ -1,22 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">抵抗组织</string>
+    <string name="app_name">桌游助手:抵抗组织</string>
     <string name="action_settings">setting</string>
     <!-- Exit Dialog -->
     <string name="string_exit_title">退出游戏</string>
     <string name="string_exit_message">您确定要退出游戏么？如果现在退出，您将失去未完成的游戏进度。</string>
     <string name="string_exit_positive">退出</string>
     <string name="string_exit_negative">返回</string>
+        <!-- WelcomeActivity  -->
+    <string name="title_section1">定制</string>
+    <string name="title_section2">快速开始</string>
+    <string name="title_section3">规则</string>
+     <string name="button_quickstartfragment_setting">设置</string>
+    <string name="send_email">发送</string>
+    <string name="string_gametitle">桌游助手</string>
+    <string name="string_gamesubtitle">抵抗组织</string>
+    <string name="string_gameversion">版本 0.95</string>
       <!--WelcomeActivity QuickStartFragment -->
     <string name="string_numofplayer_quickstart">总人数：</string>
-    <string name="string_readytoplay_quickstart">开始游戏</string>
-    <string name="string_eachsides_quickstart">盗贼：%1$d,间谍：%2$d</string>
+    <string name="string_readytoplay_quickstart">开始</string>
+    <string name="string_eachsides_quickstart">叛军：%1$d,间谍：%2$d</string>
     <string name="string_rules_welcome">规则说明</string>
     <string name="string_setting_welcome">游戏设置</string>
     <string name="string_contact_welcome">联系作者</string>
-    <string name="string_identity_positive">盗贼</string>
+    <string name="string_identity_positive">叛军</string>
     <string name="string_identity_negative">间谍</string>
+     <!-- WelcomeActivity CustomGame Framgment -->
+    <string name="string_addstranger_customgame">添加新人</string>
+    <string name="string_addfriend_customgame">添加熟人</string>
+    <string name="string_clear_customgame">清空列表</string>
+    <string name="string_startgame_customgame">开始游戏</string>
+      <string name="string_newplayer_customgame">新人</string>
+    <string name="listitem_descr1">取胜:</string>
+    <string name="listitem_descr2">场,总计:</string>
+    <string name="listitem_descr3">场</string>
+    <string name="button_manu_mangement">帮助</string>
+    <string name="toast_customgame">不好意思，至少需要5人才能开始游戏</string>
+    <string name="string_manu">添加新人：添加不知道姓名的玩家。\n\n 添加熟人：添加知道姓名的玩家。\n\n点击上方头像可以去掉指定玩家。\n\n剩下两个按钮意义不需要解释吧。\n\n玩家只要输入一次姓名，今后游戏中都能继续使用，无需多次重复添加。</string>
+        <string name="string_dialog_inputname_cancel">取消</string>
+    <string name="string_dialog_inputname_OK">确定</string>
      <!--MainActivity  -->
     <string name="string_player_main">玩家</string>
     <string name="string_buildertitle_main">你的角色：</string>
@@ -25,13 +48,16 @@
     <string name="string_toast2_main">牌发完了</string>
     <string name="string_button1_main">显示身份</string>
     <string name="string_button2_main">开始游戏</string>
-    <string name="string_builder_message_positive_main">\n你是一名身怀绝技的盗贼，然而你已经厌倦了这样的生活。你只希望能尽快完成最后的几个任务，从此金盆洗手，逍遥人间。</string>
-    <string name="string_builder_message_negative_main">\n你是警察部门派来卧底的间谍，你要取得其他盗贼的信任，趁机阻止他们盗窃名贵的文物。</string>
+    <string name="string_builder_message_positive_main">\n你是抵抗组织一名忠诚的成员</string>
+    <string name="string_builder_message_negative_main">\n你是帝国打入抵抗组织的一名间谍</string>
     <string name="string_builder_next_message_main">请把平板交给下一个玩家</string>
     <string name="string_builder_next_message_last_main">请把平板交给队长</string>
       <!--  GameActivity  -->
-    <string name="string_builder_vote_message_before_Game">队长，请向大家展示平板(手机)并声明本轮任务的候选人。
-        			\n\n然后,请诸位玩家依次发表对于组队人选的意见。在此期间无需使用平板(手机)。</string>
+      	<string name="string_game_button_replay">再来一局</string>
+	<string name="string_game_button_rate">评价游戏</string>
+	<string name="string_game_button_wechat">微信分享</string>
+    <string name="string_builder_vote_message_before_Game">队长，请声明本轮任务的候选人。
+        			\n\n然后,请诸位玩家依次发表意见。</string>
     <string name="title_main">按住指纹显示身份</string>
     <string name="button_main">正式开始</string>
     <string name="string_vote_nay">否决</string>
@@ -50,10 +76,6 @@
     <string name="string_builder_message_loseresult_game">很不幸，由于间谍的蓄意破坏，这次任务失败了</string>
     <string name="string_message_failvotes_game">有%1$d人破坏任务</string>
     <string name="string_message_failvote_game">有一人破坏了任务</string>
-    <!-- 
-    <string name="string_message_one_failvotes_game">有%1$d人破坏任务</string>
-    <string name="string_message_multiple_failvotes_game">有%1$d人破坏任务</string>
-     -->
     <string name="string_toast1_game">队伍满了,点击成员头像可将其排除出队伍</string>
     <string name="string_builder_message_team_propose_game">您要选择以上成员作为执行本次任务的人选，确定么？如果确定，任务人选不能再更换。</string>
     <string name="string_builder_message_team_pass_game">您需要至少%1$d张赞成票才能通过提名，您的组队提名通过了么？\n注意：选择结果不能更改。</string>
@@ -70,47 +92,28 @@
     <string name=" string_leader">队长</string>
     <string name="string_hint_excution">按住指纹进入下一个界面</string>
     <string name="string_rule1_header">背景与目标</string>
-    <string name="string_rule0">1.应用说明：\n这个应用根据桌面游戏《抵抗组织》(Don Eskridge\'s Resistance)的规则与韩国2012年电影《盗贼联盟》(Thieves)的剧情改编，可允许5至10人进行游戏，推荐人数为6人。\n</string>
-    <string name="string_rule1">2.故事背景：\n玩家们扮演一群技艺高超的盗贼，协同合作盗取文物换取高额酬金。警方察觉到了这个团伙，鉴于这个团伙幕后可能有更大的阴谋，警方通过各种手段，在盗贼团伙中布下了几个间谍.双方之间较量即将展开.\n\n3.游戏目标：\n如故事背景所示，玩家们分为两派，盗贼与间谍。在默认条件下，盗贼玩家不知道场上其他人的身份，而间谍玩家知道所有人身份。游戏中设置了5次任务，代表盗贼窃取文物的行动。盗贼方目标是完成3次任务，以换取足够的酬金而金盘洗手。间谍方的目标是破坏三次任务，以保护文物。</string>
+    <string name="string_rule0">1.应用说明：\n本应用根据桌面游戏《抵抗组织》(Don Eskridge\'s Resistance)改编，可允许5至10人进行游戏，推荐人数为6人。\n</string>
+    <string name="string_rule1">2.故事背景：\n在场玩家来自抵抗组织某分部，根据上级提供的情报，我们当中混入了几名间谍，他们彼此知道谁是同伴，而我们并不知道。由于好人仍占多数，上级决定仍然让我们这个分部来执行任务。我们接下来要执行5个任务，如果能执行成功3个，则抵抗组织方获胜，否则我们就会被取消编制，间谍方获胜。\n\n3.游戏目标：\n如故事背景所示，玩家们分为两派，叛军与间谍。在默认条件下，叛军玩家不知道场上其他人的身份，而间谍玩家知道所有人身份。游戏中设置了5次任务，代表抵抗组织的秘密行动。叛军方目标是完成3次任务，间谍方的目标是破坏三次任务。</string>
     <string name="string_rule2">游戏开始时，根据平板或手机的提示，玩家们依次查看自己身份，注意游戏进行中将不能再次查看身份。所有人都知道自己身份后，根据普通话语音提示，所有玩家闭眼，间谍认识同伴。\n\n4.游戏流程：\n分为：组队，讨论，投票，执行 这四个阶段。\n\n组队阶段：队长根据任务人数在平板或者手机上选择要执行任务的队员，完成选择后向其他人声明。第一任队长可由平板或者手机主人担任或者由其指定。注意：队长可以选择亦可不选择自己作为执行任务的人选。\n\n讨论阶段：全部玩家根据队长指定的顺序（顺时针或者逆时针，队长指定）依次发表对队伍构成的看法。在此期间无须操作平板或手机。讨论只能持续一轮，队长可以选择起头或者总结。\n\n
               投票阶段：所有玩家需要同时投票，以表达对当次组队的意见。如果没有其它道具，建议投票方法为：拇指向上为赞同，拇指向下为反对。玩家们在队长倒计时结束时同时投票，不得弃权，不得跟票.\n\n如果赞同票超过半数（根据平板或者手机提示），则组队成功。否则，组队失败，根据提示，下一位玩家担任队长，重新开始组队。\n\n
-              注意：每个任务都只有5次组队的机会。默认情况：某个任务的第5次组队不需要讨论与投票，成员直接执行任务。\n\n执行阶段：根据手机提示，执行任务的成员依次做出选择。盗贼只能“执行任务”，而间谍可以选择“执行任务”或者“破坏任务”。所有人完成后，由队长宣布结果，全体玩家只能看到投票结果，无法判断投出某票的对应玩家。\n\n
+              注意：每个任务都只有5次组队的机会。默认情况：某个任务的第5次组队不需要讨论与投票，成员直接执行任务。\n\n执行阶段：根据手机提示，执行任务的成员依次做出选择。抵抗军只能“执行任务”，而间谍可以选择“执行任务”或者“破坏任务”。所有人完成后，由队长宣布结果，全体玩家只能看到投票结果，无法判断投出某票的对应玩家。\n\n
               大多数情况，每次任务只要其中有1人破坏，则本次任务失败。当人数在7人以及以上时，第四个任务有两人破坏时才会失败.\n\n
               无论任务成功或者失败，根据提示，下一位玩家担任队长，重新开始组队。</string>
     <string name="string_rules4">如果发现bug，有关于应用本身的意见，以及新游戏的想法，请通过该页面输入框或者电邮reclapple@gmail.com联系我，我会尽快改进。</string>
-    <string name="string_rules3">5.心得技巧:\n间谍玩家一定要在拿到平板或者手机前想好自己的选择。\n\n盗贼玩家不要轻易通过别人的组队，队伍里面混进一个间谍就能破坏整个任务.\n</string>
-    <string name="string_gamesetting_main">盗贼人数:%1$d 卧底人数:%2$d</string>
+    <string name="string_rules3">5.心得技巧:\n间谍玩家一定要在拿到平板或者手机前想好自己的选择。\n\n抵抗军玩家不要轻易通过别人的组队，队伍里面混进一个间谍就能破坏整个任务.\n</string>
+    <string name="string_gamesetting_main">叛军人数:%1$d 间谍人数:%2$d</string>
     <string name="string_sabotage_execution">破坏任务</string>
     <string name="string_execution_execution">执行任务</string>
     
-    <string name="string_thievies_win_large">盗贼获胜！盗贼完成了窃取文物的任务，通过变卖赃物筹集了足够的资金，从此金盆洗手逍遥江湖。</string>
-    <string name="string_thievies_win">盗贼获胜！从此金盆洗手逍遥江湖。</string>
-    <string name="string_spies_win">间谍获胜！盗贼们从此下落不明。</string>
-    <string name="string_spies_win_large">间谍获胜！间谍们在暗中粉碎了盗贼的企图，保护了珍贵的文物。而盗贼们从此下落不明。</string>
+    <string name="string_thievies_win_large">抵抗军获胜！！</string>
+    <string name="string_thievies_win">抵抗军获胜！！</string>
+    <string name="string_spies_win">间谍获胜！！</string>
+    <string name="string_spies_win_large">间谍获胜！！</string>
     <string name="string_message_timer">开始投票</string>
     <string name="string_playsound">播放语音</string>
     <string name="string_playsound_toast">您的音量太低，请调节音量</string>
-    <!-- WelcomeActivity  -->
-    <string name="title_section1">定制游戏</string>
-    <string name="title_section2">快速开始</string>
-    <string name="title_section3">规则及其它</string>
-     <string name="button_quickstartfragment_setting">设置</string>
-    <string name="send_email">发送</string>
-    <string name="string_gametitle">抵抗组织</string>
-    <string name="string_gamesubtitle">盗贼联盟</string>
-    <string name="string_gameversion">版本 0.95</string>
-    <!-- WelcomeActivity CustomGame Framgment -->
-    <string name="string_addstranger_customgame">添加新人</string>
-    <string name="string_addfriend_customgame">添加熟人</string>
-    <string name="string_clear_customgame">清空列表</string>
-    <string name="string_startgame_customgame">开始游戏</string>
-      <string name="string_newplayer_customgame">新人</string>
-    <string name="listitem_descr1">取胜:</string>
-    <string name="listitem_descr2">场,总计:</string>
-    <string name="listitem_descr3">场</string>
-    <string name="button_manu_mangement">帮助</string>
-    <string name="toast_customgame">不好意思，至少需要5人才能开始游戏</string>
-    <string name="string_manu">添加新人：添加不知道姓名的玩家。\n\n 添加熟人：添加知道姓名的玩家。\n\n点击上方头像可以去掉指定玩家。\n\n剩下两个按钮意义不需要解释吧。\n\n玩家只要输入一次姓名，今后游戏中都能继续使用，无需多次重复添加。</string>
+
+   
      <!-- MainActivity PlaySound Dialog -->
     <string name="string_main_sound_title">再等等</string>
 	<string name="string_main_sound_positive">一切就绪</string>

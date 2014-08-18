@@ -1,11 +1,11 @@
 package com.yuanwei.resistance.gridviewtest;
 
-
-import java.util.ArrayList;
+import com.yuanwei.resistance.R;
+import java.util.LinkedList;
 import java.util.List;
-import game.redapple1900.resistance.R;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,11 +13,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+@SuppressLint("InflateParams")
 public class GridAdapter extends BaseAdapter{
 static final int MaxRounds=5;
    public static class Item{
 	   public String text,text_top;
 	   public boolean selection;
+	   private boolean isRevealed;
        public int resId;
        public Token token;
        public Item(String text,int resId,Token token,boolean selection){
@@ -25,25 +27,35 @@ static final int MaxRounds=5;
     	   this.resId=resId;
     	   this.token=token;
     	   this.selection=selection;
+    	   this.setRevealed(false);
        }
        public Item(String text,int resId,Token token){
     	   this.text=text;
     	   this.resId=resId;
     	   this.token=token;
     	   this.selection=false;
+    	   this.setRevealed(false);
        }
 	   public Item(String text,int resId){
 		   this.text=text;
 		   this.resId=resId;
 		   this.selection=false;
 		   this.token= new GridAdapter.Token(MaxRounds);//5 is the max rounds
+		   this.setRevealed(false);
 	   }
 	   public Item(){
     	   this.text_top=null;
 		  this.text=null;
 		  this.resId=0;
 		  this.token= new GridAdapter.Token(MaxRounds);
+		  this.setRevealed(false);
 	   }
+	public boolean isRevealed() {
+		return isRevealed;
+	}
+	public void setRevealed(boolean isRevealed) {
+		this.isRevealed = isRevealed;
+	}
    }
    public static class Token{
 	   public static final int WIN=1;
@@ -89,19 +101,11 @@ static final int MaxRounds=5;
 		   
 	   }
    }
-   private List<Item> mItems = new ArrayList<GridAdapter.Item>();
+   private List<Item> mItems = new LinkedList<GridAdapter.Item>();
   // private List<Token> mTokens =new ArrayList<GridAdapter.Token>();
    private Context mContext;
    public GridAdapter(Context context) {
-       //≤‚ ‘ ˝æ›
-	   /*
-       for (int i = 0; i < 50; i++) {
-           Item object = new Item();
-           object.text = "Text "+i;
-           object.resId = R.drawable.ic_launcher;
-           mItems.add(object);
-       }
-       */
+
        mContext = context;
    }
    public void addItem(Item item){
@@ -137,7 +141,8 @@ static final int MaxRounds=5;
 	   }
 	   GridAdapter.Token token= new GridAdapter.Token(MaxRounds, mission, missionResult);
 	   GridAdapter.Item mItem =new GridAdapter.Item(item.text, item.resId, token);
-	   mItem.text_top=item.text_top;
+	  // mItem.text_top=item.text_top;
+	   mItem.selection=item.selection;
 		mItems.add(position, mItem);
   }
   public void setToken(Item item,int position,int round){
@@ -148,9 +153,11 @@ static final int MaxRounds=5;
 		   missionResult[round]=item.token.resId_sabotage;
 	   GridAdapter.Token token= new GridAdapter.Token(MaxRounds, item.token.mission, missionResult);
 	   GridAdapter.Item mItem =new GridAdapter.Item(item.text, item.resId, token);
-	   mItem.text_top=item.text_top;
+	   //mItem.text_top=item.text_top;
+	   mItem.selection=item.selection;
 		mItems.add(position, mItem);
  }
+  /*
   public void changeSelection(Item item,int position){
 	   if (this.getCount()>position){
 		    mItems.remove(position);
@@ -165,6 +172,18 @@ static final int MaxRounds=5;
 	   }GridAdapter.Item new_item=item;
 	   new_item.selection=false;
 	   mItems.add(position,new_item);
+ }
+ */
+ public void setLeader(Item item,int position){
+	   if (this.getCount()>position){
+		    mItems.remove(position);
+	   }
+	   GridAdapter.Item new_item=item;
+	   new_item.selection=!item.selection;
+	   mItems.add(position,new_item);
+ }
+ public void revealIdentity(int position){
+	 mItems.get(position).setRevealed(true);
  }
    @Override
    public int getCount() {
@@ -184,7 +203,8 @@ static final int MaxRounds=5;
    @Override
    public View getView(int position, View convertView, ViewGroup parent) {
        if(convertView == null) {
-           convertView = LayoutInflater.from(mContext).inflate(R.layout.item, null);
+    	   //TODO
+           convertView = LayoutInflater.from(mContext).inflate(R.layout.item, null, false);
        }
        ImageView image = (ImageView) convertView.findViewById(R.id.icon);
        ImageView sele =(ImageView)convertView.findViewById(R.id.selection);
@@ -199,7 +219,12 @@ static final int MaxRounds=5;
        Item item = (Item) getItem(position);
        image.setImageResource(item.resId);
        text.setText(item.text);
+       text.setTextSize(mContext.getResources().getDimension(R.dimen.small_text_gridview));
+       if (item.isRevealed()) text.setTextColor(Color.RED);
        text_top.setText(item.text_top);
+       text_top.setTextSize(mContext.getResources().getDimension(R.dimen.small_text_gridview));
+       text_top.setVisibility(View.INVISIBLE);
+       
        for(int i=0;i<MaxRounds;i++){
     	   token[i].setVisibility(View.INVISIBLE);
        }

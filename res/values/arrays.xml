@@ -2,24 +2,47 @@
 <resources>
 
     <string-array name="language">
-     
-  <item name="default">Default</item>
-  
-  <item name="zh_cn">中文</item>
-
-  <item name="en_us">English</item>
-
+        <item name="default">Default</item>
+        <item name="zh_cn">中文</item>
+        <item name="en_us">English</item>
+    </string-array>
+    <string-array name="languageValues">
+        <item name="default"></item>
+        <item name="zh_CN">zh_CN</item>
+        <item name="en_US">en_US</item>
+    </string-array>
+    <string-array name="theme">
+        <item name="default">Default</item>
+        <item name="military">Military</item>
+    </string-array>
+    <string-array name="themeValues">
+        <item name="default"></item>
+        <item name="military">military</item>
     </string-array>
 
-    <string-array name="languageValues">
-        
-   <item name="default"></item>
-        
-  <item name="zh_CN">zh_CN</item>
-
-  <item name="en_US">en_US</item>
-
-
+    <string-array name="images">
+        <item name="1">@drawable/pic1</item>
+        <item name="2">@drawable/pic2</item>
+        <item name="3">@drawable/pic3</item>
+        <item name="4">@drawable/pic4</item>
+        <item name="5">@drawable/pic5</item>
+        <item name="6">@drawable/pic6</item>
+        <item name="7">@drawable/pic7</item>
+        <item name="8">@drawable/pic8</item>
+        <item name="9">@drawable/pic9</item>
+        <item name="10">@drawable/pic10</item>
+    </string-array>
+        <string-array name="icon">
+        <item name="1">@drawable/icon</item>
+        <item name="2">@drawable/icon</item>
+        <item name="3">@drawable/icon</item>
+        <item name="4">@drawable/icon</item>
+        <item name="5">@drawable/icon</item>
+        <item name="6">@drawable/icon</item>
+        <item name="7">@drawable/icon</item>
+        <item name="8">@drawable/icon</item>
+        <item name="9">@drawable/icon</item>
+        <item name="10">@drawable/icon</item>
     </string-array>
 
 </resources>

@@ -1,6 +1,5 @@
 package com.yuanwei.resistance;
 
-import game.redapple1900.resistance.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
@@ -22,9 +21,11 @@ public class QuickPrefsActivity extends PreferenceActivity {
     }
     @Override 
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if(keyCode == KeyEvent.KEYCODE_BACK )
-              startActivity(new Intent(this,WelcomeActivity.class));
- 
+		if(keyCode == KeyEvent.KEYCODE_BACK ){
+			  startActivity(new Intent(this,WelcomeActivity.class));
+			  finish();
+		}
+
 		return super.onKeyDown(keyCode, event);
 	}
 

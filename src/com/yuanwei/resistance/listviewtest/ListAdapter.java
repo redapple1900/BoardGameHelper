@@ -1,13 +1,12 @@
 package com.yuanwei.resistance.listviewtest;
 
-
+import com.yuanwei.resistance.R;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.yuanwei.resistance.playerdatabase.Player;
 
-import game.redapple1900.resistance.R;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+@SuppressLint("ViewHolder")
 public class ListAdapter extends BaseAdapter {
 	static class ViewHolder {
 		  TextView name;

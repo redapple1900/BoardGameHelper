@@ -6,8 +6,12 @@
     -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="button_gap">30dp</dimen>
+    <dimen name="button_width_quickstart">150dp</dimen>
+    <dimen name="small_text_size">20sp</dimen>
     <dimen name="text_size">30sp</dimen>
     <dimen name="small_image_size">30dp</dimen>
+   <dimen name="small_text_gridview">16sp</dimen>
     <dimen name="labelSize">24dp</dimen>
     <dimen name="padding_layout">3dp</dimen>
     <dimen name="itemSize">100dp</dimen>

@@ -17,12 +17,12 @@
             android:layout_height="wrap_content"
             android:columnWidth="@dimen/itemSize"
             android:gravity="center"
-            android:horizontalSpacing="4dp"
+            android:horizontalSpacing="6dp"
             android:numColumns="auto_fit"
             android:scrollbarStyle="insideOverlay"
             android:scrollbars="vertical"
             android:stretchMode="columnWidth"
-            android:verticalSpacing="4dp" >
+            android:verticalSpacing="6dp" >
         </GridView>
 
     <LinearLayout
@@ -45,6 +45,7 @@
             android:layout_weight="1"
             android:alpha="0.8"
             android:background="@drawable/mybutton"
+            android:layout_margin="6dp"
             android:text="@string/string_addstranger_customgame" />
 
         <Button
@@ -54,6 +55,7 @@
             android:layout_weight="1"
             android:alpha="0.8"
              android:background="@drawable/mybutton"
+             android:layout_margin="6dp"
             android:text="@string/string_addfriend_customgame" />
 
         <Button
@@ -63,6 +65,7 @@
             android:layout_weight="1"
             android:alpha="0.8"
              android:background="@drawable/mybutton"
+             android:layout_margin="6dp"
             android:text="@string/string_clear_customgame" />
 
          <Button
@@ -72,6 +75,7 @@
              android:layout_weight="1"
              android:alpha="0.8"
               android:background="@drawable/mybutton"
+              android:layout_margin="6dp"
              android:text="@string/string_startgame_customgame" />
 
     </LinearLayout>

@@ -32,7 +32,7 @@ public class SquareLayout extends RelativeLayout {
         int childHeightSize = getMeasuredHeight();
         //
          widthMeasureSpec = MeasureSpec.makeMeasureSpec(childWidthSize, MeasureSpec.EXACTLY);
-         heightMeasureSpec = (int)(widthMeasureSpec);
+         heightMeasureSpec = (widthMeasureSpec);
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 }

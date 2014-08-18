@@ -1,10 +1,6 @@
 package com.yuanwei.resistance;
 
-import game.redapple1900.resistance.R;
-
 import java.util.Calendar;
-import java.util.List;
-
 import com.yuanwei.resistance.gridviewtest.GridAdapter;
 import com.yuanwei.resistance.gridviewtest.GridAdapter.Item;
 import com.yuanwei.resistance.listviewtest.ListAdapter;
@@ -55,7 +51,8 @@ public class CustomGameFragment extends Fragment{
 	 public static final String ARG_ITEM_ID = "item_id";
 	 //private Spinner spinner;
 	 private Button bn_stranger,bn_friend,bn_clear,bn_start;
-	 public View onCreateView(LayoutInflater inflater, ViewGroup container,  
+	 @Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,  
 	            Bundle savedInstanceState) {  
 	        View v = inflater.inflate(R.layout.fragment_management, container, false); 
 	        if (savedInstanceState==null){
@@ -75,7 +72,7 @@ public class CustomGameFragment extends Fragment{
 	        }
 	       builder=new AlertDialog.Builder(getActivity(), AlertDialog.THEME_HOLO_DARK);
 	        datasource.open();
-	        mListAdapter=new ListAdapter(getActivity(),(List<Player>)datasource.getAllPlayersByDate());
+	        mListAdapter=new ListAdapter(getActivity(),datasource.getAllPlayersByDate());
 	        datasource.close();
 
 	        listView=(ListView)v.findViewById(R.id.list_management);
@@ -321,7 +318,8 @@ public class CustomGameFragment extends Fragment{
 		arg0.add(Menu.NONE,Menu.FIRST,Menu.NONE,"Delete");
 		}
 	 //Super Important, Sounds like the reason is that do not return super.OnContextItemSelected.
-	 public boolean onContextItemSelected(MenuItem menuItem){
+	 @Override
+	public boolean onContextItemSelected(MenuItem menuItem){
 		 AdapterContextMenuInfo info = (AdapterContextMenuInfo) (menuItem)
 		          .getMenuInfo();
 		 Log.d(((menuItem).getItemId()+""), "2234");
@@ -395,6 +393,7 @@ public class CustomGameFragment extends Fragment{
 			negative.setTextColor(getResources().getColor(android.R.color.primary_text_light));
 			negative.setPadding(1,1, 1, 1);
 			positive.setOnClickListener(new Button.OnClickListener() {
+				@Override
 				public void onClick(View v) {
 					if (ed.getText().toString().isEmpty()
 							|| ed.getText().toString().trim().contentEquals("")) {
@@ -444,6 +443,7 @@ public class CustomGameFragment extends Fragment{
 			});
 
 			negative.setOnClickListener(new Button.OnClickListener() {
+				@Override
 				public void onClick(View v) {
 					inputMgr.hideSoftInputFromWindow(ed.getWindowToken(), 0);
 					dialog.dismiss();

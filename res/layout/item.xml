@@ -18,9 +18,8 @@
          android:layout_height="@dimen/labelSize"
          android:layout_alignParentRight="true"
          android:layout_alignParentTop="true"
-         android:alpha="0.6"
          android:scaleType="centerCrop"
-         android:src="@drawable/gun"
+         android:src="@drawable/badge"
          tools:ignore="ContentDescription" />
 
     <TextView

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -14,6 +15,7 @@ public class GeneralMethodSet {
 	public  void updateLanguage(Context context) {
 		SharedPreferences share = PreferenceManager.getDefaultSharedPreferences(context);
 		String language=share.getString(DataSet.LANGUAGE, Locale.getDefault().getDisplayLanguage()); 
+		Log.d("tag", language);
 		if (language!=""){
 	        Locale locale = new Locale(language);
 	        

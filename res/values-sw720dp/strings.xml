@@ -15,7 +15,7 @@
     <!-- WelcomeActivity QuickStartFragment -->
     <string name="string_numofplayer_quickstart">Total Players:</string>
     <string name="string_readytoplay_quickstart">Start</string>
-    <string name="string_eachsides_quickstart">Resistance:%1$d\nSpy:%2$d</string>
+    <string name="string_eachsides_quickstart">Resistance:%1$d Spy:%2$d</string>
     <string name="string_rules_welcome">Rules</string>
     <string name="string_setting_welcome">Settings</string>
     <string name="string_contact_welcome">Contact the Arthur</string>
@@ -28,12 +28,12 @@
     <string name="listitem_descr2">Total:</string>
     <string name="listitem_descr3"></string>
     <!-- Button in CustomGameFragment -->
-    <string name="string_addstranger_customgame">Add\nStranger</string>
-    <string name="string_addfriend_customgame">Add\nFriend</string>
-    <string name="string_clear_customgame">Clear\nList</string>
-    <string name="string_startgame_customgame">Start\nGame</string>
+    <string name="string_addstranger_customgame">Add Stranger</string>
+    <string name="string_addfriend_customgame">Add Friend</string>
+    <string name="string_clear_customgame">Clear List</string>
+    <string name="string_startgame_customgame">Start Game</string>
     <string name="string_newplayer_customgame">New Player</string>
-    <string name="string_dialog_inputname_cancel">Cancel</string>
+        <string name="string_dialog_inputname_cancel">Cancel</string>
     <string name="string_dialog_inputname_OK">OK</string>
     <!-- MainActivity -->
     <string name="string_player_main">player</string>
@@ -45,8 +45,8 @@
     <string name="string_button2_main">Let\'s start!</string>
     <string name="string_builder_message_positive_main">:\n\nYou are a <b>RESISTANCE</b> operative.</string>
     <string name="string_builder_message_negative_main">:"\n\nYou are an Imperial <b>SPY</b>.</string>
-    <string name="string_builder_next_message_main">Please pass the phone to the next player</string>
-    <string name="string_builder_next_message_last_main">Please pass the phone to the leader</string>
+    <string name="string_builder_next_message_main">Please pass the tablet to the next player</string>
+    <string name="string_builder_next_message_last_main">Please pass the tablet to the leader</string>
     <!-- MainActivity PlaySound Dialog -->
     <string name="string_main_sound_title">Finnally..</string>
 	<string name="string_main_sound_positive">All Ready!</string>
@@ -94,15 +94,14 @@
     <string name=" string_leader">Leader</string>
     <string name="string_hint_excution">Press fingerprint</string>
    <!-- WelcomeActivity HelpFragment -->
-    <string name="string_rule0">1.Summary:\nThis mobile application is a helper for the party game <i>The Resistance</i>. It allows 5 to 10 persons to play together.\n</string>
-    <string name="string_rule1">2.Background:\nThe Resistance is a party game of social deduction. It is designed for five to ten players, lasts about 30 minutes, and has no player elimination. The Resistance is inspired by Mafia/Werewolf, yet it is unique in its core mechanics, which increase the resources for informed decisions, intensify player interaction, and eliminate player elimination.\n\nPlayers are either Resistance Operatives or Imperial Spies. For three to five rounds, they must depend on each other to carry out missions against the Empire. At the same time, they must try to deduce the other players’ identities and gain their trust.</string>
+    <string name="string_rule0">1.Summary:\n\nThis mobile application is a helper for the party game <i>The Resistance</i>. It allows 5 to 10 persons to play together.\n</string>
+    <string name="string_rule1">2.Background:\n\nThe Resistance is a party game of social deduction. It is designed for five to ten players, lasts about 30 minutes, and has no player elimination. The Resistance is inspired by Mafia/Werewolf, yet it is unique in its core mechanics, which increase the resources for informed decisions, intensify player interaction, and eliminate player elimination.\n\nPlayers are either Resistance Operatives or Imperial Spies. For three to five rounds, they must depend on each other to carry out missions against the Empire. At the same time, they must try to deduce the other players’ identities and gain their trust.</string>
     <string name="string_rules4">If found any bug, or any idea about the game. Please contact me by sending email from this page.</string>
-    <string name="string_rules3">4.Tips:\nDo not let the team proposal pass so easy! Take some time to watch the votes of other persons.\n</string>
-    <string name ="string_rule2">3.Rules:\nApproximately one third of the players are randomly chosen as spies,the rest are members of the Resistance.\n\nThe spies know who the other spies are, but Resistance members do not.\n
+    <string name="string_rules3">4.Tips:\n\nDo not let the team proposal pass so easy! Take some time to watch the votes of other persons.\n</string>
+    <string name ="string_rule2">3.Rules:\n\nApproximately one third of the players are randomly chosen as spies,the rest are members of the Resistance.\n\nThe spies know who the other spies are, but Resistance members do not.\n
     Each mission has a leader. The leader proposes a mission team of a certain size, which the group approves by public vote.\n\n
     If the group does not approve the mission by a simple majority, leadership passes to the next player.\n\nIf the group cannot approve a mission team after five attempts, the spies win.\n\nOnce a mission team is chosen, it votes by secret ballot whether the mission succeeds or fails.\n\nResistance members will always vote for success, but spies have the option of voting for success or failure.\n\n
-    It usually only takes one spy on the mission team to sabotage a mission, but sometimes the fourth mission requires two.\n\nIf three missions succeed, the Resistance wins. If three fail, the spies win. \n\nAnd finally, the last, but most important rule of all:\n\n
-        You are allowed to say anything, to any one, at any time,as long as it is said publicly. </string>
+    It usually only takes one spy on the mission team to sabotage a mission, but sometimes the fourth mission requires two.\n\nIf three missions succeed, the Resistance wins. If three fail, the spies win. \n\nAnd finally, the last, but most important rule of all:\n\nYou are allowed to say anything, to any one, at any time,as long as it is said publicly. </string>
     <string name="string_gamesetting_main">Resistance:%1$d Spy:%2$d</string>
     
     <string name="string_sabotage_execution">Fail </string>

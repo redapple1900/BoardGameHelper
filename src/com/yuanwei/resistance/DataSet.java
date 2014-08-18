@@ -17,7 +17,8 @@ public class DataSet {
 		
 		public static final String SHARED_PREFERENCES="com.yuanwei.resistance.sharedpreferences";
 		public static final String LANGUAGE = "language";
-		
+		public static final String THEME="theme";
+		public static final String THEME_MILITARY="military";
 		
 	
 	//DataSet could be inputed from files.

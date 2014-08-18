@@ -1,12 +1,10 @@
 package com.yuanwei.resistance.gridviewtest;
 
-
+import com.yuanwei.resistance.R;
 import java.util.ArrayList;
 import java.util.List;
 
-import game.redapple1900.resistance.R;
-
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+@SuppressLint("InflateParams")
 public class TextGridAdapter extends BaseAdapter{
    public static class Item{
        public String text1;

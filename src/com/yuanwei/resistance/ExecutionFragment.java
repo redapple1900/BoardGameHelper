@@ -3,8 +3,6 @@ package com.yuanwei.resistance;
 
 import com.yuanwei.resistance.widget.TiltEffectAttacher;
 
-import game.redapple1900.resistance.R;
-
 import android.app.Activity;
 
 import android.graphics.Color;
@@ -40,7 +38,8 @@ public class ExecutionFragment extends Fragment{
 	private ImageButton button;
 	private TextView textview;
 	//private MissionFragment missionFragment; 
-	 public View onCreateView(LayoutInflater inflater, ViewGroup container,  
+	 @Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,  
 	            Bundle savedInstanceState) {  
 	        View excutionLayout = inflater.inflate(R.layout.fragment_excution, container, false);
 	        

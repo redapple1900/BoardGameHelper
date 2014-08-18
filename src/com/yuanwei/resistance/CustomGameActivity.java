@@ -1,6 +1,5 @@
 package com.yuanwei.resistance;
 
-import game.redapple1900.resistance.R;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
