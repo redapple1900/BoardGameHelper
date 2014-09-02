@@ -56,7 +56,7 @@
 	
     <!-- GameActivity Bottom Table -->
     <string name=" string_caption_bottom1_game">Vote</string>
-    <string name=" string_caption_bottom2_game">Players</string>
+    <string name=" string_caption_bottom2_game">Player</string>
     <string name=" string_caption_bottom3_game">Mission</string>
 
     <!-- GameActivity Button and Dialog -->

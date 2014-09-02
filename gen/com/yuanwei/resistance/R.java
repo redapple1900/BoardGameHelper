@@ -41,6 +41,7 @@ public final class R {
          Customize dimensions originally defined in res/values/dimens.xml (such as
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
+ Default screen margins, per the Android Design guidelines. 
          */
         public static final int activity_horizontal_margin=0x7f080000;
         public static final int activity_vertical_margin=0x7f080001;
@@ -262,6 +263,7 @@ CustomGameActivity and Fragment
         public static final int listitem_descr1=0x7f090012;
         public static final int listitem_descr2=0x7f090013;
         public static final int listitem_descr3=0x7f090014;
+        public static final int memberlist_main=0x7f09009a;
         public static final int option_lancelot_v3=0x7f090088;
         public static final int option_lancelot_v3_description=0x7f090089;
         /**  ListView UI 
@@ -315,6 +317,7 @@ CustomGameActivity and Fragment
         public static final int script_spies_close_eyes=0x7f09006a;
         public static final int script_spies_find_each_other=0x7f090069;
         public static final int send_email=0x7f09005b;
+        public static final int string_abort_excution=0x7f09009e;
         public static final int string_addfriend_customgame=0x7f090016;
         /**  Button in CustomGameFragment 
  Button in CustomGameFragment 
@@ -327,7 +330,9 @@ CustomGameActivity and Fragment
         public static final int string_builder_message_loseresult_game=0x7f09003f;
         public static final int string_builder_message_negative_main=0x7f090025;
         public static final int string_builder_message_positive_main=0x7f090024;
+        public static final int string_builder_message_team_pass_game=0x7f09009b;
         public static final int string_builder_message_team_propose_game=0x7f090048;
+        public static final int string_builder_message_team_veto_game=0x7f09009c;
         public static final int string_builder_message_winresult_game=0x7f09003d;
         public static final int string_builder_negative_game=0x7f09004a;
         public static final int string_builder_next_message_last_main=0x7f090027;
@@ -341,6 +346,7 @@ CustomGameActivity and Fragment
  GameActivity Button and Dialog 
          */
         public static final int string_builder_vote_message_before_Game=0x7f09002f;
+        public static final int string_builder_vote_message_beforevote_game=0x7f090097;
         public static final int string_buildertitle_main=0x7f09001d;
         public static final int string_button1_main=0x7f090022;
         public static final int string_button2_main=0x7f090023;
@@ -424,6 +430,7 @@ MainActivity
          */
         public static final int string_rule0=0x7f090050;
         public static final int string_rule1=0x7f090051;
+        public static final int string_rule1_header=0x7f09009d;
         public static final int string_rule2=0x7f090054;
         public static final int string_rules3=0x7f090053;
         public static final int string_rules4=0x7f090052;
@@ -435,6 +442,15 @@ MainActivity
         public static final int string_spies_win=0x7f090064;
         public static final int string_spies_win_large=0x7f090065;
         public static final int string_startgame_customgame=0x7f090018;
+        public static final int string_textViewNumOFPeople1_Game=0x7f090090;
+        public static final int string_textViewNumOFPeople2_Game=0x7f090091;
+        public static final int string_textViewNumOFPeople3_Game=0x7f090092;
+        public static final int string_textViewNumOFPeople4_Game=0x7f090093;
+        public static final int string_textViewNumOFPeople5_Game=0x7f090094;
+        public static final int string_textViewTimeOfTeamPropose_Game=0x7f090099;
+        public static final int string_textView_middileStatus1_Game=0x7f090095;
+        public static final int string_textView_middleStatus2_Game=0x7f090096;
+        public static final int string_textView_middleStatus3_Game=0x7f090098;
         /**  END GAME 
  END GAME 
  END GAME 
@@ -443,6 +459,7 @@ MainActivity
         public static final int string_thievies_win_large=0x7f090063;
         public static final int string_toast1_game=0x7f090047;
         public static final int string_toast1_main=0x7f090021;
+        public static final int string_toast1_mission=0x7f09009f;
         /**  TODO 
  TODO 
          */
@@ -489,9 +506,20 @@ MainActivity
         res/values-v11/styles.xml on API 14+ devices.
     
  API 14 theme customizations can go here. 
+
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    
+
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        
          */
         public static final int AppBaseTheme=0x7f0a0000;
         /**  Application theme. 
+ All customizations that are NOT specific to a particular API-level can go here. 
+ Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f0a0001;
