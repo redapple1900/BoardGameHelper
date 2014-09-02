@@ -25,11 +25,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.text.InputFilter;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
-//import android.graphics.Color;
-//import android.util.Log;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.InputMethodManager;
@@ -38,9 +34,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.Toast;
-//import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Random;
 import java.util.Timer;
@@ -146,14 +142,18 @@ public class MainActivity extends FragmentActivity implements OnInitListener,
 		TOTAL_PLAYERS = bundle.getInt("TOTAL_PLAYERS");
 		NORMAL_PLAYERS = bundle.getInt("NORMAL_PLAYERS");
 		identity = new int[TOTAL_PLAYERS];
+		Arrays.fill(identity, 0);
 		
 		name = bundle.getStringArray("name");
 		if (name == null) 
 			name = new String[TOTAL_PLAYERS];
 		
 		idlist = bundle.getLongArray("idlist");
-		if (idlist == null) 
+		if (idlist == null){
 			idlist = new long[TOTAL_PLAYERS];
+			Arrays.fill(idlist, 0L);
+		}
+			
 		
 		if (share.getString(DataSet.THEME,"").equals(DataSet.THEME_MILITARY)){
 			pictures = getResources().obtainTypedArray(R.array.images);
@@ -163,6 +163,7 @@ public class MainActivity extends FragmentActivity implements OnInitListener,
 		pictures.recycle();
 		}
 		image = new int[TOTAL_PLAYERS];
+		Arrays.fill(image, 0);
 		// mediaPlayer=MediaPlayer.create(getApplicationContext(),
 		// R.raw.sound_male);
 		mGridAdapter = new GridAdapter(getApplicationContext());
@@ -472,20 +473,59 @@ public class MainActivity extends FragmentActivity implements OnInitListener,
 
 			Button positive = (Button) mDialog
 					.findViewById(R.id.Button_OK_input);
+			/*
 			positive.setBackgroundColor(getResources().getColor(
 					android.R.color.darker_gray));
 			positive.setTextColor(getResources().getColor(
 					android.R.color.primary_text_light));
-			positive.setOnTouchListener(mOnTouchListener);
-			positive.setPadding(1, 1, 1, 1);
+					*/
+			//positive.setOnTouchListener(mOnTouchListener);
+
 			Button negative = (Button) mDialog
 					.findViewById(R.id.button_Cancel_input);
-			negative.setBackgroundColor(getResources().getColor(
-					android.R.color.darker_gray));
-			negative.setTextColor(getResources().getColor(
-					android.R.color.primary_text_light));
-			negative.setPadding(1, 1, 1, 1);
-			negative.setVisibility(View.GONE);
+
+			
+			negative.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					inputMgr.hideSoftInputFromWindow(ed.getWindowToken(), 0);
+					GridAdapter.Item item = new GridAdapter.Item();
+
+					item.text = getString(R.string.string_item_game)+ " "
+							+ (1 + SHUFFLE_COUNT);
+					item.resId = image[SHUFFLE_COUNT];
+					mGridAdapter.replaceItem(item, SHUFFLE_COUNT);
+					mGridAdapter.notifyDataSetChanged();
+					idlist[SHUFFLE_COUNT]=-1;
+					name[SHUFFLE_COUNT]=getString(R.string.string_item_game)+ " "
+							+ (1 + SHUFFLE_COUNT);
+					if (identity[SHUFFLE_COUNT] == DataSet.SOILDER) {
+						builder.setTitle(
+								getString(R.string.string_buildertitle_main)
+										+ getString(R.string.string_identity_positive))
+								.setIcon(R.drawable.thief)
+								.setMessage(
+										getString(R.string.string_item_game)+ " "
+												+ (1 + SHUFFLE_COUNT)
+												+ getString(R.string.string_builder_message_positive_main))
+								.show();
+					} else if (identity[SHUFFLE_COUNT] == DataSet.SPY) {
+						builder.setTitle(
+								getString(R.string.string_buildertitle_main)
+										+ getString(R.string.string_identity_negative))
+								.setIcon(R.drawable.spy)
+								.setMessage(
+										getString(R.string.string_item_game)+ " "
+												+ (1 + SHUFFLE_COUNT)
+												+ getString(R.string.string_builder_message_negative_main))
+								.show();
+
+					}
+					mDialog.dismiss();		
+					Toast.makeText(getApplicationContext(), getString(R.string.string_toast1_main), Toast.LENGTH_SHORT).show();
+				}
+			});
 			positive.setOnClickListener(new Button.OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -529,6 +569,7 @@ public class MainActivity extends FragmentActivity implements OnInitListener,
 					}
 				}
 			});
+			
 			mDialog.show();
 		}
 
@@ -629,7 +670,7 @@ public class MainActivity extends FragmentActivity implements OnInitListener,
 
 		}
 	}
-
+	/*
 	private OnTouchListener mOnTouchListener = new OnTouchListener() {
 
 		@Override
@@ -672,13 +713,13 @@ public class MainActivity extends FragmentActivity implements OnInitListener,
 			return true;
 		}
 	};
-
+	*/
 	@Override
 	public void onInit(int status) {
 		if (status == TextToSpeech.SUCCESS) {
 			mGenerator = new ScriptGenerator(this, mTTS);
 			
-			String language=share.getString(DataSet.LANGUAGE, Locale.getDefault().getDisplayLanguage());
+			String language=share.getString(DataSet.LANGUAGE, getResources().getConfiguration().locale.getDisplayLanguage());
 			mTTS.setLanguage( new Locale(language));
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
 				setMTTSlistenerICS();

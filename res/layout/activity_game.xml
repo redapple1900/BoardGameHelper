@@ -114,6 +114,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:orientation="horizontal"
+                    android:baselineAligned="false"
                     android:visibility="gone" >
 
                     <RelativeLayout
@@ -134,25 +135,9 @@
                             android:textColor="@android:color/white" />
 
                     </RelativeLayout>
+			
+
 					<!--  
-                    <RelativeLayout
-                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" >
-
-                        <Button
-                            android:id="@+id/button_share_gplus"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                             android:layout_centerInParent="true"
-                            android:background="@android:color/transparent"
-                            android:drawableTop="@drawable/gplus"
-                            android:gravity="bottom|center_horizontal"
-                            android:text="gplus"
-                            android:textColor="@android:color/white" />
-                    </RelativeLayout>
-
                     <RelativeLayout
                           android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -188,6 +173,24 @@
                             android:text="@string/string_game_button_rate"
                             android:textColor="@android:color/white" />
                     </RelativeLayout>
+                                        <RelativeLayout
+                         android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" >
+
+                        <Button
+                            android:id="@+id/button_share_gplus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                             android:layout_centerInParent="true"
+                            android:background="@android:color/transparent"
+                            android:drawableTop="@drawable/gplus"
+                            android:gravity="bottom|center_horizontal"
+                            android:text="@string/string_gplus"
+                            android:textColor="@android:color/white" />
+                    </RelativeLayout>
+                    <!--  
                     <RelativeLayout
                          android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -204,8 +207,9 @@
                             android:gravity="bottom|center_horizontal"
                             android:text="@string/string_game_button_wechat"
                             android:textColor="@android:color/white" />
-                    </RelativeLayout>
+                    </RelativeLayout>-->
                 </LinearLayout>
+                	
                 <!-- Hold four share buttons -->
 
             </LinearLayout>
@@ -215,13 +219,14 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:gravity="center"
+                android:gravity="bottom|center"
                 android:horizontalSpacing="4dp"
                 android:numColumns="6"
                 android:scrollbarStyle="insideOverlay"
                 android:scrollbars="vertical"
                 android:stretchMode="columnWidth"
                 android:verticalSpacing="4dp" >
+
             </GridView>
         </RelativeLayout>
     </FrameLayout>

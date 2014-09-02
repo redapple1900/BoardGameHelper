@@ -30,6 +30,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_margin="6dp"
+                android:background="@drawable/mybutton"
                 android:text="@string/string_dialog_inputname_cancel" />
 
             <Button
@@ -38,6 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:layout_margin="6dp"
+                android:background="@drawable/mybutton"
                 android:text="@string/string_dialog_inputname_OK" />
 
         </LinearLayout>

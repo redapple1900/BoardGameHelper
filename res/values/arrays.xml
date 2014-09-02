@@ -1,26 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="language">
+    <string-array name="language" translatable="false">
         <item name="default">Default</item>
-        <item name="zh_cn">中文</item>
-        <item name="en_us">English</item>
+        <item name="zh_CN">简体中文</item>
+        <item name="zh_TW">繁體中文</item>
+        <item name="en_US">English</item>
     </string-array>
-    <string-array name="languageValues">
+    <string-array name="languageValues" translatable="false">
         <item name="default"></item>
         <item name="zh_CN">zh_CN</item>
+        <item name="zh_TW">zh_TW</item>
         <item name="en_US">en_US</item>
     </string-array>
-    <string-array name="theme">
+    <string-array name="theme" translatable="false">
         <item name="default">Default</item>
         <item name="military">Military</item>
     </string-array>
-    <string-array name="themeValues">
+    <string-array name="themeValues" translatable="false">
         <item name="default"></item>
         <item name="military">military</item>
     </string-array>
-
-    <string-array name="images">
+    <string-array name="images" translatable="false">
         <item name="1">@drawable/pic1</item>
         <item name="2">@drawable/pic2</item>
         <item name="3">@drawable/pic3</item>
@@ -32,7 +33,7 @@
         <item name="9">@drawable/pic9</item>
         <item name="10">@drawable/pic10</item>
     </string-array>
-        <string-array name="icon">
+    <string-array name="icon" translatable="false">
         <item name="1">@drawable/icon</item>
         <item name="2">@drawable/icon</item>
         <item name="3">@drawable/icon</item>

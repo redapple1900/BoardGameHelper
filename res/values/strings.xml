@@ -41,6 +41,7 @@
     <string name="string_builder_positivebutton_main">Got it.</string>
     <string name="string_builder_inputname_title_main">Hello, can I have your name?</string>
     <string name="string_toast2_main">All cards Out</string>
+    <string name="string_toast1_main">The app will store your name if you provided one.</string>
     <string name="string_button1_main">Show your idetity</string>
     <string name="string_button2_main">Let\'s start!</string>
     <string name="string_builder_message_positive_main">:\n\nYou are a <b>RESISTANCE</b> operative.</string>
@@ -83,7 +84,8 @@
 	<string name="string_game_button_replay">One More!</string>
 	<string name="string_game_button_rate">Rate me!</string>
 	<string name="string_game_button_wechat">Share on WeChat</string>
-    <!-- TODO -->
+	  <string name="string_gplus">Share Game</string>
+	<string name="string_toast2_game">The application is not installed on your phone</string>
     <string name="string_toast1_game">No extra space for a team member</string>
     <string name="string_builder_message_team_propose_game">Leader:\n\nPlease CONFIRM your selection.</string>
     <string name="string_builder_positive_game">OK</string>
@@ -115,7 +117,7 @@
     <!--WelcomeActivity QuickStart Fragment -->
     <string name="string_gametitle">Board Game Helper</string>
     <string name="string_gamesubtitle">Resistance</string>
-    <string name="string_gameversion">version 0.95</string>
+    <string name="string_gameversion">version 0.96</string>
     <!--CustomGameActivity and Fragment -->
     <string name="button_manu_mangement">Help:</string>
     <string name="toast_customgame">Sorry we need at least 5 players</string>
@@ -125,6 +127,8 @@
     <string name="string_thievies_win_large">Resistance Operatives Win!</string>
     <string name="string_spies_win">Spies Win!</string>
     <string name="string_spies_win_large">Spies Win!</string>
+      <string name="string_share_title">Feel Good?</string>
+        <string name="string_share_content">We played the board game Resistance by this app. It is quite funny experience!</string>
        <!-- Resistance scripts -->
     <string name="script_close_eyes">Everyone close your eyes.</string>
     <string name="script_spies_find_each_other">Spies open your eyes. Look around, and make sure that you know all the other Spies.</string>
@@ -162,5 +166,14 @@
     <string name="option_morgana_description">Appears as Merlin</string>
     <string name="option_lancelot_v3">Lancelot (Variant #3)</string>
     <string name="option_lancelot_v3_description">Good and Evil Lancelots know each other</string>
+    <!-- String Array -->
+    <string name ="array_language">language</string>
+    <string name ="array_languageValues">languageValues</string>
+      <string name ="array_theme">theme</string>
+      <string name ="array_themeValues">themeValues</string>
+      <string name ="array_images">images</string>
+      <string name ="array_icon">icon</string>
+    
+
 
 </resources>

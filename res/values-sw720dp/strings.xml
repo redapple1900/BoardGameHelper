@@ -40,6 +40,7 @@
     <string name="string_buildertitle_main">Your Identity:\n</string>
     <string name="string_builder_positivebutton_main">Got it.</string>
     <string name="string_builder_inputname_title_main">Hello, can I have your name?</string>
+     <string name="string_toast1_main">The app will store your name if you provided one.</string>
     <string name="string_toast2_main">All cards Out</string>
     <string name="string_button1_main">Show your idetity</string>
     <string name="string_button2_main">Let\'s start!</string>
@@ -84,6 +85,7 @@
 	<string name="string_game_button_rate">Rate me!</string>
 	<string name="string_game_button_wechat">Share on WeChat</string>
     <!-- TODO -->
+       <string name="string_toast2_game">The application is not installed on your tablet</string>
     <string name="string_toast1_game">No extra space for a team member</string>
     <string name="string_builder_message_team_propose_game">Leader:\n\nPlease CONFIRM your selection.</string>
     <string name="string_builder_positive_game">OK</string>
@@ -98,9 +100,7 @@
     <string name="string_rule1">2.Background:\n\nThe Resistance is a party game of social deduction. It is designed for five to ten players, lasts about 30 minutes, and has no player elimination. The Resistance is inspired by Mafia/Werewolf, yet it is unique in its core mechanics, which increase the resources for informed decisions, intensify player interaction, and eliminate player elimination.\n\nPlayers are either Resistance Operatives or Imperial Spies. For three to five rounds, they must depend on each other to carry out missions against the Empire. At the same time, they must try to deduce the other players’ identities and gain their trust.</string>
     <string name="string_rules4">If found any bug, or any idea about the game. Please contact me by sending email from this page.</string>
     <string name="string_rules3">4.Tips:\n\nDo not let the team proposal pass so easy! Take some time to watch the votes of other persons.\n</string>
-    <string name ="string_rule2">3.Rules:\n\nApproximately one third of the players are randomly chosen as spies,the rest are members of the Resistance.\n\nThe spies know who the other spies are, but Resistance members do not.\n
-    Each mission has a leader. The leader proposes a mission team of a certain size, which the group approves by public vote.\n\n
-    If the group does not approve the mission by a simple majority, leadership passes to the next player.\n\nIf the group cannot approve a mission team after five attempts, the spies win.\n\nOnce a mission team is chosen, it votes by secret ballot whether the mission succeeds or fails.\n\nResistance members will always vote for success, but spies have the option of voting for success or failure.\n\n
+    <string name ="string_rule2">3.Rules:\nApproximately one third of the players are randomly chosen as spies,the rest are members of the Resistance.\n\nThe spies know who the other spies are, but Resistance members do not.\n\nEach mission has a leader. The leader proposes a mission team of a certain size, which the group approves by public vote.\n\nIf the group does not approve the mission by a simple majority, leadership passes to the next player.\n\nIf the group cannot approve a mission team after five attempts, the spies win.\n\nOnce a mission team is chosen, it votes by secret ballot whether the mission succeeds or fails.\n\nResistance members will always vote for success, but spies have the option of voting for success or failure.\n\n
     It usually only takes one spy on the mission team to sabotage a mission, but sometimes the fourth mission requires two.\n\nIf three missions succeed, the Resistance wins. If three fail, the spies win. \n\nAnd finally, the last, but most important rule of all:\n\nYou are allowed to say anything, to any one, at any time,as long as it is said publicly. </string>
     <string name="string_gamesetting_main">Resistance:%1$d Spy:%2$d</string>
     
@@ -114,7 +114,7 @@
     <!--WelcomeActivity QuickStart Fragment -->
     <string name="string_gametitle">Board Game Helper</string>
     <string name="string_gamesubtitle">Resistance</string>
-    <string name="string_gameversion">version 0.95</string>
+    <string name="string_gameversion">version 0.96</string>
     <!--CustomGameActivity and Fragment -->
     <string name="button_manu_mangement">Help:</string>
     <string name="toast_customgame">Sorry we need at least 5 players</string>

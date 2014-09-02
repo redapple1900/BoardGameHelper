@@ -1,15 +1,7 @@
 package com.yuanwei.resistance;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -28,15 +20,13 @@ import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.ShareCompat;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -89,7 +79,7 @@ public class GameActivity extends FragmentActivity implements
 	private static AlertDialog mDialog;
 	private Dialog dialog;
 	private File mediaFile;
-	private Handler handler;
+	//private Handler handler;
 	private int share_option;
 
 	@Override
@@ -106,7 +96,7 @@ public class GameActivity extends FragmentActivity implements
 		initViews();
 		resetCandidates();
 		datasource = new PlayerDataSource(getApplicationContext());
-		handler = new HandlerExtension();
+		//handler = new HandlerExtension();
 	}
 
 	@Override
@@ -617,8 +607,8 @@ public class GameActivity extends FragmentActivity implements
 		Button button_replay = (Button)findViewById(R.id.button_replay);
 		Button button_rate = (Button)findViewById(R.id.button_rate);
 		//Button button_facebook = (Button) findViewById(R.id.button_share_facebook);
-		//Button button_gplus = (Button) findViewById(R.id.button_share_gplus);
-		Button button_wechat = (Button) findViewById(R.id.button_share_wechat);
+		Button button_gplus = (Button) findViewById(R.id.button_share_gplus);
+		//Button button_wechat = (Button) findViewById(R.id.button_share_wechat);
 
 		Thread databaseThread = new Thread(new Runnable() {
 
@@ -645,10 +635,11 @@ public class GameActivity extends FragmentActivity implements
 					}
 				}
 				datasource.close();
+				Thread.currentThread().interrupt();
 			}
 		});
 		databaseThread.start();
-
+		/*
 		final Thread mThread = new Thread(new Runnable() {
 
 			@Override
@@ -708,9 +699,10 @@ public class GameActivity extends FragmentActivity implements
 							e.printStackTrace();
 						}
 						msg.setTarget(handler);
-						msg.sendToTarget();
-					}
+						msg.sendToTarget();						
+					}				
 				});
+				Thread.currentThread().interrupt();
 			}
 		});
 		/*
@@ -724,8 +716,8 @@ public class GameActivity extends FragmentActivity implements
 		button_replay.setOnTouchListener(new ButtonOnTouchListener(this));
 		button_rate.setOnTouchListener(new ButtonOnTouchListener(this));
 		//button_facebook.setOnTouchListener(new ButtonOnTouchListener(this));
-		//button_gplus.setOnTouchListener(new ButtonOnTouchListener(this));
-		button_wechat.setOnTouchListener(new ButtonOnTouchListener(this));
+		button_gplus.setOnTouchListener(new ButtonOnTouchListener(this));
+		//button_wechat.setOnTouchListener(new ButtonOnTouchListener(this));
 		/*
 		button_facebook.setOnClickListener(new View.OnClickListener() {
 
@@ -745,28 +737,29 @@ public class GameActivity extends FragmentActivity implements
 
 			}
 		});
-		/*
+		*/
 		button_gplus.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 				
 				/*
-				 * Intent intent = new Intent(); ComponentName comp = new
-				 * ComponentName("com.tencent.mm",
-				 * "com.tencent.mm.ui.tools.ShareToTimeLineUI");
-				 * intent.setComponent(comp);
-				 * intent.setAction("android.intent.action.SEND");
-				 * intent.setType("text/plain"); //intent.setType("image/*");
-				 * intent.putExtra(Intent.EXTRA_TEXT,"This is a test");
-				 * //intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
-				 * startActivity(intent);
-				 
-				mThread.start();
+				ShareCompat.IntentBuilder.from(GameActivity.this).setType("text/plain")
+				.setChooserTitle(getString(R.string.string_share_title))
+				.setText(getString(R.string.string_share_content)).startChooser();
+				*/
+				 Intent shareIntent = ShareCompat.IntentBuilder.from(GameActivity.this)
+				            .setText(getString(R.string.string_share_content)).setType("text/plain")
+				            .getIntent()
+				            .setPackage("com.google.android.apps.plus");
+				    //startActivity(shareIntent);
+
+		      startActivityForResult(shareIntent, 0);
+
 
 			}
 		});
-		*/
+		
 		button_replay.setOnClickListener(new View.OnClickListener() {
 			
 			
@@ -783,15 +776,25 @@ public class GameActivity extends FragmentActivity implements
 				rateAppOnGooglePlay();
 			}
 		});
+		/*
 		button_wechat.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-			
-				mThread.start();
+				ShareCompat.IntentBuilder.from(GameActivity.this).setType("text/plain")
+				.setChooserTitle(getString(R.string.string_share_title))
+				.setText(getString(R.string.string_share_content)).startChooser();
+				/*
+				try{
+					mThread.start();
+				}catch (IllegalThreadStateException e){
+				e.printStackTrace();
+				}				
 				share_option = 3;
+				
 			}
 		});
+		*/
 	}
 
 	private void hideFragments() {
@@ -961,12 +964,17 @@ public class GameActivity extends FragmentActivity implements
 			currentStatus++;
 		} else if (CurrentStatus == 1) {// Nomination passed,ready to execute
 										// the mission.
-			setTeamProposedStatus(timeOfTeamPropose, true);
+			
+			setTeamProposedStatus(timeOfTeamPropose, true);//Handle bottom status
 			timeOfTeamPropose = 1;
+			
 			setTopStatus(2, TOTAL_PLAYERS);
 			button.setText(getString(R.string.string_button_start_game));
+			view.setEnabled(false);//To avoid team member selection after mission execution 09.01.2014
+			
 			MissionResult[currentMission] = new int[DataSet.NumOfMembersPerMission[TOTAL_PLAYERS][currentMission]];
 			currentStatus++;
+			
 			if (VictoryCount == 2 || LoseCount == 2) {
 				int failurecount = 0;
 				for (int i = 0; i < CandidatesId.length; i++) {
@@ -1006,6 +1014,7 @@ public class GameActivity extends FragmentActivity implements
 			}
 		} else if (CurrentStatus == 2) {// Show the mission results
 			setTopStatus(0, TOTAL_PLAYERS);
+			view.setEnabled(true);
 			view_top.setEnabled(true);
 			clearTeamProposedStatus();
 			int failurecount = 0;
@@ -1014,18 +1023,11 @@ public class GameActivity extends FragmentActivity implements
 					failurecount++;
 				}
 			}
-			// Change the leader;
-			//GridAdapter.Item item = (GridAdapter.Item) mGridAdapter
-					//.getItem(round % TOTAL_PLAYERS);
-			//item.text_top = "";
-			//mGridAdapter.replaceItem(item, round % TOTAL_PLAYERS);
+
 			setLeader(round%TOTAL_PLAYERS);
 			round++;
 			setLeader(round%TOTAL_PLAYERS);
-			//item = (GridAdapter.Item) mGridAdapter.getItem(round
-			//		% TOTAL_PLAYERS);
-			//item.text_top = getString(R.string.string_leader);
-			//mGridAdapter.replaceItem(item, round % TOTAL_PLAYERS);
+
 			mGridAdapter.notifyDataSetChanged();
 
 			if (checkMissionResult(failurecount, currentMission, TOTAL_PLAYERS) == true) {
@@ -1212,7 +1214,8 @@ public class GameActivity extends FragmentActivity implements
 	        return true;
 	    }
 	    catch (ActivityNotFoundException e)
-	    {
+	    {	
+	    	Toast.makeText(getApplicationContext(), getString(R.string.string_toast2_game), Toast.LENGTH_SHORT).show();
 	        return false;
 	    }
 	}
