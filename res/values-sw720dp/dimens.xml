@@ -17,5 +17,6 @@
     <dimen name="itemSize">140dp</dimen>
     <dimen name="itemSize_medium">160dp</dimen>
     <dimen name="itemSize_large">200dp</dimen>
+        <dimen name="title_top_margin">160dp</dimen>
 
 </resources>

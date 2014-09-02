@@ -53,10 +53,11 @@ public final class R {
         public static final int labelSize=0x7f080008;
         public static final int padding_layout=0x7f080009;
         public static final int small_image_size=0x7f080007;
-        public static final int small_text_=0x7f08000d;
+        public static final int small_text_=0x7f08000e;
         public static final int small_text_gridview=0x7f080006;
         public static final int small_text_size=0x7f080005;
         public static final int text_size=0x7f080004;
+        public static final int title_top_margin=0x7f08000d;
     }
     public static final class drawable {
         public static final int approve=0x7f020000;
