@@ -27,6 +27,8 @@ public final class R {
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
  Default screen margins, per the Android Design guidelines. 
+ Default screen margins, per the Android Design guidelines. 
+ Default screen margins, per the Android Design guidelines. 
 
          Customize dimensions originally defined in res/values/dimens.xml (such as
          screen margins) for sw600dp devices (e.g. 7" tablets) here.
@@ -41,7 +43,6 @@ public final class R {
          Customize dimensions originally defined in res/values/dimens.xml (such as
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
- Default screen margins, per the Android Design guidelines. 
          */
         public static final int activity_horizontal_margin=0x7f080000;
         public static final int activity_vertical_margin=0x7f080001;
@@ -240,16 +241,16 @@ public final class R {
         public static final int  string_title_veto_game=0x7f09004c;
         public static final int action_settings=0x7f090001;
         public static final int app_name=0x7f090000;
-        public static final int array_icon=0x7f09008f;
-        public static final int array_images=0x7f09008e;
+        public static final int array_icon=0x7f090090;
+        public static final int array_images=0x7f09008f;
         /**  String Array 
  String Array 
  String Array 
          */
-        public static final int array_language=0x7f09008a;
-        public static final int array_languageValues=0x7f09008b;
-        public static final int array_theme=0x7f09008c;
-        public static final int array_themeValues=0x7f09008d;
+        public static final int array_language=0x7f09008b;
+        public static final int array_languageValues=0x7f09008c;
+        public static final int array_theme=0x7f09008d;
+        public static final int array_themeValues=0x7f09008e;
         public static final int button_main=0x7f090031;
         /** CustomGameActivity and Fragment 
 CustomGameActivity and Fragment 
@@ -264,61 +265,59 @@ CustomGameActivity and Fragment
         public static final int listitem_descr1=0x7f090012;
         public static final int listitem_descr2=0x7f090013;
         public static final int listitem_descr3=0x7f090014;
-        public static final int memberlist_main=0x7f09009a;
-        public static final int option_lancelot_v3=0x7f090088;
-        public static final int option_lancelot_v3_description=0x7f090089;
+        public static final int option_lancelot_v3=0x7f090089;
+        public static final int option_lancelot_v3_description=0x7f09008a;
         /**  ListView UI 
  ListView UI 
  ListView UI 
  ListView UI 
  ListView UI 
          */
-        public static final int option_merlin_assassin=0x7f09007e;
-        public static final int option_merlin_assassin_description=0x7f09007f;
-        public static final int option_mordred=0x7f090082;
-        public static final int option_mordred_description=0x7f090083;
-        public static final int option_morgana=0x7f090086;
-        public static final int option_morgana_description=0x7f090087;
-        public static final int option_oberon=0x7f090084;
-        public static final int option_oberon_description=0x7f090085;
-        public static final int option_percival=0x7f090080;
-        public static final int option_percival_description=0x7f090081;
+        public static final int option_merlin_assassin=0x7f09007f;
+        public static final int option_merlin_assassin_description=0x7f090080;
+        public static final int option_mordred=0x7f090083;
+        public static final int option_mordred_description=0x7f090084;
+        public static final int option_morgana=0x7f090087;
+        public static final int option_morgana_description=0x7f090088;
+        public static final int option_oberon=0x7f090085;
+        public static final int option_oberon_description=0x7f090086;
+        public static final int option_percival=0x7f090081;
+        public static final int option_percival_description=0x7f090082;
         /**  Resistance scripts 
  Resistance scripts 
  Resistance scripts 
  Resistance scripts 
  Resistance scripts 
          */
-        public static final int script_close_eyes=0x7f090068;
+        public static final int script_close_eyes=0x7f090069;
         /**  Avalon scripts 
  Avalon scripts 
  Avalon scripts 
  Avalon scripts 
  Avalon scripts 
          */
-        public static final int script_close_eyes_extend_fists=0x7f09006c;
-        public static final int script_evil_be_known=0x7f090070;
-        public static final int script_evil_be_known_except_mordred=0x7f090071;
-        public static final int script_evil_close_eyes=0x7f09006f;
-        public static final int script_evil_find_each_other=0x7f09006d;
-        public static final int script_evil_find_each_other_except_oberon=0x7f09006e;
-        public static final int script_evil_hide=0x7f090073;
-        public static final int script_lancelot_close_eyes=0x7f09007d;
-        public static final int script_lancelot_know_each_other=0x7f09007c;
-        public static final int script_merlin_be_known=0x7f090075;
-        public static final int script_merlin_close_eyes=0x7f090074;
-        public static final int script_merlin_hide=0x7f090079;
-        public static final int script_merlin_know_evil=0x7f090072;
-        public static final int script_merlin_morgana_be_known=0x7f090076;
-        public static final int script_merlin_morgana_hide=0x7f09007a;
-        public static final int script_open_eyes=0x7f09006b;
-        public static final int script_percival_close_eyes=0x7f09007b;
-        public static final int script_percival_know_merlin=0x7f090077;
-        public static final int script_percival_know_merlin_morgana=0x7f090078;
-        public static final int script_spies_close_eyes=0x7f09006a;
-        public static final int script_spies_find_each_other=0x7f090069;
+        public static final int script_close_eyes_extend_fists=0x7f09006d;
+        public static final int script_evil_be_known=0x7f090071;
+        public static final int script_evil_be_known_except_mordred=0x7f090072;
+        public static final int script_evil_close_eyes=0x7f090070;
+        public static final int script_evil_find_each_other=0x7f09006e;
+        public static final int script_evil_find_each_other_except_oberon=0x7f09006f;
+        public static final int script_evil_hide=0x7f090074;
+        public static final int script_lancelot_close_eyes=0x7f09007e;
+        public static final int script_lancelot_know_each_other=0x7f09007d;
+        public static final int script_merlin_be_known=0x7f090076;
+        public static final int script_merlin_close_eyes=0x7f090075;
+        public static final int script_merlin_hide=0x7f09007a;
+        public static final int script_merlin_know_evil=0x7f090073;
+        public static final int script_merlin_morgana_be_known=0x7f090077;
+        public static final int script_merlin_morgana_hide=0x7f09007b;
+        public static final int script_open_eyes=0x7f09006c;
+        public static final int script_percival_close_eyes=0x7f09007c;
+        public static final int script_percival_know_merlin=0x7f090078;
+        public static final int script_percival_know_merlin_morgana=0x7f090079;
+        public static final int script_spies_close_eyes=0x7f09006b;
+        public static final int script_spies_find_each_other=0x7f09006a;
         public static final int send_email=0x7f09005b;
-        public static final int string_abort_excution=0x7f09009e;
         public static final int string_addfriend_customgame=0x7f090016;
         /**  Button in CustomGameFragment 
  Button in CustomGameFragment 
@@ -331,9 +330,7 @@ CustomGameActivity and Fragment
         public static final int string_builder_message_loseresult_game=0x7f09003f;
         public static final int string_builder_message_negative_main=0x7f090025;
         public static final int string_builder_message_positive_main=0x7f090024;
-        public static final int string_builder_message_team_pass_game=0x7f09009b;
         public static final int string_builder_message_team_propose_game=0x7f090048;
-        public static final int string_builder_message_team_veto_game=0x7f09009c;
         public static final int string_builder_message_winresult_game=0x7f09003d;
         public static final int string_builder_negative_game=0x7f09004a;
         public static final int string_builder_next_message_last_main=0x7f090027;
@@ -347,7 +344,6 @@ CustomGameActivity and Fragment
  GameActivity Button and Dialog 
          */
         public static final int string_builder_vote_message_before_Game=0x7f09002f;
-        public static final int string_builder_vote_message_beforevote_game=0x7f090097;
         public static final int string_buildertitle_main=0x7f09001d;
         public static final int string_button1_main=0x7f090022;
         public static final int string_button2_main=0x7f090023;
@@ -371,9 +367,6 @@ CustomGameActivity and Fragment
          */
         public static final int string_exit_title=0x7f090002;
         public static final int string_game_button_rate=0x7f090043;
-        /**   GameActivity  
-  GameActivity  
-         */
         public static final int string_game_button_replay=0x7f090042;
         public static final int string_game_button_wechat=0x7f090044;
         public static final int string_gamesetting_main=0x7f090055;
@@ -385,6 +378,11 @@ WelcomeActivity QuickStart Fragment
         public static final int string_gametitle=0x7f09005c;
         public static final int string_gameversion=0x7f09005e;
         public static final int string_gplus=0x7f090045;
+        /**  END GAME 
+  GameActivity  
+  GameActivity  
+         */
+        public static final int string_gplus_not_installed=0x7f090062;
         public static final int string_hint_excution=0x7f09004f;
         public static final int string_identity_negative=0x7f090007;
         /**  Identity 
@@ -431,36 +429,24 @@ MainActivity
          */
         public static final int string_rule0=0x7f090050;
         public static final int string_rule1=0x7f090051;
-        public static final int string_rule1_header=0x7f09009d;
         public static final int string_rule2=0x7f090054;
         public static final int string_rules3=0x7f090053;
         public static final int string_rules4=0x7f090052;
         public static final int string_rules_welcome=0x7f09000b;
         public static final int string_sabotage_execution=0x7f090056;
         public static final int string_setting_welcome=0x7f09000c;
-        public static final int string_share_content=0x7f090067;
-        public static final int string_share_title=0x7f090066;
-        public static final int string_spies_win=0x7f090064;
-        public static final int string_spies_win_large=0x7f090065;
+        public static final int string_share_content=0x7f090068;
+        public static final int string_share_title=0x7f090067;
+        public static final int string_spies_win=0x7f090065;
+        public static final int string_spies_win_large=0x7f090066;
         public static final int string_startgame_customgame=0x7f090018;
-        public static final int string_textViewNumOFPeople1_Game=0x7f090090;
-        public static final int string_textViewNumOFPeople2_Game=0x7f090091;
-        public static final int string_textViewNumOFPeople3_Game=0x7f090092;
-        public static final int string_textViewNumOFPeople4_Game=0x7f090093;
-        public static final int string_textViewNumOFPeople5_Game=0x7f090094;
-        public static final int string_textViewTimeOfTeamPropose_Game=0x7f090099;
-        public static final int string_textView_middileStatus1_Game=0x7f090095;
-        public static final int string_textView_middleStatus2_Game=0x7f090096;
-        public static final int string_textView_middleStatus3_Game=0x7f090098;
         /**  END GAME 
  END GAME 
- END GAME 
          */
-        public static final int string_thievies_win=0x7f090062;
-        public static final int string_thievies_win_large=0x7f090063;
+        public static final int string_thievies_win=0x7f090063;
+        public static final int string_thievies_win_large=0x7f090064;
         public static final int string_toast1_game=0x7f090047;
         public static final int string_toast1_main=0x7f090021;
-        public static final int string_toast1_mission=0x7f09009f;
         /**  TODO 
  TODO 
          */
@@ -507,20 +493,9 @@ MainActivity
         res/values-v11/styles.xml on API 14+ devices.
     
  API 14 theme customizations can go here. 
-
-        Base application theme, dependent on API level. This theme is replaced
-        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
-    
-
-            Theme customizations available in newer API levels can go in
-            res/values-vXX/styles.xml, while customizations related to
-            backward-compatibility can go here.
-        
          */
         public static final int AppBaseTheme=0x7f0a0000;
         /**  Application theme. 
- All customizations that are NOT specific to a particular API-level can go here. 
- Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f0a0001;

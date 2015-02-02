@@ -11,9 +11,9 @@
     <dimen name="small_image_size">24dp</dimen>
     <dimen name="labelSize">16dp</dimen>
     <dimen name="padding_layout">3dp</dimen>
-    <dimen name="itemSize">60dp</dimen>
-    <dimen name="itemSize_medium">80dp</dimen>
-    <dimen name="itemSize_large">100dp</dimen>
+    <dimen name="itemSize">90dp</dimen>
+    <dimen name="itemSize_medium">100dp</dimen>
+    <dimen name="itemSize_large">125dp</dimen>
     <dimen name="title_top_margin">60dp</dimen>
 
 </resources>

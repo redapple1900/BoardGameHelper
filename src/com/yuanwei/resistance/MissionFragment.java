@@ -101,7 +101,9 @@ public class MissionFragment extends Fragment implements OnClickListener{
 	         * The following module determines the picture on mission execution.
 	         */
 	        image=(ImageView)v.findViewById(R.id.imageView_mission);
-	        j=random.nextInt(4);
+	        image.setImageResource(R.drawable.excution1);
+	        //j=random.nextInt(4);
+	        /*
 		 	switch(j){
 		 	case 0:
 		 		image.setImageResource(R.drawable.excution1);
@@ -118,7 +120,7 @@ public class MissionFragment extends Fragment implements OnClickListener{
 		 	default:
 		 		image.setImageResource(R.drawable.excution1);
 		 		break;
-		 	}	
+		 	}	*/
 	        identity=getArguments().getInt("identity");
 	        excuteLayout.setOnClickListener(this);
 	        excuteLayout.setOnTouchListener(new ButtonOnTouchListener(getActivity()));

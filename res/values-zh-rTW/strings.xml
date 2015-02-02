@@ -55,6 +55,7 @@
     <string name="string_builder_next_message_main">請把平板交給下一個玩家</string>
     <string name="string_builder_next_message_last_main">請把平板交給隊長</string>
       <!--  GameActivity  -->
+      <string name="string_gplus_not_installed">"不好意思，目前只能在G+上分享 "</string>
       	<string name="string_game_button_replay">再來一局</string>
 	<string name="string_game_button_rate">評價遊戲</string>
 	<string name="string_game_button_wechat">微信分享</string>

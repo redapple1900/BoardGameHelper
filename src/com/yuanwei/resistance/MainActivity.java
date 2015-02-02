@@ -156,11 +156,19 @@ public class MainActivity extends FragmentActivity implements OnInitListener,
 			
 		
 		if (share.getString(DataSet.THEME,"").equals(DataSet.THEME_MILITARY)){
+			try{
 			pictures = getResources().obtainTypedArray(R.array.images);
+			}
+			finally{
+				pictures.recycle();
+			}
+		}else{ 
+			try{
+				pictures=getResources().obtainTypedArray(R.array.icon);
+			}
+			finally{
 			pictures.recycle();
-		}		
-		else{ pictures=getResources().obtainTypedArray(R.array.icon);
-		pictures.recycle();
+			}
 		}
 		image = new int[TOTAL_PLAYERS];
 		Arrays.fill(image, 0);
@@ -330,7 +338,7 @@ public class MainActivity extends FragmentActivity implements OnInitListener,
 				+ "\n\n" + getString(R.string.script_close_eyes) + "\n\n"
 				+ getString(R.string.script_spies_find_each_other) + "\n\n"
 				+ getString(R.string.script_spies_close_eyes) + "\n\n"
-				+ getString(R.string.script_open_eyes));// "¼äµýÖªµÀ×Ô¼ºÍ¬°éÁËÃ´?Çë²¥·Å¡°ÓïÒôÌáÊ¾¡±\n\n»òÕßËÐ¶ÁÒÔÏÂÌáÊ¾Óï£º\n´ó¼ÒÇë±ÕÑÛ¡£\n¼äµýÇëÕöÑÛ¡£\n¼äµýÏà»¥ÈÏÊ¶¡£\n¼äµýÇë±ÕÑÛ¡£\nÇë´ó¼Ò¶¼ÕöÑÛ¡£\n\nÁ½¾äÖ®¼äÁô³ö¼¸ÃëÊ±¼ä. ");
+				+ getString(R.string.script_open_eyes));// "ï¿½ï¿½ï¿½Öªï¿½ï¿½ï¿½Ô¼ï¿½Í¬ï¿½ï¿½ï¿½ï¿½Ã´?ï¿½ë²¥ï¿½Å¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½\n\nï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï£º\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û¡ï¿½\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û¡ï¿½\nï¿½ï¿½ï¿½ï¿½à»¥ï¿½ï¿½Ê¶ï¿½ï¿½\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Û¡ï¿½\nï¿½ï¿½ï¿½Ò¶ï¿½ï¿½ï¿½ï¿½Û¡ï¿½\n\nï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½. ");
 		button = (Button) findViewById(R.id.button_showIndentity_Main);
 		button.setOnClickListener(new Button.OnClickListener() {
 

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory 
+
+  android:title="設定"
+
+  android:key="setting">
+<!--  
+  <CheckBoxPreference 
+
+android:key="language"
+
+android:summary="Enable or disable data updates"
+
+android:title="Lan" 
+
+android:defaultValue="true"
+
+  />
+-->
+  <ListPreference 
+
+android:key="language"
+
+android:title="語言"
+
+android:summary="遊戲語言"
+
+android:defaultValue="default" 
+
+android:entries="@array/language"
+
+android:entryValues="@array/languageValues"/>
+
+<ListPreference 
+
+android:key="theme"
+
+android:title="圖片"
+
+android:summary="遊戲圖片"
+
+android:defaultValue="default" 
+
+android:entries="@array/theme"
+
+android:entryValues="@array/themeValues"/>
+
+<!--  android:dependency="perform_updates"-->
+
+     
+<!--  
+    </PreferenceCategory>
+
+    <PreferenceCategory 
+
+  android:title="Second Category"
+
+  android:key="second_category">
+
+  <EditTextPreference
+
+android:key="welcome_message"
+
+android:title="Welcome Message" 
+
+android:summary="Define the Welcome message to be shown"
+
+android:dialogTitle="Welcome Message"
+
+android:dialogMessage="Provide a message"    
+
+android:defaultValue="Default welcome message" />
+-->
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -123,6 +123,7 @@
     <string name="toast_customgame">Sorry we need at least 5 players</string>
     <string name="string_manu">Add Stranger:Use this button if you don\'n t know some player\'s name。\n\n Add:Use this for friends and acquitances.\n\nClick someone\'s name to remove</string>
     <!-- END GAME -->
+    <string name="string_gplus_not_installed">"Sorry. Google Plus Not Installed. "</string>
     <string name="string_thievies_win">Resistance Operatives Win!</string>
     <string name="string_thievies_win_large">Resistance Operatives Win!</string>
     <string name="string_spies_win">Spies Win!</string>
@@ -173,6 +174,7 @@
       <string name ="array_themeValues">themeValues</string>
       <string name ="array_images">images</string>
       <string name ="array_icon">icon</string>
+      
     
 
 
