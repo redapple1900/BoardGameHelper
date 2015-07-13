@@ -18,7 +18,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="#FF0000"
+            android:divider="#FF000000"
             android:dividerHeight="@dimen/padding_layout"
             android:dividerPadding="@dimen/padding_layout"
             android:padding="@dimen/padding_layout"
@@ -31,7 +31,9 @@
                 android:layout_weight="1"
                 android:layout_margin="6dp"
                 android:background="@drawable/mybutton"
-                android:text="@string/string_dialog_inputname_cancel" />
+                android:text="@string/string_dialog_inputname_cancel"
+                android:textColor="#FF000000"
+                android:padding="1dp"/>
 
             <Button
                 android:id="@+id/Button_OK_input"
@@ -40,7 +42,9 @@
                 android:layout_weight="1"
                 android:layout_margin="6dp"
                 android:background="@drawable/mybutton"
-                android:text="@string/string_dialog_inputname_OK" />
+                android:text="@string/string_dialog_inputname_OK"
+                android:textColor="#FF000000"
+                android:padding="1dp"/>
 
         </LinearLayout>
 

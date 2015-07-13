@@ -3,24 +3,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_excution"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <FrameLayout
         android:id="@+id/content_top_gameactivity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0" >
+        android:layout_weight="0">
 
         <LinearLayout
             android:id="@+id/linearLayout1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="top|center_horizontal"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/imageView_game"
@@ -52,8 +52,7 @@
                 android:scrollbarStyle="insideOverlay"
                 android:scrollbars="vertical"
                 android:stretchMode="columnWidth"
-                android:verticalSpacing="6dp" >
-            </GridView>
+                android:verticalSpacing="6dp"></GridView>
 
         </LinearLayout>
     </FrameLayout>
@@ -62,18 +61,18 @@
         android:id="@+id/content_gameactivity"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" >
+        android:layout_weight="1">
 
         <RelativeLayout
-            android:id="@+id/layout_middle_game "
+            android:id="@+id/layout_middle_game"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="fill_parent"
                 android:layout_alignParentTop="true"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <GridView
                     android:id="@+id/grid"
@@ -86,8 +85,7 @@
                     android:scrollbarStyle="insideOverlay"
                     android:scrollbars="vertical"
                     android:stretchMode="columnWidth"
-                    android:verticalSpacing="4dp" >
-                </GridView>
+                    android:verticalSpacing="4dp"></GridView>
 
                 <TextView
                     android:id="@+id/textView_indentity_Game"
@@ -103,7 +101,7 @@
                     android:layout_gravity="center"
                     android:alpha="0.8"
                     android:background="@android:color/transparent"
-                   android:drawableTop="@drawable/propose"
+                    android:drawableTop="@drawable/propose"
                     android:gravity="bottom|center_horizontal"
                     android:padding="@dimen/padding_layout"
                     android:textColor="@android:color/white" />
@@ -113,31 +111,31 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:orientation="horizontal"
                     android:baselineAligned="false"
-                    android:visibility="gone" >
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <RelativeLayout
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1" >
+                        android:layout_weight="1">
 
                         <Button
                             android:id="@+id/button_replay"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
                             android:layout_gravity="center"
-                             android:layout_centerInParent="true"
-                            android:drawableTop="@drawable/replay"
                             android:background="@android:color/transparent"
+                            android:drawableTop="@drawable/replay"
                             android:gravity="bottom|center_horizontal"
                             android:text="@string/string_topstatus3_game"
                             android:textColor="@android:color/white" />
 
                     </RelativeLayout>
-			
 
-					<!--  
+
+                    <!--
                     <RelativeLayout
                           android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -155,35 +153,36 @@
                             android:text="Facebook"
                             android:textColor="@android:color/white" />
                     </RelativeLayout>
-					-->
-					 <RelativeLayout
-                         android:layout_width="0dp"
+                    -->
+                    <RelativeLayout
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1" >
+                        android:layout_weight="1">
 
                         <Button
                             android:id="@+id/button_rate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
                             android:layout_gravity="center"
-                             android:layout_centerInParent="true"
                             android:background="@android:color/transparent"
                             android:drawableTop="@drawable/rate"
                             android:gravity="bottom|center_horizontal"
                             android:text="@string/string_game_button_rate"
                             android:textColor="@android:color/white" />
                     </RelativeLayout>
-                                        <RelativeLayout
-                         android:layout_width="0dp"
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1" >
+                        android:layout_weight="1">
 
                         <Button
                             android:id="@+id/button_share_gplus"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
                             android:layout_gravity="center"
-                             android:layout_centerInParent="true"
                             android:background="@android:color/transparent"
                             android:drawableTop="@drawable/gplus"
                             android:gravity="bottom|center_horizontal"
@@ -209,7 +208,7 @@
                             android:textColor="@android:color/white" />
                     </RelativeLayout>-->
                 </LinearLayout>
-                	
+
                 <!-- Hold four share buttons -->
 
             </LinearLayout>
@@ -225,7 +224,7 @@
                 android:scrollbarStyle="insideOverlay"
                 android:scrollbars="vertical"
                 android:stretchMode="columnWidth"
-                android:verticalSpacing="4dp" >
+                android:verticalSpacing="4dp">
 
             </GridView>
         </RelativeLayout>

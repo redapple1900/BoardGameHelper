@@ -1,9 +1,5 @@
 package com.yuanwei.resistance.gridviewtest;
 
-import com.yuanwei.resistance.R;
-import java.util.ArrayList;
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.Gravity;
@@ -13,6 +9,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.yuanwei.resistance.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressLint("InflateParams")
 public class TableGridAdapter extends BaseAdapter{
@@ -24,15 +25,6 @@ public class TableGridAdapter extends BaseAdapter{
    private List<Item> mItems = new ArrayList<TableGridAdapter.Item>();
    private Context mContext;
    public TableGridAdapter(Context context) {
-       //≤‚ ‘ ˝æ›
-	   /*
-       for (int i = 0; i < 50; i++) {
-           Item object = new Item();
-           object.text = "Text "+i;
-           object.resId = R.drawable.ic_launcher;
-           mItems.add(object);
-       }
-       */
        mContext = context;
    }
    public void addItem(Item item){

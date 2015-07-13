@@ -7,7 +7,7 @@
     <dimen name="button_width_quickstart">100dp</dimen>
     <dimen name="text_size">24sp</dimen>
     <dimen name="small_text_size">12sp</dimen>
-    <dimen name="small_text_gridview">8sp</dimen>
+    <dimen name="small_text_gridview">12sp</dimen>
     <dimen name="small_image_size">24dp</dimen>
     <dimen name="labelSize">16dp</dimen>
     <dimen name="padding_layout">3dp</dimen>

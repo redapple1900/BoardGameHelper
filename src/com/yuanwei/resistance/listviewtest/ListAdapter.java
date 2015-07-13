@@ -1,17 +1,17 @@
 package com.yuanwei.resistance.listviewtest;
 
-import com.yuanwei.resistance.R;
-import java.util.ArrayList;
-import java.util.List;
-
-import com.yuanwei.resistance.playerdatabase.Player;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.yuanwei.resistance.R;
+import com.yuanwei.resistance.model.Player;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ListAdapter extends BaseAdapter {
 	private class ViewHolder {
@@ -29,6 +29,14 @@ public class ListAdapter extends BaseAdapter {
 		this.context = context;
 		this.mItems = list;
 	}
+
+    public ListAdapter(Context context) {
+        this(context, null);
+    }
+
+    public void setDataSource (List<Player> list) {
+        this.mItems = list;
+    }
 
 	public void addPlayer(Player item) {
 		mItems.add(item);
