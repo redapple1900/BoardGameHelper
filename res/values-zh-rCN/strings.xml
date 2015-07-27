@@ -87,13 +87,13 @@
     <string name="string_builder_positive_game">确定</string>
     <string name="string_builder_negative_game">返回</string>
     <string name="string_button_timer">讨论结束</string>
-    <string name=" string_title_veto_game">提名否决</string>
-    <string name=" string_message_veto_game">很遗憾，您的组队提名没有得到大家的肯定。或许这正是你的本意？\n
+    <string name="string_title_veto_game">提名否决</string>
+    <string name="string_message_veto_game">很遗憾，您的组队提名没有得到大家的肯定。或许这正是你的本意？\n
                请把平板（手机）交给下一位队长</string>
-    <string name=" string_caption_bottom1_game">投票</string>
-    <string name=" string_caption_bottom2_game">人数</string>
-    <string name=" string_caption_bottom3_game">任务</string>
-    <string name=" string_leader">队长</string>
+    <string name="string_caption_bottom1_game">投票</string>
+    <string name="string_caption_bottom2_game">人数</string>
+    <string name="string_caption_bottom3_game">任务</string>
+    <string name="string_leader">队长</string>
     <string name="string_hint_excution">按住指纹进入下一个界面</string>
     <string name="string_rule0">1.应用说明：\n本应用根据桌面游戏《抵抗组织》(Don Eskridge\'s Resistance)改编，可允许5至10人进行游戏，推荐人数为6人。\n</string>
     <string name="string_rule1">2.故事背景：\n在场玩家来自抵抗组织某分部，根据上级提供的情报，我们当中混入了几名间谍，他们彼此知道谁是同伴，而我们并不知道。由于好人仍占多数，上级决定仍然让我们这个分部来执行任务。我们接下来要执行5个任务，如果能执行成功3个，则抵抗组织方获胜，否则我们就会被取消编制，间谍方获胜。\n\n3.游戏目标：\n如故事背景所示，玩家们分为两派，叛军与间谍。在默认条件下，叛军玩家不知道场上其他人的身份，而间谍玩家知道所有人身份。游戏中设置了5次任务，代表抵抗组织的秘密行动。叛军方目标是完成3次任务，间谍方的目标是破坏三次任务。</string>

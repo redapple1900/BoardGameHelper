@@ -13,7 +13,7 @@ public class CustomGameActivity extends FragmentActivity {
 		GeneralMethodSet gms=new GeneralMethodSet();
 		gms.updateLanguage(this);
 		gms.setActivityTheme(this);
-		gms=null;
+
         setContentView(R.layout.activity_custom_game);
 
 

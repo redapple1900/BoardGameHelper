@@ -33,14 +33,14 @@
     <string name="string_clear_customgame">Clear List</string>
     <string name="string_startgame_customgame">Start Game</string>
     <string name="string_newplayer_customgame">New Player</string>
-        <string name="string_dialog_inputname_cancel">Cancel</string>
+    <string name="string_dialog_inputname_cancel">Cancel</string>
     <string name="string_dialog_inputname_OK">OK</string>
     <!-- MainActivity -->
     <string name="string_player_main">player</string>
     <string name="string_buildertitle_main">Your Identity:\n</string>
     <string name="string_builder_positivebutton_main">Got it.</string>
     <string name="string_builder_inputname_title_main">Hello, can I have your name?</string>
-     <string name="string_toast1_main">The app will store your name if you provided one.</string>
+    <string name="string_toast1_main">The app will store your name if you provided one.</string>
     <string name="string_toast2_main">All cards Out</string>
     <string name="string_button1_main">Show your idetity</string>
     <string name="string_button2_main">Let\'s start!</string>
@@ -50,14 +50,9 @@
     <string name="string_builder_next_message_last_main">Please pass the tablet to the leader</string>
     <!-- MainActivity PlaySound Dialog -->
     <string name="string_main_sound_title">Finnally..</string>
-	<string name="string_main_sound_positive">All Ready!</string>
-	<string name="string_main_sound_neutral">Play Sound</string>
-	<string name="string_main_sound_message">Do spies know each other?\n\nIf not, click the "Play Sound" button.\nOr someone may narrate the following scripts.\n </string>
-	
-    <!-- GameActivity Bottom Table -->
-    <string name=" string_caption_bottom1_game">Vote</string>
-    <string name=" string_caption_bottom2_game">Players</string>
-    <string name=" string_caption_bottom3_game">Mission</string>
+    <string name="string_main_sound_positive">All Ready!</string>
+    <string name="string_main_sound_neutral">Play Sound</string>
+    <string name="string_main_sound_message">Do spies know each other?\n\nIf not, click the "Play Sound" button.\nOr someone may narrate the following scripts.\n </string>
 
     <!-- GameActivity Button and Dialog -->
     <string name="string_builder_vote_message_before_Game">Leader:\n\nLet everybody knows your selection\n\nand start DISCUSSION</string>
@@ -81,32 +76,29 @@
 
     <string name="string_message_failvotes_game">%1$d Players failed the mission</string>
     <string name="string_message_failvote_game">1 Player failed the mission</string>
-	<string name="string_game_button_replay">One More!</string>
-	<string name="string_game_button_rate">Rate me!</string>
-	<string name="string_game_button_wechat">Share on WeChat</string>
+    <string name="string_game_button_replay">One More!</string>
+    <string name="string_game_button_rate">Rate me!</string>
+    <string name="string_game_button_wechat">Share on WeChat</string>
     <!-- TODO -->
-       <string name="string_toast2_game">The application is not installed on your tablet</string>
+    <string name="string_toast2_game">The application is not installed on your tablet</string>
     <string name="string_toast1_game">No extra space for a team member</string>
     <string name="string_builder_message_team_propose_game">Leader:\n\nPlease CONFIRM your selection.</string>
     <string name="string_builder_positive_game">OK</string>
     <string name="string_builder_negative_game">Back</string>
     <string name="string_button_timer">Stop Discussion</string>
-    <string name=" string_title_veto_game">Rejected</string>
-    <string name=" string_message_veto_game">Your proposal did not pass.\n \nPlase pass the phone to the next leader</string>
-    <string name=" string_leader">Leader</string>
     <string name="string_hint_excution">Press fingerprint</string>
-   <!-- WelcomeActivity HelpFragment -->
+    <!-- WelcomeActivity HelpFragment -->
     <string name="string_rule0">1.Summary:\n\nThis mobile application is a helper for the party game <i>The Resistance</i>. It allows 5 to 10 persons to play together.\n</string>
     <string name="string_rule1">2.Background:\n\nThe Resistance is a party game of social deduction. It is designed for five to ten players, lasts about 30 minutes, and has no player elimination. The Resistance is inspired by Mafia/Werewolf, yet it is unique in its core mechanics, which increase the resources for informed decisions, intensify player interaction, and eliminate player elimination.\n\nPlayers are either Resistance Operatives or Imperial Spies. For three to five rounds, they must depend on each other to carry out missions against the Empire. At the same time, they must try to deduce the other players’ identities and gain their trust.</string>
     <string name="string_rules4">If found any bug, or any idea about the game. Please contact me by sending email from this page.</string>
     <string name="string_rules3">4.Tips:\n\nDo not let the team proposal pass so easy! Take some time to watch the votes of other persons.\n</string>
-    <string name ="string_rule2">3.Rules:\nApproximately one third of the players are randomly chosen as spies,the rest are members of the Resistance.\n\nThe spies know who the other spies are, but Resistance members do not.\n\nEach mission has a leader. The leader proposes a mission team of a certain size, which the group approves by public vote.\n\nIf the group does not approve the mission by a simple majority, leadership passes to the next player.\n\nIf the group cannot approve a mission team after five attempts, the spies win.\n\nOnce a mission team is chosen, it votes by secret ballot whether the mission succeeds or fails.\n\nResistance members will always vote for success, but spies have the option of voting for success or failure.\n\n
+    <string name="string_rule2">3.Rules:\nApproximately one third of the players are randomly chosen as spies,the rest are members of the Resistance.\n\nThe spies know who the other spies are, but Resistance members do not.\n\nEach mission has a leader. The leader proposes a mission team of a certain size, which the group approves by public vote.\n\nIf the group does not approve the mission by a simple majority, leadership passes to the next player.\n\nIf the group cannot approve a mission team after five attempts, the spies win.\n\nOnce a mission team is chosen, it votes by secret ballot whether the mission succeeds or fails.\n\nResistance members will always vote for success, but spies have the option of voting for success or failure.\n\n
     It usually only takes one spy on the mission team to sabotage a mission, but sometimes the fourth mission requires two.\n\nIf three missions succeed, the Resistance wins. If three fail, the spies win. \n\nAnd finally, the last, but most important rule of all:\n\nYou are allowed to say anything, to any one, at any time,as long as it is said publicly. </string>
     <string name="string_gamesetting_main">Resistance:%1$d Spy:%2$d</string>
-    
+
     <string name="string_sabotage_execution">Fail </string>
     <string name="string_execution_execution">Execute </string>
-  
+
     <string name="string_message_timer">Let\'s VOTE!</string>
     <string name="string_playsound">Play sound</string>
     <string name="string_playsound_toast">Volume too low, please adjust the volume</string>
@@ -124,12 +116,12 @@
     <string name="string_thievies_win_large">Resistance Operatives Win!</string>
     <string name="string_spies_win">Spies Win!</string>
     <string name="string_spies_win_large">Spies Win!</string>
-       <!-- Resistance scripts -->
+    <!-- Resistance scripts -->
     <string name="script_close_eyes">Everyone close your eyes.</string>
     <string name="script_spies_find_each_other">Spies open your eyes. Look around, and make sure that you know all the other Spies.</string>
     <string name="script_spies_close_eyes">Spies close your eyes.</string>
     <string name="script_open_eyes">Everyone open your eyes.</string>
-        <!-- Avalon scripts -->
+    <!-- Avalon scripts -->
     <string name="script_close_eyes_extend_fists">Everyone close your eyes and extend your hand into a fist in front of you.</string>
     <string name="script_evil_find_each_other">Minions of Mordred, open your eyes and look around so that you know all agents of Evil.</string>
     <string name="script_evil_find_each_other_except_oberon">Minions of Mordred (except Oberon), open your eyes and look around so that you know all agents of Evil.</string>
@@ -148,7 +140,7 @@
     <string name="script_percival_close_eyes">Percival, close your eyes.</string>
     <string name="script_lancelot_know_each_other">Lancelot, open your eyes to reveal your counterpart.</string>
     <string name="script_lancelot_close_eyes">Lancelot, close your eyes.</string>
-        <!-- ListView UI -->
+    <!-- ListView UI -->
     <string name="option_merlin_assassin">Merlin/Assassin</string>
     <string name="option_merlin_assassin_description">Merlin knows evil, must remain hidden</string>
     <string name="option_percival">Percival</string>

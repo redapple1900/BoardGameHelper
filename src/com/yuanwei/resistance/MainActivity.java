@@ -21,7 +21,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.InputFilter;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
@@ -93,32 +92,6 @@ public class MainActivity extends FragmentActivity implements OnInitListener,
         }
 
         return super.onKeyDown(keyCode, event);
-    }
-
-    private void showExitGameAlert() {
-        final AlertDialog.Builder dlg = new AlertDialog.Builder(this);
-        dlg.setTitle(getString(R.string.string_exit_title));
-        dlg.setMessage(getString(R.string.string_exit_message));
-        dlg.setPositiveButton(getString(R.string.string_exit_positive),
-                new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        onTerminate();
-                    }
-                });
-
-        dlg.setNegativeButton(getString(R.string.string_exit_negative),
-                new DialogInterface.OnClickListener() {
-
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        dialog.dismiss();
-                    }
-                });
-        dlg.show();
     }
 
     public void initViews() {
@@ -287,6 +260,32 @@ public class MainActivity extends FragmentActivity implements OnInitListener,
         mConfig.load(this);
 
         isSoundPlayed = false;
+    }
+
+    private void showExitGameAlert() {
+        final AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+        dlg.setTitle(getString(R.string.string_exit_title));
+        dlg.setMessage(getString(R.string.string_exit_message));
+        dlg.setPositiveButton(getString(R.string.string_exit_positive),
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        onTerminate();
+                    }
+                });
+
+        dlg.setNegativeButton(getString(R.string.string_exit_negative),
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        dialog.dismiss();
+                    }
+                });
+        dlg.show();
     }
 
     private void startNextActivity() {
@@ -477,23 +476,26 @@ public class MainActivity extends FragmentActivity implements OnInitListener,
     }
 
     private int getVolume() {
-        int volume = -1;
-
-        getApplicationContext();
-        AudioManager audioManager = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
-        volume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-        Log.i("STREAM_RING", "" + volume);
-
-        return volume;
+        return ((AudioManager) getSystemService(Context.AUDIO_SERVICE))
+                .getStreamVolume(AudioManager.STREAM_MUSIC);
     }
 
     public void onTerminate() {
 
-        MainActivity.this.finish();
+        finish();
 
         onDestroy();
 
         System.exit(0);
+    }
+
+    @Override
+    protected  void onDestroy() {
+        if (mTTS != null) {
+            mTTS.stop();
+            mTTS.shutdown();
+        }
+        super.onDestroy();
     }
 
     private void showFragments(int id) {

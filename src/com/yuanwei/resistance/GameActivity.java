@@ -1,7 +1,6 @@
 package com.yuanwei.resistance;
 
 
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
@@ -23,13 +22,13 @@ import android.widget.Toast;
 
 import com.yuanwei.resistance.gridviewtest.GridAdapter;
 import com.yuanwei.resistance.gridviewtest.TableGridAdapter;
-import com.yuanwei.resistance.model.Game;
-import com.yuanwei.resistance.model.GameEvent;
+import com.yuanwei.resistance.model.BaseGameEvent;
 import com.yuanwei.resistance.model.Gamer;
 import com.yuanwei.resistance.model.Player;
-import com.yuanwei.resistance.model.protocol.Event;
+import com.yuanwei.resistance.model.ResistanceGameEvent;
 import com.yuanwei.resistance.model.protocol.GameEventListener;
 import com.yuanwei.resistance.model.protocol.GamePresenter;
+import com.yuanwei.resistance.moderator.Game;
 import com.yuanwei.resistance.playerdatabase.PlayerDataSource;
 import com.yuanwei.resistance.widget.ButtonOnTouchListener;
 
@@ -126,7 +125,7 @@ public class GameActivity extends FragmentActivity implements
 	public void initViews() {
 
 		textview_topStatus = (TextView) findViewById(R.id.textview_topStatus_Game);
-		layout = findViewById(R.id.content_gameactivity);
+		layout = findViewById(R.id.layout_middle_game);
 		setTopStatus(0);
 		mGridAdapter = new GridAdapter(getApplicationContext());
 		for (int i = 0, j = game.getTotalPlayers(); i < j; i++) {
@@ -780,7 +779,8 @@ public class GameActivity extends FragmentActivity implements
                                 @Override
                                 public void onClick(
                                         DialogInterface dialog, int which) {
-                                    game.updateGameByEvent(GameEvent.PROPOSE, 0);
+                                    game.updateGameByEvent(
+                                            new ResistanceGameEvent(ResistanceGameEvent.PROPOSE), 0);
                                 }})
                     .setNegativeButton(
                             getString(R.string.string_builder_negative_game),
@@ -798,7 +798,7 @@ public class GameActivity extends FragmentActivity implements
     private View.OnClickListener reportResultButtonOnClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            game.updateGameByEvent(GameEvent.SHOW_RESULTS, 0);
+            game.updateGameByEvent(new ResistanceGameEvent(ResistanceGameEvent.SHOW_RESULTS), 0);
         }
     };
 
@@ -816,102 +816,118 @@ public class GameActivity extends FragmentActivity implements
     }
 
     @Override
-    public void updateViewBeforeEvent(Event event, int extra) {
-        if (event.getEventType().equals(GameEvent.PROPOSE.name())) {
-            layout.setVisibility(View.GONE);
-            setBottomStatus(game.currentMission, 0);
-            setTopStatus(1);
-        } else if (event.getEventType().equals(GameEvent.PROPOSE_PASSED.name())) {
-            setTeamProposedStatus(game.timeOfTeamPropose, true);//Handle bottom status
-            setTopStatus(2);
-            button.setText(getString(R.string.string_button_start_game));
-            button.setOnClickListener(reportResultButtonOnClickListener);
-            view.setEnabled(false);//To avoid team member selection after mission execution 09.01.2014
-        }else if (event.getEventType().equals(GameEvent.PROPOSE_VETO.name())) {
-            setTeamProposedStatus(game.timeOfTeamPropose, false);
-            setTopStatus(0);
-            setBottomStatus(game.currentMission, 0);
-            setLeader(game.getLeaderPosition());
-            layout.setVisibility(View.VISIBLE);
-            button.setText(getString(R.string.string_button_propose_game));
-            button.setVisibility(View.GONE);
-            resetCandidates();
-            hideFragments();
-            showFragments(-1);
-        }else if (event.getEventType().equals(GameEvent.SHOW_RESULTS.name())) {
-            setTopStatus(0);
-            view.setEnabled(true);
-            clearTeamProposedStatus();
-            setLeader(game.getLeaderPosition());
-            mGridAdapter.notifyDataSetChanged();
-        } else if (event.getEventType().equals(GameEvent.MISSION_SUCCEED.name())) {
-            if (mDialog == null || (!mDialog.isShowing())) {
-                mDialog = getMissionResultDialog(extra, true);
-                mDialog.show();
-            }
-            setBottomStatus(game.currentMission, 1);
-            labelToken(GridAdapter.Token.WIN);
-            resetCandidates();
-        } else if (event.getEventType().equals(GameEvent.MISSION_FAILED.name())) {
-            if (mDialog == null || (!mDialog.isShowing())) {
-                mDialog = getMissionResultDialog(extra, false);
-                mDialog.show();
-            }
-            setBottomStatus(game.currentMission, -1);
-            labelToken(GridAdapter.Token.LOSE);
-            resetCandidates();
+    public void updateViewBeforeEvent(BaseGameEvent event, int extra) {
+        switch (event.getType()) {
+            case ResistanceGameEvent.PROPOSE:
+                layout.setVisibility(View.GONE);
+                setBottomStatus(game.currentMission, 0);
+                setTopStatus(1);
+                break;
+            case ResistanceGameEvent.PROPOSE_PASSED:
+                setTeamProposedStatus(game.timeOfTeamPropose, true);//Handle bottom status
+                setTopStatus(2);
+                button.setText(getString(R.string.string_button_start_game));
+                button.setOnClickListener(reportResultButtonOnClickListener);
+                view.setEnabled(false);//To avoid team member selection after mission execution 09.01.2014
+                break;
+            case ResistanceGameEvent.PROPOSE_VETO:
+                setTeamProposedStatus(game.timeOfTeamPropose, false);
+                setTopStatus(0);
+                setBottomStatus(game.currentMission, 0);
+                setLeader(game.getLeaderPosition());
+                layout.setVisibility(View.VISIBLE);
+                button.setText(getString(R.string.string_button_propose_game));
+                button.setVisibility(View.GONE);
+                resetCandidates();
+                hideFragments();
+                showFragments(-1);
+                break;
+            case ResistanceGameEvent.SHOW_RESULTS:
+                setTopStatus(0);
+                view.setEnabled(true);
+                clearTeamProposedStatus();
+                setLeader(game.getLeaderPosition());
+                mGridAdapter.notifyDataSetChanged();
+                break;
+            case ResistanceGameEvent.MISSION_SUCCEED:
+                if (mDialog == null || (!mDialog.isShowing())) {
+                    mDialog = getMissionResultDialog(extra, true);
+                    mDialog.show();
+                }
+                setBottomStatus(game.currentMission, 1);
+                labelToken(GridAdapter.Token.WIN);
+                resetCandidates();
+                break;
+            case ResistanceGameEvent.MISSION_FAILED:
+                if (mDialog == null || (!mDialog.isShowing())) {
+                    mDialog = getMissionResultDialog(extra, false);
+                    mDialog.show();
+                }
+                setBottomStatus(game.currentMission, -1);
+                labelToken(GridAdapter.Token.LOSE);
+                resetCandidates();
+                break;
         }
     }
 
     @Override
-    public void updateViewAfterEvent(Event event) {
-        if (event.getEventType().equals(GameEvent.PROPOSE.name())) {
-            builder_leader
-                    .setMessage(
-                            getString(R.string.string_builder_vote_message_before_Game))
-                    .setPositiveButton(
-                            getString(R.string.string_builder_positive_game),
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
-                            }).show();
-            showFragments(-2);// show vote Fragment
-        } else if (event.getEventType().equals(GameEvent.PROPOSE_VETO.name())){
-            builder_result
-                    .setIcon(R.drawable.veto)
-                    .setTitle(getString(R.string.string_title_veto_game))
-                    .setMessage(
-                            getString(R.string.string_message_veto_game) + ":"
-                                    + game.getLeader().getName())
-                    .setPositiveButton(
-                            getString(R.string.string_builder_positive_game), null)
-                    .show();
+    public void updateViewAfterEvent(BaseGameEvent event) {
+        switch (event.getType()) {
+            case ResistanceGameEvent.PROPOSE:
+                builder_leader
+                        .setMessage(
+                                getString(R.string.string_builder_vote_message_before_Game))
+                        .setPositiveButton(
+                                getString(R.string.string_builder_positive_game),
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                }).show();
+                showFragments(-2);// show vote Fragment
+                break;
+            case ResistanceGameEvent.PROPOSE_VETO:
+                builder_result
+                        .setIcon(R.drawable.veto)
+                        .setTitle(getString(R.string.string_title_veto_game))
+                        .setMessage(
+                                getString(R.string.string_message_veto_game) + ":"
+                                        + game.getLeader().getName())
+                        .setPositiveButton(
+                                getString(R.string.string_builder_positive_game), null)
+                        .show();
 
-            setLeader(game.getLeaderPosition());
-            mGridAdapter.notifyDataSetChanged();
-        } else if (event.getEventType().equals(GameEvent.MISSION_EXECUTION_CONTINUE.name())) {
-            showFocusTransitionDialog(false);
-            showFragments(0);
-        } else if (event.getEventType().equals(GameEvent.MISSION_EXECUTION_COMPLETED.name())) {
-            showFocusTransitionDialog(true);
-            layout.setVisibility(View.VISIBLE);
-            hideFragments();
-            showFragments(-1);
-        } else if (event.getEventType().equals(GameEvent.MISSION_EXECUTION_START.name())) {
-            hideFragments();
-            showFocusTransitionDialog(false);
-            showFragments(0);
-        } else if (event.getEventType().equals(GameEvent.SHOW_RESULTS.name())) {
-            setLeader(game.getLeaderPosition());
-            button.setText(getString(R.string.string_button_propose_game));
-            button.setVisibility(View.GONE);
-            button.setOnClickListener(mainButtonOnClickListener);
-            layout.setVisibility(View.VISIBLE);
-        } else if (event.getEventType().equals(GameEvent.RESISTANCE_WIN.name())) {
-            endGame(Game.Result.WIN);
-        } else if (event.getEventType().equals(GameEvent.SPY_WIN.name())) {
-            endGame(Game.Result.LOSE);
+                setLeader(game.getLeaderPosition());
+                mGridAdapter.notifyDataSetChanged();
+                break;
+            case ResistanceGameEvent.MISSION_EXECUTION_CONTINUE:
+                showFocusTransitionDialog(false);
+                showFragments(0);
+                break;
+            case ResistanceGameEvent.MISSION_EXECUTION_COMPLETED:
+                showFocusTransitionDialog(true);
+                layout.setVisibility(View.VISIBLE);
+                hideFragments();
+                showFragments(-1);
+                break;
+            case ResistanceGameEvent.MISSION_EXECUTION_START:
+                hideFragments();
+                showFocusTransitionDialog(false);
+                showFragments(0);
+                break;
+            case ResistanceGameEvent.SHOW_RESULTS:
+                setLeader(game.getLeaderPosition());
+                button.setText(getString(R.string.string_button_propose_game));
+                button.setVisibility(View.GONE);
+                button.setOnClickListener(mainButtonOnClickListener);
+                layout.setVisibility(View.VISIBLE);
+                break;
+            case ResistanceGameEvent.RESISTANCE_WIN:
+                endGame(Game.Result.WIN);
+                break;
+            case ResistanceGameEvent.SPY_WIN:
+                endGame(Game.Result.LOSE);
+                break;
         }
     }
 
@@ -923,13 +939,17 @@ public class GameActivity extends FragmentActivity implements
                 showFragments(1);
                 break;
             case MissionFragment.TAG:
-                game.updateGameByEvent(GameEvent.MISSION_EXECUTION_CONTINUE, extra);
+                game.updateGameByEvent(
+                        new ResistanceGameEvent(ResistanceGameEvent.MISSION_EXECUTION_CONTINUE),
+                        extra);
                 break;
             case VoteFragment.TAG:
                 if (extra == 1) {
-                    game.updateGameByEvent(GameEvent.PROPOSE_PASSED, 0);
+                    game.updateGameByEvent(
+                            new ResistanceGameEvent(ResistanceGameEvent.PROPOSE_PASSED), 0);
                 } else {
-                    game.updateGameByEvent(GameEvent.PROPOSE_VETO, 0);
+                    game.updateGameByEvent(
+                            new ResistanceGameEvent(ResistanceGameEvent.PROPOSE_VETO), 0);
                 }
                 break;
             case TimerFragment.TAG:

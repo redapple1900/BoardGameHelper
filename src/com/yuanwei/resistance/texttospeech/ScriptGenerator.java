@@ -1,9 +1,11 @@
 package com.yuanwei.resistance.texttospeech;
 
-import java.util.HashMap;
-import com.yuanwei.resistance.R;
 import android.content.Context;
 import android.speech.tts.TextToSpeech;
+
+import com.yuanwei.resistance.R;
+
+import java.util.HashMap;
 
 public class ScriptGenerator {
 
@@ -30,13 +32,13 @@ public class ScriptGenerator {
 		}
 
 		boolean allDisabled = true;
-		/*
-		for (Option option : Config.OPTIONS_ORDERED) {
+
+		for (Config.Option option : Config.OPTIONS_ORDERED) {
 			if (config.isOptionEnabled(option)) {
 				allDisabled = false;
 			}
 		}
-		*/
+
 		// If all are disabled, use the basic Resistance terminology 
 		if (allDisabled) {
 			speak(R.string.script_close_eyes);
@@ -46,22 +48,22 @@ public class ScriptGenerator {
 			speak(R.string.script_spies_close_eyes);
 			shortPause();
 		}
-		/*
+
 		// If any are enabled, use Avalon terminology
 		else {
-			boolean merlinEnabled = config.isOptionEnabled(Option.MERLIN_ASSASSIN);
+			boolean merlinEnabled = config.isOptionEnabled(Config.Option.MERLIN_ASSASSIN);
 
 			speak(merlinEnabled ? R.string.script_close_eyes_extend_fists : R.string.script_close_eyes);
 			shortPause();
 
-			speak(config.isOptionEnabled(Option.OBERON) ? R.string.script_evil_find_each_other_except_oberon
-					: R.string.script_evil_find_each_other);
+			speak(config.isOptionEnabled(Config.Option.OBERON) ? R.string.script_evil_find_each_other_except_oberon
+                    : R.string.script_evil_find_each_other);
 			longPause();
 			speak(R.string.script_evil_close_eyes);
 			shortPause();
 
 			if (merlinEnabled) {
-				speak(config.isOptionEnabled(Option.MORDRED) ? R.string.script_evil_be_known_except_mordred
+				speak(config.isOptionEnabled(Config.Option.MORDRED) ? R.string.script_evil_be_known_except_mordred
 						: R.string.script_evil_be_known);
 				shortPause();
 				speak(R.string.script_merlin_know_evil);
@@ -70,8 +72,8 @@ public class ScriptGenerator {
 				speak(R.string.script_merlin_close_eyes);
 				shortPause();
 
-				if (config.isOptionEnabled(Option.PERCIVAL)) {
-					boolean morganaEnabled = config.isOptionEnabled(Option.MORGANA);
+				if (config.isOptionEnabled(Config.Option.PERCIVAL)) {
+					boolean morganaEnabled = config.isOptionEnabled(Config.Option.MORGANA);
 					speak(morganaEnabled ? R.string.script_merlin_morgana_be_known : R.string.script_merlin_be_known);
 					shortPause();
 					speak(morganaEnabled ? R.string.script_percival_know_merlin_morgana
@@ -83,14 +85,14 @@ public class ScriptGenerator {
 				}
 			}
 
-			if (config.isOptionEnabled(Option.LANCELOT_VARIANT_3)) {
+			if (config.isOptionEnabled(Config.Option.LANCELOT_VARIANT_3)) {
 				speak(R.string.script_lancelot_know_each_other);
 				longPause();
 				speak(R.string.script_lancelot_close_eyes);
 				shortPause();
 			}
 		}
-		*/
+
 		// No matter which path we took, end with the same "open your eyes" and send the utterance id
 		HashMap<String, String> endParams = new HashMap<String, String>();
 		endParams.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, UTTERANCE_ID_ENDED);

@@ -1,15 +1,16 @@
 package com.yuanwei.resistance.texttospeech;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 import com.yuanwei.resistance.R;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Config {
 
@@ -55,7 +56,7 @@ public class Config {
 		Option.LANCELOT_VARIANT_3,
 	};
 
-	private Map<Option, Boolean> mConfig = new HashMap<Config.Option, Boolean>();
+	private Map<Option, Boolean> mConfig = new HashMap<>();
 
 	public void setOptionEnabled(Option option, boolean enabled) {
 		mConfig.put(option, enabled);
@@ -97,7 +98,7 @@ public class Config {
 	//////////////////////////////////////////////////////////////////////////
 	// Serialization
 
-	private static final String PREF_KEY = "com.idunnolol.resistance.config";
+	private static final String PREF_KEY = "com.yuanwei.resistance.config";
 
 	public void save(Context context) {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);

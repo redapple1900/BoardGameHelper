@@ -1,6 +1,8 @@
-package com.yuanwei.resistance.model;
+package com.yuanwei.resistance.moderator;
 
 import com.yuanwei.resistance.DataSet;
+import com.yuanwei.resistance.model.Gamer;
+import com.yuanwei.resistance.model.ResistanceGameEvent;
 import com.yuanwei.resistance.model.protocol.GamePresenter;
 
 import java.util.ArrayList;
@@ -66,17 +68,19 @@ public class Game {
         }
     }
 
-    public void updateGameByEvent(GameEvent event, int extra) {
+    public void updateGameByEvent(ResistanceGameEvent event, int extra) {
         presenter.updateViewBeforeEvent(event, extra);
-        switch (event) {
-            case PROPOSE:
+        switch (event.getType()) {
+            case ResistanceGameEvent.PROPOSE:
                 if (timeOfTeamPropose == 5) {
-                    updateGameByEvent(GameEvent.PROPOSE_PASSED, 0);
+                    updateGameByEvent(
+                            new ResistanceGameEvent(ResistanceGameEvent.PROPOSE_PASSED),
+                            0);
                 } else {
                     presenter.updateViewAfterEvent(event);
                 }
                 break;
-            case PROPOSE_PASSED:
+            case ResistanceGameEvent.PROPOSE_PASSED:
                 timeOfTeamPropose = 1;
                 // Check if game is over
                 if (victory == 2 || lose == 2) {
@@ -86,43 +90,49 @@ public class Game {
                             fail++;
                     }
                     if (victory == 2 && checkMissionResult(fail)) {
-                        updateGameByEvent(GameEvent.RESISTANCE_WIN, 0);
+                        updateGameByEvent(
+                                new ResistanceGameEvent(ResistanceGameEvent.RESISTANCE_WIN),
+                                0);
                     } else if (lose == 2 && !checkMissionResult(fail)) {
-                        updateGameByEvent(GameEvent.SPY_WIN, 0);
+                        updateGameByEvent(new ResistanceGameEvent(ResistanceGameEvent.SPY_WIN), 0);
                     }
                 }
                 if (result == Result.NEUTRAL)
-                    updateGameByEvent(GameEvent.MISSION_EXECUTION_START, 0);
+                    updateGameByEvent(
+                            new ResistanceGameEvent(ResistanceGameEvent.MISSION_EXECUTION_START),
+                            0);
                 break;
-            case PROPOSE_VETO:
+            case ResistanceGameEvent.PROPOSE_VETO:
                 timeOfTeamPropose++;
                 round++;
                 presenter.updateViewAfterEvent(event);
                 break;
-            case MISSION_EXECUTION_START:
+            case ResistanceGameEvent.MISSION_EXECUTION_START:
                 prepareMissionExecution();
                 presenter.updateViewAfterEvent(event);
                 break;
-            case MISSION_EXECUTION_CONTINUE:
+            case ResistanceGameEvent.MISSION_EXECUTION_CONTINUE:
                 getCurrentMissionResult().add((getFocusedCandidatePosition() + 1) * extra);
                 changeFocusedCandidate();
                 if (memberSelected == getCurrentMissionResult().size()) {
-                    updateGameByEvent(GameEvent.MISSION_EXECUTION_COMPLETED, 0);
+                    updateGameByEvent(
+                            new ResistanceGameEvent(ResistanceGameEvent.MISSION_EXECUTION_COMPLETED),
+                            0);
                 } else {
                     presenter.updateViewAfterEvent(event);
                 }
                 break;
-            case MISSION_EXECUTION_COMPLETED:
+            case ResistanceGameEvent.MISSION_EXECUTION_COMPLETED:
                 endMissionExcution();
                 presenter.updateViewAfterEvent(event);
                 break;
-            case MISSION_SUCCEED:
+            case ResistanceGameEvent.MISSION_SUCCEED:
                 victory++;
                 break;
-            case MISSION_FAILED:
+            case ResistanceGameEvent.MISSION_FAILED:
                 lose++;
                 break;
-            case SHOW_RESULTS:
+            case ResistanceGameEvent.SHOW_RESULTS:
                 round++;
                 int fail = 0;
                 for (Integer i:getCurrentMissionResult()) {
@@ -131,9 +141,13 @@ public class Game {
                     }
                 }
                 if (checkMissionResult(fail))
-                    updateGameByEvent(GameEvent.MISSION_SUCCEED, fail);
+                    updateGameByEvent(
+                            new ResistanceGameEvent(ResistanceGameEvent.MISSION_SUCCEED),
+                            fail);
                 else
-                    updateGameByEvent(GameEvent.MISSION_FAILED, fail);
+                    updateGameByEvent(
+                            new ResistanceGameEvent(ResistanceGameEvent.MISSION_FAILED),
+                            fail);
 
                 if (currentMission < 4 && result == Result.NEUTRAL) {
                     currentMission++;
@@ -142,11 +156,11 @@ public class Game {
                     presenter.updateViewAfterEvent(event);
                 }
                 break;
-            case RESISTANCE_WIN:
+            case ResistanceGameEvent.RESISTANCE_WIN:
                 endGame(Result.WIN);
                 presenter.updateViewAfterEvent(event);
                 break;
-            case SPY_WIN:
+            case ResistanceGameEvent.SPY_WIN:
                 endGame(Result.LOSE);
                 presenter.updateViewAfterEvent(event);
                 break;
