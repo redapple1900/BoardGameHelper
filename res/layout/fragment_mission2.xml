@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/string_execution_execution"
+                    android:text="@string/execute"
                     android:textColor="#ffffff" />
             </LinearLayout>
         </RelativeLayout>
@@ -76,7 +76,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="@string/string_sabotage_execution"
+                    android:text="@string/sabotage"
                     android:textColor="#ffffff" />
             </LinearLayout>
         </RelativeLayout>

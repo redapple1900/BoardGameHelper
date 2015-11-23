@@ -3,6 +3,11 @@ package com.yuanwei.resistance.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+/**
+ * A data object contains info related to a specific game. It is dependent on specific game but
+ * independent on a game set.
+ */
+
 public class Player implements Parcelable {
     private long id;
     private String name;
@@ -87,7 +92,7 @@ public class Player implements Parcelable {
         parcel.writeIntArray(new int[]{win, lose});
     }
 
-    public static final Creator<Player> creator = new Creator<Player>() {
+    public static final Creator<Player> CREATOR = new Creator<Player>() {
 
         @Override
         public Player createFromParcel(Parcel parcel) {

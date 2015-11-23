@@ -1,68 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-        <string name="app_name">桌遊助手:抵抗組織</string>
+    <string name="app_name">桌遊助手:抵抗組織</string>
     <string name="action_settings">setting</string>
     <!-- Exit Dialog -->
     <string name="string_exit_title">退出遊戲</string>
     <string name="string_exit_message">您確定要退出遊戲麽？如果現在退出，您將失去未完成的遊戲進度。</string>
     <string name="string_exit_positive">退出</string>
     <string name="string_exit_negative">返回</string>
-        <!-- WelcomeActivity  -->
+    <!-- WelcomeActivity  -->
     <string name="title_section1">定制</string>
-    <string name="title_section2">快速開始</string>
-    <string name="title_section3">規則</string>
-     <string name="button_quickstartfragment_setting">設置</string>
+    <string name="title_quick_game">快速開始</string>
+    <string name="title_rules">規則</string>
+    <string name="button_quickstartfragment_setting">設置</string>
     <string name="send_email">發送</string>
     <string name="string_gametitle">桌遊助手</string>
     <string name="string_gamesubtitle">抵抗組織</string>
-    <string name="string_gameversion">版本 0.96</string>
-      <!--WelcomeActivity QuickStartFragment -->
-    <string name="string_numofplayer_quickstart">總人數：</string>
+    <string name="string_gameversion">版本 1.00</string>
+    <!--WelcomeActivity QuickStartFragment -->
     <string name="string_readytoplay_quickstart">開始</string>
-    <string name="string_eachsides_quickstart">叛軍：%1$d,間諜：%2$d</string>
     <string name="string_rules_welcome">規則說明</string>
     <string name="string_setting_welcome">遊戲設置</string>
     <string name="string_contact_welcome">聯系作者</string>
-    <string name="string_identity_positive">叛軍</string>
-    <string name="string_identity_negative">間諜</string>
-     <!-- WelcomeActivity CustomGame Framgment -->
+    <string name="role_resistant">叛軍</string>
+    <string name="role_spy">間諜</string>
+    <!-- WelcomeActivity CustomGame Framgment -->
     <string name="string_addstranger_customgame">添加新人</string>
     <string name="string_addfriend_customgame">添加熟人</string>
     <string name="string_clear_customgame">清空列表</string>
     <string name="string_startgame_customgame">開始遊戲</string>
-      <string name="string_newplayer_customgame">新人</string>
-    <string name="listitem_descr1">取勝:</string>
-    <string name="listitem_descr2">場,總計:</string>
+    <string name="string_newplayer_customgame">新人</string>
+    <string name="listitem_win1">取勝:</string>
+    <string name="listitem_total">場,總計:</string>
     <string name="listitem_descr3">場</string>
     <string name="button_manu_mangement">幫助</string>
     <string name="toast_customgame">不好意思，至少需要5人才能開始遊戲</string>
     <string name="string_manu">添加新人：添加不知道姓名的玩家。\n\n 添加熟人：添加知道姓名的玩家。\n\n點擊上方頭像可以去掉指定玩家。\n\n剩下兩個按鈕意義不需要解釋吧。\n\n玩家只要輸入一次姓名，今後遊戲中都能繼續使用，無需多次重復添加。</string>
-        <string name="string_dialog_inputname_cancel">取消</string>
+    <string name="string_dialog_inputname_cancel">取消</string>
     <string name="string_dialog_inputname_OK">確定</string>
-     <!--MainActivity  -->
+    <!--MainActivity  -->
     <string name="string_player_main">玩家</string>
-    <string name="string_buildertitle_main">你的角色：</string>
-    <string name="string_builder_positivebutton_main">我知道了</string>
+    <string name="show_role_game_prepare_activity">你的角色：</string>
+    <string name="confirmation">我知道了</string>
     <string name="string_builder_inputname_title_main">你好，請輸入名字</string>
-    
-     <string name="string_toast1_main">輸入名字的話，下次再玩就不用輸入了哦</string>
+
+    <string name="string_toast1_main">輸入名字的話，下次再玩就不用輸入了哦</string>
     <string name="string_toast2_main">牌發完了</string>
     <string name="string_button1_main">顯示身份</string>
     <string name="string_button2_main">開始遊戲</string>
-    <string name="string_builder_message_positive_main">\n你是抵抗組織一名忠誠的成員</string>
-    <string name="string_builder_message_negative_main">\n你是帝國打入抵抗組織的一名間諜</string>
-    <string name="string_builder_next_message_main">請把平板交給下一個玩家</string>
-    <string name="string_builder_next_message_last_main">請把平板交給隊長</string>
-      <!--  GameActivity  -->
-      <string name="string_gplus_not_installed">"不好意思，目前只能在G+上分享 "</string>
-      	<string name="string_game_button_replay">再來一局</string>
-	<string name="string_game_button_rate">評價遊戲</string>
-	<string name="string_game_button_wechat">微信分享</string>
-	 <string name="string_gplus">分享遊戲</string>
+    <string name="role_resistant_short_desc">\n你是抵抗組織一名忠誠的成員</string>
+    <string name="role_spy_short_desc">\n你是帝國打入抵抗組織的一名間諜</string>
+    <string name="transit_message">請把平板交給下一個玩家</string>
+    <string name="last_transit_message">請把平板交給隊長</string>
+    <!--  GameActivity  -->
+    <string name="string_gplus_not_installed">"不好意思，目前只能在G+上分享 "</string>
+    <string name="replay">再來一局</string>
+    <string name="rate">評價遊戲</string>
+    <string name="string_game_button_wechat">微信分享</string>
+    <string name="string_gplus">分享遊戲</string>
     <string name="string_builder_vote_message_before_Game">隊長，請聲明本輪任務的候選人。
         			\n\n然後,請諸位玩家依次發表意見。</string>
-    <string name="title_main">按住指紋顯示身份</string>
     <string name="button_main">正式開始</string>
     <string name="string_vote_nay">否決</string>
     <string name="string_vote_aye">通過</string>
@@ -80,7 +77,7 @@
     <string name="string_builder_message_loseresult_game">很不幸，由於間諜的蓄意破壞，這次任務失敗了</string>
     <string name="string_message_failvotes_game">有%1$d人破壞任務</string>
     <string name="string_message_failvote_game">有一人破壞了任務</string>
-       <string name="string_toast2_game">應用沒有安裝</string>
+    <string name="string_toast2_game">應用沒有安裝</string>
     <string name="string_toast1_game">隊伍滿了,點擊成員頭像可將其排除出隊伍</string>
     <string name="string_builder_message_team_propose_game">您要選擇以上成員作為執行本次任務的人選，確定麽？如果確定，任務人選不能再更換。</string>
 
@@ -105,31 +102,31 @@
     <string name="string_rules4">如果發現bug，有關於應用本身的意見，以及新遊戲的想法，請通過該頁面輸入框或者電郵reclapple@gmail.com聯系我，我會盡快改進。</string>
     <string name="string_rules3">5.心得技巧:\n間諜玩家一定要在拿到平板或者手機前想好自己的選擇。\n\n抵抗軍玩家不要輕易通過別人的組隊，隊伍裏面混進一個間諜就能破壞整個任務.\n</string>
     <string name="string_gamesetting_main">叛軍人數:%1$d 間諜人數:%2$d</string>
-    <string name="string_sabotage_execution">破壞任務</string>
-    <string name="string_execution_execution">執行任務</string>
-    
+    <string name="sabotage">破壞任務</string>
+    <string name="execute">執行任務</string>
+
     <string name="string_thievies_win_large">抵抗軍獲勝！！</string>
     <string name="string_thievies_win">抵抗軍獲勝！！</string>
     <string name="string_spies_win">間諜獲勝！！</string>
     <string name="string_spies_win_large">間諜獲勝！！</string>
     <string name="string_message_timer">開始投票</string>
-    <string name="string_playsound">播放語音</string>
+    <string name="playsound">播放語音</string>
     <string name="string_playsound_toast">您的音量太低，請調節音量</string>
-	          <string name="string_share_title">感覺不錯？</string>
-        <string name="string_share_content">抵抗組織真是個有意思的聚會遊戲。</string>
-   
-     <!-- MainActivity PlaySound Dialog -->
+    <string name="string_share_title">感覺不錯？</string>
+    <string name="string_share_content">抵抗組織真是個有意思的聚會遊戲。</string>
+
+    <!-- MainActivity PlaySound Dialog -->
     <string name="string_main_sound_title">再等等</string>
-	<string name="string_main_sound_positive">一切就緒</string>
-	<string name="string_main_sound_neutral">提示語音</string>
-	<string name="string_main_sound_message">間諜知道彼此身份了麽？\n有語音提示的哦\n也可根據臺詞人工提示\n </string>
-	    <!-- Resistance scripts -->
+    <string name="string_main_sound_positive">一切就緒</string>
+    <string name="string_main_sound_neutral">提示語音</string>
+    <string name="string_main_sound_message">間諜知道彼此身份了麽？\n有語音提示的哦\n也可根據臺詞人工提示\n </string>
+    <!-- Resistance scripts -->
     <string name="script_close_eyes">請大家閉眼</string>
     <string name="script_spies_find_each_other">間諜請睜眼，環顧四周尋找自己的同伴</string>
     <string name="script_spies_close_eyes">間諜請閉眼</string>
     <string name="script_open_eyes">大家請睜眼</string>
-        <!-- Avalon scripts -->
-    <string name="script_close_eyes_extend_fists">Everyone close your eyes and extend your hand into a fist in front of you.</string>
+    <!-- Avalon scripts -->
+    <string name="script_extend_fists">Everyone close your eyes and extend your hand into a fist in front of you.</string>
     <string name="script_evil_find_each_other">Minions of Mordred, open your eyes and look around so that you know all agents of Evil.</string>
     <string name="script_evil_find_each_other_except_oberon">Minions of Mordred (except Oberon), open your eyes and look around so that you know all agents of Evil.</string>
     <string name="script_evil_close_eyes">Minions of Mordred, close your eyes.</string>
@@ -147,7 +144,7 @@
     <string name="script_percival_close_eyes">Percival, close your eyes.</string>
     <string name="script_lancelot_know_each_other">Lancelot, open your eyes to reveal your counterpart.</string>
     <string name="script_lancelot_close_eyes">Lancelot, close your eyes.</string>
-        <!-- ListView UI -->
+    <!-- ListView UI -->
     <string name="option_merlin_assassin">Merlin/Assassin</string>
     <string name="option_merlin_assassin_description">Merlin knows evil, must remain hidden</string>
     <string name="option_percival">Percival</string>
@@ -160,12 +157,17 @@
     <string name="option_morgana_description">Appears as Merlin</string>
     <string name="option_lancelot_v3">Lancelot (Variant #3)</string>
     <string name="option_lancelot_v3_description">Good and Evil Lancelots know each other</string>
-        <!-- String Array -->
-    <string name ="array_language">language</string>
-    <string name ="array_languageValues">languageValues</string>
-      <string name ="array_theme">theme</string>
-      <string name ="array_themeValues">themeValues</string>
-      <string name ="array_images">images</string>
-      <string name ="array_icon">icon</string>
-    
+    <!-- String Array -->
+    <string name="array_language">language</string>
+    <string name="array_languageValues">languageValues</string>
+    <string name="array_theme">theme</string>
+    <string name="array_themeValues">themeValues</string>
+    <string name="array_images">images</string>
+    <string name="array_icon">icon</string>
+    <string name="option_blind_spy_short_desc">Spies do not know their partners</string>
+    <string name="option_allow_pass">Allow Mission Pass</string>
+    <string name="option_allow_pass_short_desc">The leader may pass this round intead of proposing a team (May lead to Game Over).</string>
+    <string name="option_manuel_game_over">Manuel Game Over</string>
+    <string name="option_manuel_game_over_short_desc">The app will not judge if a game is actually over.</string>
+    <string name="next">Next</string>
 </resources>

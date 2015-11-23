@@ -1,0 +1,53 @@
+package com.yuanwei.resistance.fragment;
+
+import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.yuanwei.resistance.R;
+import com.yuanwei.resistance.moderator.BaseSwitcher;
+import com.yuanwei.resistance.ui.fragment.BasePlotFragment;
+import com.yuanwei.resistance.ui.widget.ButtonOnTouchListener;
+
+public class VoteFragment extends BasePlotFragment {
+
+    private String TAG;
+
+    public static VoteFragment createInstance(String name) {
+        VoteFragment fragment = new VoteFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("name", name);
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        TAG = getArguments().getString("name");
+
+        View v = inflater.inflate(R.layout.fragment_vote, container, false);
+        Button button_negative = (Button) v.findViewById(R.id.button_nay_vote);
+        Button button_positive = (Button) v.findViewById(R.id.button_aye_vote);
+        button_negative.setOnTouchListener(new ButtonOnTouchListener(getActivity()));
+        button_positive.setOnTouchListener(new ButtonOnTouchListener(getActivity()));
+        button_negative.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                getPlotListener().onEventStart(TAG, BaseSwitcher.SECONDARY);
+            }
+        });
+        button_positive.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                getPlotListener().onEventStart(TAG, BaseSwitcher.PRIMARY);
+            }
+        });
+        return v;
+    }
+
+}

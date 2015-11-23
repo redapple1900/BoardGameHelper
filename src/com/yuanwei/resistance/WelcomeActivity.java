@@ -1,5 +1,6 @@
 package com.yuanwei.resistance;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -7,15 +8,26 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
+import com.yuanwei.resistance.constant.Constants;
+import com.yuanwei.resistance.fragment.ContactFragment;
+import com.yuanwei.resistance.fragment.CustomGameFragment;
+import com.yuanwei.resistance.fragment.QuickStartFragment;
+import com.yuanwei.resistance.model.protocol.PlotHost;
+import com.yuanwei.resistance.model.protocol.PlotListener;
+import com.yuanwei.resistance.util.GeneralMethodSet;
+
 import java.util.Locale;
 
-public class WelcomeActivity extends FragmentActivity {
+/**
+ * In this activity, the type of game is determined.
+ */
+public class WelcomeActivity extends FragmentActivity implements PlotHost, PlotListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
      * {@link android.support.v4.app.FragmentPagerAdapter} derivative, which
-     * will keep every loaded fragment in memory. If this becomes too memory
+     * will keepProposeResults every loaded fragment in memory. If this becomes too memory
      * intensive, it may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
@@ -50,6 +62,25 @@ public class WelcomeActivity extends FragmentActivity {
 
     }
 
+    @Override
+    public void onEventStart(String type, int extra) {
+        startActivity((new Intent()
+                .putExtra("Cards", type)
+                .putExtra(Constants.GAME, extra)
+                .setClass(this, SetupActivity.class)));
+        finish();
+    }
+
+    @Override
+    public PlotListener getPlotListener() {
+        return this;
+    }
+
+    @Override
+    public  void setPlotListener(PlotListener listener) {
+        // Do nothing;
+    }
+
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -68,17 +99,11 @@ public class WelcomeActivity extends FragmentActivity {
             switch (position) {
                 //Move CustomGameFragment to another Activity 07.31.2014 @Yuanwei
                 case 0:
-                    if (customGameFragment == null) {
-                        customGameFragment = new CustomGameFragment();
-                    }
-                    return customGameFragment;
-
-                case 1:
                     if (quickstartFragment == null) {
                         quickstartFragment = new QuickStartFragment();
                     }
                     return quickstartFragment;
-                case 2:
+                case 1:
                     if (contactFragment == null) {
                         contactFragment = new ContactFragment();
                     }
@@ -92,7 +117,7 @@ public class WelcomeActivity extends FragmentActivity {
         @Override
         public int getCount() {
             // Show 2 total pages.
-            return 3;
+            return 2;
         }
 
         @Override
@@ -100,11 +125,9 @@ public class WelcomeActivity extends FragmentActivity {
             Locale l = Locale.getDefault();
             switch (position) {
                 case 0:
-                    return getString(R.string.title_section1).toUpperCase(l);
+                    return getString(R.string.title_quick_game).toUpperCase(l);
                 case 1:
-                    return getString(R.string.title_section2).toUpperCase(l);
-                case 2:
-                    return getString(R.string.title_section3).toUpperCase(l);
+                    return getString(R.string.title_rules).toUpperCase(l);
             }
             return null;
         }

@@ -19,5 +19,6 @@
     <dimen name="itemSize_medium">120dp</dimen>
     <dimen name="itemSize_large">180dp</dimen>
     <dimen name="title_top_margin">100dp</dimen>
+    <dimen name="cardview_margin_all">6dp</dimen>
 
 </resources>

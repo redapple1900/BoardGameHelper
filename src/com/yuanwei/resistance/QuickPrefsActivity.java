@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.view.KeyEvent;
 
+import com.yuanwei.resistance.util.GeneralMethodSet;
+
 public class QuickPrefsActivity extends PreferenceActivity {
 
     @SuppressWarnings("deprecation")

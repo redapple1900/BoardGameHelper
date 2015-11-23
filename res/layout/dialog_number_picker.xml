@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="fill_parent"
+android:layout_height="fill_parent"
+android:background="@android:color/background_light">
+
+<NumberPicker
+    android:id="@+id/game_setup_dialog_numberpicker"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="64dp" />
+
+<Button
+    android:id="@+id/game_setup_dialog_negativebutton"
+    android:layout_width="60dp"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/game_setup_dialog_numberpicker"
+    android:layout_marginLeft="20dp"
+    android:layout_marginTop="100dp"
+    android:padding="8dp"
+    android:layout_toRightOf="@+id/game_setup_dialog_numberpicker"
+    android:background="@drawable/mybutton"
+    android:text="Cancel" />
+
+<Button
+    android:id="@+id/game_setup_dialog_positivebutton"
+    android:layout_width="60dp"
+    android:layout_height="wrap_content"
+    android:layout_alignBaseline="@id/game_setup_dialog_negativebutton"
+    android:layout_alignBottom="@id/game_setup_dialog_negativebutton"
+    android:layout_marginRight="16dp"
+    android:layout_toLeftOf="@id/game_setup_dialog_numberpicker"
+    android:padding="8dp"
+    android:background="@drawable/mybutton"
+    android:text="Set" />
+
+</RelativeLayout>

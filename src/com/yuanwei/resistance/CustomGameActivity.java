@@ -3,6 +3,8 @@ package com.yuanwei.resistance;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
+import com.yuanwei.resistance.fragment.CustomGameFragment;
+import com.yuanwei.resistance.util.GeneralMethodSet;
 
 
 public class CustomGameActivity extends FragmentActivity {

@@ -52,7 +52,7 @@
                 android:scrollbarStyle="insideOverlay"
                 android:scrollbars="vertical"
                 android:stretchMode="columnWidth"
-                android:verticalSpacing="6dp"></GridView>
+                android:verticalSpacing="6dp"/>
 
         </LinearLayout>
     </FrameLayout>
@@ -85,7 +85,7 @@
                     android:scrollbarStyle="insideOverlay"
                     android:scrollbars="vertical"
                     android:stretchMode="columnWidth"
-                    android:verticalSpacing="4dp"></GridView>
+                    android:verticalSpacing="4dp"/>
 
                 <TextView
                     android:id="@+id/textView_indentity_Game"
@@ -168,7 +168,7 @@
                             android:background="@android:color/transparent"
                             android:drawableTop="@drawable/rate"
                             android:gravity="bottom|center_horizontal"
-                            android:text="@string/string_game_button_rate"
+                            android:text="@string/rate"
                             android:textColor="@android:color/white" />
                     </RelativeLayout>
 

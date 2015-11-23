@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.yuanwei.resistance.ui.grid.SquareLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:src="@drawable/ic_launcher"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/selection"
+        android:layout_width="@dimen/labelSize"
+        android:layout_height="@dimen/labelSize"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/badge"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#88000000"
+        android:gravity="center_horizontal"
+        android:textColor="#FFFFFF"
+        android:textSize="@dimen/small_text_gridview" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:dividerPadding="@dimen/padding_layout"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/padding_layout"
+        android:paddingTop="@dimen/padding_layout">
+
+        <ImageView
+            android:id="@+id/token1"
+            android:layout_width="@dimen/activity_vertical_margin"
+            android:layout_height="@dimen/activity_horizontal_margin"
+            android:layout_gravity="top"
+            android:layout_marginBottom="@dimen/padding_layout"
+            android:layout_weight="1"
+            android:baselineAlignBottom="false"
+            android:scaleType="fitCenter"
+            android:src="@drawable/token_neutral" />
+
+        <ImageView
+            android:id="@+id/token2"
+            android:layout_width="@dimen/activity_vertical_margin"
+            android:layout_height="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/padding_layout"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/token_neutral"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/token3"
+            android:layout_width="@dimen/activity_vertical_margin"
+            android:layout_height="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/padding_layout"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/token_neutral"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/token4"
+            android:layout_width="@dimen/activity_vertical_margin"
+            android:layout_height="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/padding_layout"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/token_neutral"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/token5"
+            android:layout_width="@dimen/activity_vertical_margin"
+            android:layout_height="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="@dimen/padding_layout"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/token_neutral"
+            tools:ignore="ContentDescription" />
+
+    </LinearLayout>
+
+</com.yuanwei.resistance.ui.grid.SquareLayout>

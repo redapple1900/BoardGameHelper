@@ -25,7 +25,7 @@
             android:showDividers="beginning|middle|end" >
 
             <Button
-                android:id="@+id/button_Cancel_input"
+                android:id="@+id/negative"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -36,7 +36,7 @@
                 android:padding="1dp"/>
 
             <Button
-                android:id="@+id/Button_OK_input"
+                android:id="@+id/affirmative"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

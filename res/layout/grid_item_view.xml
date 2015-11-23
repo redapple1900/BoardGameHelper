@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:id="@+id/cv"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="12dp"
+    android:background="@drawable/recyclerview_item_background">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/tokens"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:dividerPadding="@dimen/padding_layout"
+            android:orientation="horizontal"
+            android:layout_marginLeft="6dp"
+            android:layout_marginStart="6dp"
+            android:paddingTop="@dimen/padding_layout">
+
+            <ImageView
+                android:id="@+id/token1"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/activity_horizontal_margin"
+                android:layout_gravity="top"
+                android:layout_margin="@dimen/padding_layout"
+                android:layout_weight="1"
+                android:baselineAlignBottom="false"
+                android:scaleType="fitCenter"
+                android:visibility="gone"
+                android:src="@drawable/token_neutral" />
+
+            <ImageView
+                android:id="@+id/token2"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/activity_horizontal_margin"
+                android:layout_margin="@dimen/padding_layout"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:visibility="gone"
+                android:src="@drawable/token_neutral" />
+
+            <ImageView
+                android:id="@+id/token3"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/activity_horizontal_margin"
+                android:layout_margin="@dimen/padding_layout"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:visibility="gone"
+                android:src="@drawable/token_neutral" />
+
+            <ImageView
+                android:id="@+id/token4"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/activity_horizontal_margin"
+                android:layout_margin="@dimen/padding_layout"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:visibility="gone"
+                android:src="@drawable/token_neutral" />
+
+            <ImageView
+                android:id="@+id/token5"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/activity_horizontal_margin"
+                android:layout_margin="@dimen/padding_layout"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                android:visibility="gone"
+                android:src="@drawable/token_neutral" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="12dp">
+
+            <com.yuanwei.resistance.ui.grid.SquareImageView
+                android:id="@+id/icon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/ic_launcher" />
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/small_text_gridview" />
+
+        <TextView
+            android:id="@+id/sub_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/small_text_gridview" />
+    </LinearLayout>
+</android.support.v7.widget.CardView>
