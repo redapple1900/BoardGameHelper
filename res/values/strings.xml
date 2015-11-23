@@ -10,23 +10,19 @@
     <string name="string_exit_positive">Exit</string>
     <string name="string_exit_negative">Back</string>
     <!-- Identity -->
-    <string name="string_identity_positive">Resistance</string>
-    <string name="string_identity_negative">Spy</string>
+    <string name="role_resistant">Resistance</string>
+    <string name="role_spy">Spy</string>
     <!-- WelcomeActivity QuickStartFragment -->
-    <string name="string_numofplayer_quickstart">Total Players:</string>
     <string name="string_readytoplay_quickstart">Start</string>
-    <string name="string_eachsides_quickstart">Resistance:%1$d\nSpy:%2$d</string>
     <string name="string_rules_welcome">Rules</string>
     <string name="string_setting_welcome">Settings</string>
     <string name="string_contact_welcome">Contact the Arthur</string>
-    <string name="title_section1">Custom</string>
-    <string name="title_section2">Quick Game</string>
-    <string name="title_section3">Rules</string>
+    <string name="title_quick_game">Quick Game</string>
+    <string name="title_rules">Rules</string>
     <string name="button_quickstartfragment_setting">Setting</string>
     <!-- ListAdapter in CustomGameFragment -->
-    <string name="listitem_descr1">Win:</string>
-    <string name="listitem_descr2">Total:</string>
-    <string name="listitem_descr3"></string>
+    <string name="listitem_win1">Win:</string>
+    <string name="listitem_total">Total:</string>
     <!-- Button in CustomGameFragment -->
     <string name="string_addstranger_customgame">Add\nStranger</string>
     <string name="string_addfriend_customgame">Add\nFriend</string>
@@ -37,19 +33,19 @@
     <string name="string_dialog_inputname_OK">OK</string>
     <!-- MainActivity -->
     <string name="string_player_main">player</string>
-    <string name="string_buildertitle_main">Your Identity:\n</string>
-    <string name="string_builder_positivebutton_main">Got it.</string>
+    <string name="show_role_game_prepare_activity">Your Identity:\n</string>
+    <string name="confirmation">Got it.</string>
     <string name="string_builder_inputname_title_main">Hello, can I have your name?</string>
     <string name="string_toast2_main">All cards Out</string>
     <string name="string_toast1_main">The app will store your name if you provided one.</string>
     <string name="string_button1_main">Show your idetity</string>
     <string name="string_button2_main">Let\'s start!</string>
-    <string name="string_builder_message_positive_main">:\n\nYou are a <b>RESISTANCE</b> operative.</string>
-    <string name="string_builder_message_negative_main">:"\n\nYou are an Imperial <b>SPY</b>.</string>
-    <string name="string_builder_next_message_main">Please pass the phone to the next player</string>
-    <string name="string_builder_next_message_last_main">Please pass the phone to the leader</string>
+    <string name="role_resistant_short_desc">Try to find spies. Make mission success to win the game.</string>
+    <string name="role_spy_short_desc">Invisible to Resistant. Fail mission to win the game</string>
+    <string name="transit_message">Please pass the phone to the next player</string>
+    <string name="last_transit_message">Please pass the phone to the leader</string>
     <!-- MainActivity PlaySound Dialog -->
-    <string name="string_main_sound_title">Finnally..</string>
+    <string name="string_main_sound_title">Finally..</string>
     <string name="string_main_sound_positive">All Ready!</string>
     <string name="string_main_sound_neutral">Play Sound</string>
     <string name="string_main_sound_message">Do spies know each other?\n\nIf not, click the "Play Sound" button.\nOr someone may narrate the following scripts.\n </string>
@@ -61,7 +57,6 @@
 
     <!-- GameActivity Button and Dialog -->
     <string name="string_builder_vote_message_before_Game">Leader:\n\nLet everybody knows your selection\n\nand start DISCUSSION</string>
-    <string name="title_main">Press fingerprint to show the Identity</string>
     <string name="button_main">Start Game!</string>
     <string name="string_vote_nay">Reject</string>
     <string name="string_vote_aye">Pass</string>
@@ -81,8 +76,8 @@
 
     <string name="string_message_failvotes_game">%1$d Players failed the mission</string>
     <string name="string_message_failvote_game">1 Player failed the mission</string>
-    <string name="string_game_button_replay">One More!</string>
-    <string name="string_game_button_rate">Rate me!</string>
+    <string name="replay">One More!</string>
+    <string name="rate">Rate me!</string>
     <string name="string_game_button_wechat">Share on WeChat</string>
     <string name="string_gplus">Share Game</string>
     <string name="string_toast2_game">The application is not installed on your phone</string>
@@ -107,21 +102,23 @@
         You are allowed to say anything, to any one, at any time,as long as it is said publicly. </string>
     <string name="string_gamesetting_main">Resistance:%1$d Spy:%2$d</string>
 
-    <string name="string_sabotage_execution">Fail </string>
-    <string name="string_execution_execution">Execute </string>
+    <string name="sabotage">Fail </string>
+    <string name="execute">Execute </string>
 
     <string name="string_message_timer">Let\'s VOTE!</string>
-    <string name="string_playsound">Play sound</string>
+    <string name="playsound">Play sound</string>
     <string name="string_playsound_toast">Volume too low, please adjust the volume</string>
     <string name="send_email">Send</string>
     <!--WelcomeActivity QuickStart Fragment -->
     <string name="string_gametitle">Board Game Helper</string>
     <string name="string_gamesubtitle">Resistance</string>
-    <string name="string_gameversion">version 0.98</string>
+    <string name="string_gameversion">version 1.00</string>
     <!--CustomGameActivity and Fragment -->
     <string name="button_manu_mangement">Help:</string>
     <string name="toast_customgame">Sorry we need at least 5 players</string>
     <string name="string_manu">Add Stranger:Use this button if you don\'n t know some player\'s name。\n\n Add:Use this for friends and acquitances.\n\nClick someone\'s name to remove</string>
+    <!--GameSetupActivity and Fragment -->
+    <string name="game_setup_button_total">Total Players: %1$d</string>
     <!-- END GAME -->
     <string name="string_gplus_not_installed">"Sorry. Google Plus Not Installed. "</string>
     <string name="string_thievies_win">Resistance Operatives Win!</string>
@@ -136,7 +133,7 @@
     <string name="script_spies_close_eyes">Spies close your eyes.</string>
     <string name="script_open_eyes">Everyone open your eyes.</string>
     <!-- Avalon scripts -->
-    <string name="script_close_eyes_extend_fists">Everyone, close your eyes, put your fist in your front.</string>
+    <string name="script_extend_fists">Put your fist in your front.</string>
     <string name="script_evil_find_each_other">Minions of Mordred, open your eyes, look around to find your companions.</string>
     <string name="script_evil_find_each_other_except_oberon">Minions of Mordred (except Oberon), open your eyes, look around to find your companions.</string>
     <string name="script_evil_close_eyes">Minions of Mordred, close your eyes.</string>
@@ -155,18 +152,21 @@
     <string name="script_lancelot_know_each_other">Lancelot, open your eyes, find your counterpart.</string>
     <string name="script_lancelot_close_eyes">Lancelot, close your eyes.</string>
     <!-- ListView UI -->
-    <string name="option_merlin_assassin">Merlin/Assassin</string>
-    <string name="option_merlin_assassin_description">Merlin knows evil, must remain hidden</string>
+    <string name="option_merlin">Merlin</string>
+    <string name="option_merlin_short_desc">Knows minions except Mordred, must remain hidden</string>
+    <string name="option_assassin">Assassin</string>
+    <string name="option_assassin_short_desc">Can kill Merlin to win the Game</string>
     <string name="option_percival">Percival</string>
-    <string name="option_percival_description">Knows Merlin</string>
+    <string name="option_percival_short_desc">Knows Merlin</string>
     <string name="option_mordred">Mordred</string>
-    <string name="option_mordred_description">Unknown to Merlin</string>
+    <string name="option_mordred_short_desc">Unknown to Merlin</string>
     <string name="option_oberon">Oberon</string>
-    <string name="option_oberon_description">Unknown to Evil</string>
+    <string name="option_oberon_short_desc">Unknown to other minions</string>
     <string name="option_morgana">Morgana</string>
-    <string name="option_morgana_description">Appears as Merlin</string>
-    <string name="option_lancelot_v3">Lancelot (Variant #3)</string>
-    <string name="option_lancelot_v3_description">Good and Evil Lancelots know each other</string>
+    <string name="option_morgana_short_desc">Appears as Merlin</string>
+    <string name="option_lancelot_arthur">Lancelot for Arthur</string>
+    <string name="option_lancelot_mordred">Lancelot for Mordred</string>
+    <string name="option_lancelot_v3_short_desc">Knows the other Lancelot</string>
     <!-- String Array -->
     <string name="array_language">language</string>
     <string name="array_languageValues">languageValues</string>
@@ -178,6 +178,11 @@
     <string name="title_activity_game_setup">GameSetupActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
-
-
+    <string name="option_blind_spy">Blind Spy</string>
+    <string name="option_blind_spy_short_desc">Spies do not know their partners</string>
+    <string name="option_allow_pass">Can Pass Mission</string>
+    <string name="option_allow_pass_short_desc">The leader may pass the team proposal(May lead to Game Over).</string>
+    <string name="option_manuel_game_over">Manual Game</string>
+    <string name="option_manuel_game_over_short_desc">This APP will not determine if one party is doom to lose</string>
+    <string name="next">Next</string>
 </resources>
