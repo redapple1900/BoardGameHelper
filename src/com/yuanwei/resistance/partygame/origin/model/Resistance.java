@@ -30,7 +30,7 @@ public class Resistance implements Game {
 
     private Role[] mRoles = {Role.RESISTANT, Role.SPY};
 
-    private Option[] mOptions = {Option.BLIND_SPY, Option.ALLOW_PASS, Option.MANUEL_GAME_OVER};
+    private Option[] mOptions = {Option.BLIND_SPY, /*Option.ALLOW_PASS,*/ Option.MANUEL_GAME_OVER};
 
 
     private Resistance() {

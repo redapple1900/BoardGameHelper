@@ -9,7 +9,6 @@
     <string name="string_exit_positive">退出</string>
     <string name="string_exit_negative">返回</string>
     <!-- WelcomeActivity  -->
-    <string name="title_section1">定制</string>
     <string name="title_quick_game">快速開始</string>
     <string name="title_rules">規則</string>
     <string name="button_quickstartfragment_setting">設置</string>
@@ -17,7 +16,7 @@
     <string name="string_gametitle">桌遊助手</string>
     <string name="resistance">抵抗組織</string>
     <string name="avalon">阿瓦隆</string>
-    <string name="string_gameversion">版本 1.00</string>
+    <string name="string_gameversion">版本 0.99</string>
     <!--WelcomeActivity QuickStartTransition DialogFragment -->
     <string name="if_have_cards">有牌麽？</string>
     <string name="have_cards">有的</string>
@@ -37,7 +36,6 @@
     <string name="string_newplayer_customgame">新人</string>
     <string name="listitem_win1">取勝:</string>
     <string name="listitem_total">場,總計:</string>
-    <string name="listitem_descr3">場</string>
     <string name="button_manu_mangement">幫助</string>
     <string name="toast_customgame">不好意思，至少需要5人才能開始遊戲</string>
     <string name="string_manu">添加新人：添加不知道姓名的玩家。\n\n 添加熟人：添加知道姓名的玩家。\n\n點擊上方頭像可以去掉指定玩家。\n\n剩下兩個按鈕意義不需要解釋吧。\n\n玩家只要輸入一次姓名，今後遊戲中都能繼續使用，無需多次重復添加。</string>
