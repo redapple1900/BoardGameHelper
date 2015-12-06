@@ -183,7 +183,6 @@
     <string name="array_images">images</string>
     <string name="array_icon">icon</string>
 
-    <string name="title_activity_game_setup">GameSetupActivity</string>
     <string name="option_blind_spy">Blind Spy</string>
     <string name="option_blind_spy_short_desc">Spies do not know their partners</string>
     <string name="option_allow_pass">Can Pass Mission</string>

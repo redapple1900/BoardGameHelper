@@ -31,7 +31,7 @@ public class Avalon implements Game {
             Role.OBERON, Role.MORGANA, Role.LANCELOT_ARTHUR, Role.LANCELOT_MORDRED
     };
 
-    private Option[] mOptions = {Option.ALLOW_PASS, Option.MANUEL_GAME_OVER};
+    private Option[] mOptions = {/*Option.ALLOW_PASS,*/ Option.MANUEL_GAME_OVER};
 
     private Avalon() {
         mRoleMap = new HashMap<>(mRoles.length * 2);
