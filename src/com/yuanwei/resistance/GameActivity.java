@@ -3,17 +3,15 @@ package com.yuanwei.resistance;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
+import com.yuanwei.resistance.constant.Constants;
 import com.yuanwei.resistance.model.User;
 import com.yuanwei.resistance.model.protocol.PlotListener;
 import com.yuanwei.resistance.partygame.origin.model.Resistance;
@@ -24,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class GameActivity extends BasePlotActivity {
-    private boolean qe = true;
+    private boolean qe = false;
     private PlayerDataSource datasource;
     private PlotListener plotListener;
 
@@ -36,13 +34,15 @@ public class GameActivity extends BasePlotActivity {
 
         ArrayList<User> list = new ArrayList<>();
 
+        int game;
+
         if (qe) {
 
             for (int i = 0; i < 4; i++) {
                 User user = new User();
                 user.setIdentity(Resistance.Role.RESISTANT.getRoleId());
                 user.setName("Resistant" + i);
-                user.setResId(R.drawable.ic_launcher);
+                user.setResId(R.drawable.index);
                 list.add(user);
             }
 
@@ -50,17 +50,22 @@ public class GameActivity extends BasePlotActivity {
                 User user = new User();
                 user.setIdentity(Resistance.Role.SPY.getRoleId());
                 user.setName("SPY" + i);
-                user.setResId(R.drawable.ic_launcher);
+                user.setResId(R.drawable.index);
                 list.add(user);
             }
 
             Collections.shuffle(list);
-        } else
-            list = getIntent().getExtras().getParcelableArrayList("gamerList");
+            game = 1;
+        } else {
+            list = getIntent().getExtras().getParcelableArrayList(Constants.USERLIST_KEY);
+            game = getIntent().getExtras().getInt(Constants.GAME);
+        }
+
 
         Fragment fragment = new ResistanceGamingFragment();
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("gamerList", list);
+        bundle.putParcelableArrayList(Constants.USERLIST_KEY, list);
+        bundle.putInt(Constants.GAME, game);
         fragment.setArguments(bundle);
         getSupportFragmentManager().beginTransaction().add(R.id.content, fragment).commit();
     }
@@ -84,7 +89,11 @@ public class GameActivity extends BasePlotActivity {
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-finish();
+
+                        Intent intent = new Intent();
+                        intent.setClass(getParent(), WelcomeActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
                 });
 
@@ -209,7 +218,6 @@ finish();
 
 					@Override
 					public void run() {
-						// TODO Auto-generated method stub
 						// String mPath =
 						// Environment.getExternalStorageDirectory().toString()
 						// + "/";
@@ -330,31 +338,6 @@ finish();
 
     }
     */
-
-    private boolean myStartActivity(Intent intent) {
-        try {
-            startActivity(intent);
-            return true;
-        } catch (ActivityNotFoundException e) {
-            Toast.makeText(getApplicationContext(), getString(R.string.string_toast2_game), Toast.LENGTH_SHORT).show();
-            return false;
-        }
-    }
-
-    //On click event for rate this app button
-    public void rateAppOnGooglePlay() {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        //Try Google play
-        intent.setData(Uri.parse("market://details?id=" + "com.yuanwei.resistance"));
-        if (!myStartActivity(intent)) {
-            //Market (Google play) app seems not installed, let's try to open a webbrowser
-            intent.setData(Uri.parse("https://play.google.com/store/apps/details?" + "com.yuanwei.resistance"));
-            if (!myStartActivity(intent)) {
-                //Well if this also fails, we have run out of options, inform the user.
-                Toast.makeText(this, "Could not open Google Play, please install the market app.", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
 
     @Override
     public PlotListener getPlotListener() {

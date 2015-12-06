@@ -26,6 +26,8 @@
         android:textStyle="bold"
         android:typeface="serif" />
 
+    <!--
+
     <Button
         android:id="@+id/button_customgame_quickstart"
         android:layout_width="@dimen/button_width_quickstart"
@@ -39,12 +41,13 @@
         android:textSize="@dimen/text_size"
         android:textStyle="bold"
         android:typeface="serif" />
+        -->
 
     <Button
         android:id="@+id/button_setting_quickstart"
         android:layout_width="@dimen/button_width_quickstart"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button_customgame_quickstart"
+        android:layout_below="@+id/button_quickstart"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/button_gap"
         android:alpha="0.9"
@@ -75,7 +78,7 @@
         android:layout_below="@+id/textView_gametitle"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-        android:text="@string/string_gamesubtitle"
+        android:text="@string/resistance"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:typeface="sans" />
 
@@ -84,6 +87,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:text="@string/string_gameversion" />
 

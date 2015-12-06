@@ -31,7 +31,7 @@ public class LongPressFragment extends BasePlotFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_execution, container, false);
+        View view = inflater.inflate(R.layout.fragment_press, container, false);
 
         tag = getArguments().getString("tag");
 

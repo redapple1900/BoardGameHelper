@@ -38,6 +38,8 @@ public class GridFragment extends BasePlotFragment {
 
     private int count;
 
+    private List<Gamer> mGamers;
+
     private GridRecyclerViewAdapter mGridRecycleViewAdapter;
 
     private DoubleButtonView doubleButtonView;
@@ -73,21 +75,32 @@ public class GridFragment extends BasePlotFragment {
 
             status = params.getStats();
 
-            Tag = status == Params.GAME_NOT_OVER ? params.getTag() : "over";
-
-            // TODO::SetTagAccording to game status
-
             allowPass = params.isPassAllowed();
 
             limit = params.getLimit();
 
+            switch (status) {
+                case Params.GAME_NOT_OVER:
+                    Tag = params.getTag();
+                    break;
+                case Params.ASSASINATION:
+                    Tag = "assassination";
+                    break;
+                case Params.REMOVE_USER:
+                    Tag = params.getTag();
+                    break;
+                default:
+                    Tag = "over";
+                    break;
+            }
+
             List<User> userList = getArguments().getParcelableArrayList("gamerList");
 
-            List<Gamer> gamers = getArguments().getParcelableArrayList("gamers");
+            mGamers = getArguments().getParcelableArrayList("gamers");
 
             mGridRecycleViewAdapter = new GridRecyclerViewAdapter(getActivity());
 
-            mGridRecycleViewAdapter.bindModels(userList, gamers);
+            mGridRecycleViewAdapter.bindModels(userList, mGamers);
 
             mGridLayoutManager = new GridLayoutManager(
                     getActivity(),
@@ -98,42 +111,79 @@ public class GridFragment extends BasePlotFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_propose, container, false);
+        View view = inflater.inflate(R.layout.fragment_grid, container, false);
 
         mGridRecycleViewAdapter.setOnItemToggleListener(
                 new GridRecyclerViewAdapter.OnItemToggleListener() {
                     @Override
                     public void onToggle(View view, int position, boolean isSelected) {
-                        if (isSelected || count + 1 <= limit) {
-                            int diff = isSelected ? -1 : 1;
-                            count += diff;
-                            getPlotListener().onEventStart("selection", position);
-                            mGridRecycleViewAdapter.toggleSelected(position);
-                            mGridRecycleViewAdapter.notifyItemChanged(position);
-                            if (status == Params.GAME_NOT_OVER) {
+                        if (status == Params.GAME_NOT_OVER) {
+                            if (isSelected || count + 1 <= limit) {
+
+                                int diff = isSelected ? -1 : 1;
+                                count += diff;
+                                getPlotListener().onEventStart("selection", position);
+                                mGridRecycleViewAdapter.toggleSelected(position);
+                                mGridRecycleViewAdapter.notifyItemChanged(position);
+
                                 doubleButtonView.setButtonVisibility(
                                         count < limit ? View.GONE : View.VISIBLE,
                                         allowPass ? View.VISIBLE : View.GONE);
+
+                            } else {
+                                view.startAnimation(AnimationUtils.loadAnimation(getActivity(),
+                                        R.anim.shake));
                             }
-                        } else {
-                            view.startAnimation(AnimationUtils.loadAnimation(getActivity(),
-                                    R.anim.shake));
+                        } else if (status == Params.ASSASINATION) {
+                            if (mGamers.get(position).getRoleId() < 0) {
+                                view.startAnimation(AnimationUtils.loadAnimation(getActivity(),
+                                        R.anim.shake));
+                            } else {
+                                getPlotListener().onEventStart("assassination", position);
+                            }
+                        } else if (status == Params.REMOVE_USER) {
+                            getPlotListener().onEventStart(Tag, position);
+                            mGridRecycleViewAdapter.removeModel(position);
+                            mGridRecycleViewAdapter.notifyItemRemoved(position);
+                            mGridRecycleViewAdapter.notifyItemRangeChanged(
+                                    position,
+                                    mGridRecycleViewAdapter.getItemCount());
                         }
                     }
                 });
 
         TextView textView = (TextView) view.findViewById(R.id.end);
 
-        if (status == Params.GAME_NOT_OVER) {
-            textView.setVisibility(View.GONE);
-        } else if (status == Params.RESISTANCE_WIN){
-            textView.setText(getString(R.string.string_thievies_win));
-            textView.setVisibility(View.VISIBLE);
-        } else if (status == Params.SPY_WIN) {
-            textView.setText(getString(R.string.string_spies_win));
-            textView.setVisibility(View.VISIBLE);
-        } else {
-            textView.setVisibility(View.GONE);
+        switch (status) {
+            case Params.GAME_NOT_OVER:
+                textView.setVisibility(View.GONE);
+                break;
+            case Params.RESISTANCE_WIN:
+                textView.setText(getString(R.string.string_thievies_win));
+                textView.setVisibility(View.VISIBLE);
+                break;
+            case Params.LOYALIST_WIN:
+                textView.setText(getString(R.string.string_thievies_win_avalon));
+                textView.setVisibility(View.VISIBLE);
+                break;
+            case Params.SPY_WIN:
+                textView.setText(getString(R.string.string_spies_win));
+                textView.setVisibility(View.VISIBLE);
+                break;
+            case Params.MINION_WIN:
+                textView.setText(getString(R.string.string_spies_win_avalon));
+                textView.setVisibility(View.VISIBLE);
+                break;
+            case Params.ASSASINATION:
+                textView.setText(R.string.assassination_choose_target);
+                textView.setVisibility(View.VISIBLE);
+                break;
+            case Params.REMOVE_USER:
+                textView.setText(R.string.remove_gamer);
+                textView.setVisibility(View.VISIBLE);
+                break;
+            default:
+                textView.setVisibility(View.GONE);
         }
 
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
@@ -149,10 +199,12 @@ public class GridFragment extends BasePlotFragment {
         if (status == Params.GAME_NOT_OVER) {
             doubleButtonView.setButtonImage(R.drawable.propose, R.drawable.token_fail);
 
-            doubleButtonView.setButtonText(R.string.string_button_propose_game, R.string.dummy_button);
+            doubleButtonView.setButtonText(R.string.string_button_propose_game, R.string.sabotage);
 
             doubleButtonView.setButtonVisibility(View.GONE, allowPass ? View.VISIBLE : View.GONE);
-        } else if (status == Params.RESISTANCE_WIN || status == Params.SPY_WIN) {
+        } else if (status == Params.ASSASINATION) {
+            doubleButtonView.setButtonVisibility(View.GONE, View.GONE);
+        } else {
             doubleButtonView.setButtonImage(R.drawable.replay, R.drawable.rate);
 
             doubleButtonView.setButtonText(R.string.replay, R.string.rate);

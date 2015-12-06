@@ -52,7 +52,8 @@ public class GridRecyclerViewAdapter
             public void onClick(View view) {
                 boolean isSelected = models.get(position).isSelected();
 
-                onItemToggleListener.onToggle(view, position, isSelected);
+                if (onItemToggleListener != null)
+                    onItemToggleListener.onToggle(view, position, isSelected);
             }
         });
         
@@ -64,10 +65,13 @@ public class GridRecyclerViewAdapter
 
         if (model.getGamer() == null) return;
 
-        holder.description.setText(
-                model.getGamer().isLeader() ?
-                        mContext.getResources().getText(R.string.string_leader) :
-                        "");
+        Gamer gamer = model.getGamer();
+
+        holder.description.setText(gamer.getRoleName());
+
+        if (gamer.isLeader()) {
+            holder.description.setText(mContext.getResources().getText(R.string.string_leader));
+        }
 
         List<Integer> badges = model.getGamer().getResults();
 
@@ -140,11 +144,14 @@ public class GridRecyclerViewAdapter
             this.onItemToggleListener = onItemToggleListener;
     }
 
-
     public void bindModels(List<User> userList, List<Gamer> gamerList) {
         for (int i = 0; i < userList.size(); i++) {
             models.add(new Model(userList.get(i), gamerList != null ? gamerList.get(i) : null));
         }
+    }
+
+    public void removeModel(int position) {
+        models.remove(position);
     }
 
     public void toggleSelected(int position) {

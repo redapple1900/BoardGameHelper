@@ -2,78 +2,80 @@
 
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory 
+    <PreferenceCategory
 
-  android:title="Setting"
+        android:key="setting"
 
-  android:key="setting">
-<!--  
-  <CheckBoxPreference 
+        android:title="Setting">
+        <!--
+          <CheckBoxPreference
 
-android:key="language"
+        android:key="language"
 
-android:summary="Enable or disable data updates"
+        android:summary="Enable or disable data updates"
 
-android:title="Lan" 
+        android:title="Lan"
 
-android:defaultValue="true"
+        android:defaultValue="true"
 
-  />
--->
-  <ListPreference 
+          />
+        -->
+        <!--
+        <ListPreference
 
-android:key="language"
+            android:defaultValue="default"
 
-android:title="Language"
+            android:entries="@array/language"
 
-android:summary="Game Language"
+            android:entryValues="@array/languageValues"
 
-android:defaultValue="default" 
+            android:key="language"
 
-android:entries="@array/language"
+            android:summary="Game Language"
 
-android:entryValues="@array/languageValues"/>
+            android:title="Language" />
+            -->
 
-<ListPreference 
+        <ListPreference
 
-android:key="theme"
+            android:defaultValue="default"
 
-android:title="Theme"
+            android:entries="@array/theme"
 
-android:summary="Game Theme"
+            android:entryValues="@array/themeValues"
 
-android:defaultValue="default" 
+            android:key="theme"
 
-android:entries="@array/theme"
+            android:summary="Game Theme"
 
-android:entryValues="@array/themeValues"/>
+            android:title="Theme" />
 
-<!--  android:dependency="perform_updates"-->
+        <!--  android:dependency="perform_updates"-->
 
-     
-<!--  
-    </PreferenceCategory>
 
-    <PreferenceCategory 
+        <!--
+            </PreferenceCategory>
 
-  android:title="Second Category"
+            <PreferenceCategory
 
-  android:key="second_category">
+          android:title="Second Category"
 
-  <EditTextPreference
+          android:key="second_category">
 
-android:key="welcome_message"
+          <EditTextPreference
 
-android:title="Welcome Message" 
+        android:key="welcome_message"
 
-android:summary="Define the Welcome message to be shown"
+        android:title="Welcome Message"
 
-android:dialogTitle="Welcome Message"
+        android:summary="Define the Welcome message to be shown"
 
-android:dialogMessage="Provide a message"    
+        android:dialogTitle="Welcome Message"
 
-android:defaultValue="Default welcome message" />
--->
+        android:dialogMessage="Provide a message"
+
+        android:defaultValue="Default welcome message" />
+        -->
     </PreferenceCategory>
 
 </PreferenceScreen>

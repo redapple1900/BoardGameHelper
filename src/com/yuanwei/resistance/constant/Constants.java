@@ -28,6 +28,7 @@ public class Constants {
     public static final String GAME_WITH_CARDS = "game_with_cards";
     public static final String GAME_WITHOUT_CARDS = "game_without_cards";
     public static final String GAME = "game";
+    public static final String USERLIST_KEY = "gamerList";
 
     public static int getNormalPlayers(int Total_players) {
         switch (Total_players) {

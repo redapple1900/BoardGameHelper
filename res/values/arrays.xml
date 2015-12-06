@@ -34,16 +34,16 @@
         <item name="10">@drawable/pic10</item>
     </string-array>
     <string-array name="icon" translatable="true">
-        <item name="1">@drawable/icon</item>
-        <item name="2">@drawable/icon</item>
-        <item name="3">@drawable/icon</item>
-        <item name="4">@drawable/icon</item>
-        <item name="5">@drawable/icon</item>
-        <item name="6">@drawable/icon</item>
-        <item name="7">@drawable/icon</item>
-        <item name="8">@drawable/icon</item>
-        <item name="9">@drawable/icon</item>
-        <item name="10">@drawable/icon</item>
+        <item name="1">@drawable/index</item>
+        <item name="2">@drawable/index</item>
+        <item name="3">@drawable/index</item>
+        <item name="4">@drawable/index</item>
+        <item name="5">@drawable/index</item>
+        <item name="6">@drawable/index</item>
+        <item name="7">@drawable/index</item>
+        <item name="8">@drawable/index</item>
+        <item name="9">@drawable/index</item>
+        <item name="10">@drawable/index</item>
     </string-array>
 
 </resources>

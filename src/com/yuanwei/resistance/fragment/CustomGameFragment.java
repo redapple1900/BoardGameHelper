@@ -213,7 +213,7 @@ public class CustomGameFragment extends Fragment {
     public void showDialog() {
         if (dialog != null) {
             dialog.setContentView(R.layout.view_dialog_input_name);
-            dialog.setTitle(R.string.string_builder_inputname_title_main);
+            dialog.setTitle(R.string.input_name_title);
             dialog.setCancelable(false);
 
             final AutoCompleteTextView ed = (AutoCompleteTextView) dialog

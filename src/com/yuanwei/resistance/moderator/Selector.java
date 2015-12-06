@@ -4,16 +4,14 @@ import com.yuanwei.resistance.moderator.protocol.OnCountListener;
 import com.yuanwei.resistance.moderator.protocol.Recordable;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by chenyuanwei on 15/10/25.
  */
 public class Selector<T> extends Scorer implements Recordable<T>{
 
-    private Set<T> mSet;
+    private List<T> mList;
 
     private int total;
 
@@ -24,32 +22,32 @@ public class Selector<T> extends Scorer implements Recordable<T>{
     @Override
     public final Selector<T> prepare(int size) {
         super.prepare(size);
-        mSet = new HashSet<>(size);
+        mList = new ArrayList<>(size);
         total = size;
         return this;
     }
 
     @Override
     public void terminate() {
-        mSet = null;
+        mList = null;
         total = 0;
         super.terminate();
     }
 
     @Override
     public List<T> provide() {
-        return new ArrayList<>(mSet);
+        return mList;
     }
 
 
     public final void select(T t) {
         if (t == null) return;
 
-        if (mSet.contains(t)){
-            mSet.remove(t);
+        if (mList.contains(t)){
+            mList.remove(t);
             super.decrement();
         } else {
-            mSet.add(t);
+            mList.add(t);
             super.increment();
         }
     }

@@ -13,20 +13,14 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 
-import com.yuanwei.resistance.CustomGameActivity;
 import com.yuanwei.resistance.QuickPrefsActivity;
 import com.yuanwei.resistance.R;
 import com.yuanwei.resistance.constant.Constants;
-import com.yuanwei.resistance.partygame.avalon.model.Avalon;
-import com.yuanwei.resistance.partygame.origin.model.Resistance;
 
 public class QuickStartFragment extends Fragment {
     private int mGame;
     private Button button, button_custom, button_setting;
     private Spinner spinner;
-    private static final String[] mGames = {
-            Resistance.getInstance().getName(),
-            Avalon.getInstance().getName()};
     private ArrayAdapter<String> adapter;
 
     @Override
@@ -34,11 +28,13 @@ public class QuickStartFragment extends Fragment {
                              Bundle savedInstanceState) {
         View quickstartLayout = inflater.inflate(R.layout.fragment_quickstart, container, false);
 
+        String[] gameNames = {getString(R.string.resistance), getString(R.string.avalon)};
+
         button = (Button) quickstartLayout.findViewById(R.id.button_quickstart);
-        button_custom = (Button) quickstartLayout.findViewById(R.id.button_customgame_quickstart);
+        //button_custom = (Button) quickstartLayout.findViewById(R.id.button_customgame_quickstart);
         button_setting = (Button) quickstartLayout.findViewById(R.id.button_setting_quickstart);
 
-        adapter = new ArrayAdapter<>(getActivity(), R.layout.myspinner, mGames);
+        adapter = new ArrayAdapter<>(getActivity(), R.layout.myspinner, gameNames);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner = (Spinner) quickstartLayout.findViewById(R.id.spinner_quickstart);
@@ -53,9 +49,10 @@ public class QuickStartFragment extends Fragment {
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
 
-                mGame = Constants.ORIGIN;
+                mGame = Constants.AVALON;
             }
         });
+        spinner.setSelection(1);
 
         button.setOnClickListener(new Button.OnClickListener() {
 
@@ -76,7 +73,7 @@ public class QuickStartFragment extends Fragment {
                         QuickStartTransitionDialogFragment.TAG);
             }
         });
-
+        /*
         button_custom.setOnClickListener(new Button.OnClickListener() {
 
             @Override
@@ -87,7 +84,7 @@ public class QuickStartFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
+        */
         button_setting.setOnClickListener(new View.OnClickListener() {
 
             @Override

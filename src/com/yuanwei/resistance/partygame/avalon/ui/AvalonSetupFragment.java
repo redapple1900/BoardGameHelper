@@ -1,15 +1,6 @@
 package com.yuanwei.resistance.partygame.avalon.ui;
 
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.yuanwei.resistance.R;
 import com.yuanwei.resistance.constant.Constants;
@@ -17,9 +8,16 @@ import com.yuanwei.resistance.fragment.NumberPickDialogFragment;
 import com.yuanwei.resistance.model.User;
 import com.yuanwei.resistance.partygame.avalon.Config;
 import com.yuanwei.resistance.partygame.avalon.model.Avalon;
+import com.yuanwei.resistance.partygame.avalon.model.Avalon.Role;
 import com.yuanwei.resistance.partygame.avalon.rule.SetupRule;
 import com.yuanwei.resistance.partygame.avalon.texttospeech.Narrator;
+import com.yuanwei.resistance.partygame.origin.model.Resistance.Option;
 import com.yuanwei.resistance.ui.fragment.BaseSetupFragment;
+import com.yuanwei.resistance.ui.list.OptionSetupRecyclerViewAdapter;
+import com.yuanwei.resistance.ui.list.OptionSetupRecyclerViewAdapter.OptionItem;
+import com.yuanwei.resistance.ui.list.RoleSetupRecyclerViewAdapter;
+import com.yuanwei.resistance.ui.list.RoleSetupRecyclerViewAdapter.RoleItem;
+import com.yuanwei.resistance.ui.list.SectionRecyclerViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +30,12 @@ public class AvalonSetupFragment extends BaseSetupFragment {
 
     public static final String TAG = "AvalonSetupFragment";
 
-    public static AvalonSetupFragment createInstance(boolean isGameNeeded) {
+    public static AvalonSetupFragment createInstance(boolean isGameNeeded, ArrayList<User> list) {
         AvalonSetupFragment fragment = new AvalonSetupFragment();
         Bundle bundle = new Bundle();
+        // TODO:: No hard coding
         bundle.putBoolean("IsGameNeeded", isGameNeeded);
+        bundle.putParcelableArrayList(Constants.USERLIST_KEY, list);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -47,14 +47,15 @@ public class AvalonSetupFragment extends BaseSetupFragment {
     }
 
     /* Data */
-    private List<GameSetupItem> data;
-
-    /* View */
-    private TextView tv1;
+    private List<RoleItem> roles;
+    private List<OptionItem> options;
+    private List<User> mUserList;
 
     /* Presenter, Adapter and Utility */
-    private GameSetupRecyclerViewAdapter mAdapter;
+    private RoleSetupRecyclerViewAdapter mRoleAdapter;
     private SetupRule mRule;
+    private OptionSetupRecyclerViewAdapter mOptionAdapter;
+    private SectionRecyclerViewAdapter mSectionAdapter;
     private Config mConfig;
 
     @Override
@@ -76,22 +77,34 @@ public class AvalonSetupFragment extends BaseSetupFragment {
         isGameNeeded =
                 mActivity.getIntent().getExtras().getString("Cards").equals(Constants.GAME_WITHOUT_CARDS);
 
-        data = new ArrayList<>();
+
+        roles = new ArrayList<>();
+
+        options = new ArrayList<>();
+
         mRule = new SetupRule();
 
-        mConfig = new Config();
+        mConfig = new Config(getGameId());
+
         mConfig.load(mActivity);
+
+        mUserList = getArguments().getParcelableArrayList(Constants.USERLIST_KEY);
 
         mNumberOfPlayers = mConfig.getNumberOfPlayers();
 
-        for (Avalon.Role role : Avalon.getInstance().getSpecialRoles()) {
+        for (Option option : Avalon.getInstance().getOptions()) {
+            options.add(new OptionItem(option, mConfig.isOptionEnabled(option)));
+        }
+
+        for (Role role : Avalon.getInstance().getSpecialRoles()) {
             boolean selected = mConfig.isRoleEnabled(role);
             if (selected) {
                 mRule.notifyRoleSelected(role);
             }
-            data.add(new GameSetupItem(role, selected, true));
+            roles.add(new RoleItem(role, selected, true));
         }
-        for (GameSetupItem item : data) {
+
+        for (RoleItem item : roles) {
             if (item.isChecked()) continue; // A checked item must be selectable
             item.setSelectable(mRule.isRoleSelectable(item.getRole(), mNumberOfPlayers));
         }
@@ -100,46 +113,59 @@ public class AvalonSetupFragment extends BaseSetupFragment {
 
     @Override
     protected void initAdapter() {
-        mAdapter = new GameSetupRecyclerViewAdapter(data);
-        mRecyclerView.setAdapter(mAdapter);
-    }
-
-    @Override
-    protected void initTopView(View v) {
-        tv1 = (TextView) v.findViewById(R.id.setup_spy);
-        tv1.setText("Spy:" + Constants.getSpyPlayers(mNumberOfPlayers));
-    }
-
-    @Override
-    protected void initInteraction(View v) {
-        mButtonNext = (Button) v.findViewById(R.id.button_next_setup);
-
-        mButtonNext.setOnClickListener(new View.OnClickListener() {
+        mRoleAdapter = new RoleSetupRecyclerViewAdapter(roles);
+        mRoleAdapter.setOnRoleCheckListener(new RoleSetupRecyclerViewAdapter.OnRoleCheckListener() {
             @Override
-            public void onClick(View view) {
+            public void onToggle(RoleItem mainItem) {
 
-                saveConfig();
+                final Avalon.Role role = mainItem.getRole();
 
-                if (isGameNeeded) {
-                    onEventStart(Constants.GAME_WITHOUT_CARDS, 0);
+                if (mainItem.isChecked()) {
+                    mRule.notifyRoleRemoved(role);
+                    for (RoleItem item : roles) {
+
+                        if (item.getRole() == role) continue;
+
+                        if (!mRule.isRoleSelectable(item.getRole(), mNumberOfPlayers)) {
+                            item.setSelectable(false);
+                            item.setChecked(false);
+                            mRule.notifyRoleRemoved(item.getRole());
+                        } else {
+                            item.setSelectable(true);
+                            item.setChecked(mRule.isRoleSelected(item.getRole()));
+                        }
+                    }
+                    mainItem.setChecked(false);
                 } else {
-                    playSound();
+                    mRule.notifyRoleSelected(role);
+                    for (RoleItem item : roles) {
+
+                        if (item.getRole() == role) continue;
+
+                        if (item.isChecked()) continue;
+
+                        item.setSelectable(
+                                mRule.isRoleSelectable(item.getRole(), mNumberOfPlayers));
+
+                        if (!item.isSelectable()) continue;
+                        item.setChecked(mRule.isRoleSelected(item.getRole()));
+                    }
+                    mainItem.setChecked(true);
                 }
+                mRoleAdapter.notifyDataSetChanged();
             }
+        });
+        mOptionAdapter = new OptionSetupRecyclerViewAdapter(options);
+
+        mSectionAdapter =
+                new SectionRecyclerViewAdapter(mRoleAdapter, mOptionAdapter);
+
+        mSectionAdapter.setSections(new SectionRecyclerViewAdapter.Section[]{
+                new SectionRecyclerViewAdapter.Section(0, getString(R.string.option)),
+                new SectionRecyclerViewAdapter.Section(options.size() + 1, getString(R.string.role))
         });
 
-        mButtonTotal = (Button) v.findViewById(R.id.setup_total);
-        mButtonTotal.setText(getString(R.string.game_setup_button_total, mNumberOfPlayers));
-        mButtonTotal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogFragment dialogFragment = new NumberPickDialogFragment();
-                Bundle bundle = new Bundle();
-                bundle.putInt(Constants.TOTAL_PLAYERS_KEY, mNumberOfPlayers);
-                dialogFragment.setArguments(bundle);
-                dialogFragment.show(mActivity.getSupportFragmentManager(), "numberPicker");
-            }
-        });
+        mRecyclerView.setAdapter(mSectionAdapter);
     }
 
     @Override
@@ -151,31 +177,45 @@ public class AvalonSetupFragment extends BaseSetupFragment {
             case NumberPickDialogFragment.TAG:
                 mNumberOfPlayers = extra;
                 // Update the view
-                mButtonTotal.setText(
-                        mActivity.getString(R.string.game_setup_button_total, mNumberOfPlayers));
-                tv1.setText("Spy:" + Constants.getSpyPlayers(mNumberOfPlayers));
+                updateTopView();
                 // reset the selection
 
-                for (GameSetupItem item : data) {
+                for (RoleItem item : roles) {
                     if (item.isSelectable()) continue;
 
                     item.setSelectable(mRule.isRoleSelectable(item.getRole(), mNumberOfPlayers));
                 }
 
-                mAdapter.notifyDataSetChanged();
+                mRoleAdapter.notifyDataSetChanged();
                 break;
             case Constants.GAME_WITHOUT_CARDS:
                 startNextActivity();
                 break;
         }
+    }
 
+    @Override
+    protected void saveConfig() {
+        mConfig.setNumberOfPlayers(mNumberOfPlayers);
+        for (OptionItem item : options) {
+            mConfig.setOptionEnabled(item.getOption(), item.isChecked());
+        }
+        for (RoleItem item : roles) {
+            mConfig.setRoleEnabled(item.getRole(), item.isChecked());
+        }
+        mConfig.save(mActivity);
+    }
+
+    @Override
+    protected Config getConfig() {
+        return mConfig;
     }
 
     private void clearSelection() {
-        for (GameSetupItem item: data){
+        for (RoleItem item: roles){
             item.setChecked(false);
         }
-        mAdapter.notifyDataSetChanged();
+        mRoleAdapter.notifyDataSetChanged();
         mRule.reset();
     }
 
@@ -184,7 +224,7 @@ public class AvalonSetupFragment extends BaseSetupFragment {
         int visible = Constants.getNormalPlayers(mNumberOfPlayers);
         int invisible = Constants.getSpyPlayers(mNumberOfPlayers);
 
-        for (GameSetupItem item : data) {
+        for (RoleItem item : roles) {
             if (!item.isChecked()) continue;
 
             User user = new User();
@@ -213,137 +253,17 @@ public class AvalonSetupFragment extends BaseSetupFragment {
             list.add(evil);
             invisible--;
         }
-        return list;
-    }
 
-    private void saveConfig() {
-        mConfig.setNumberOfPlayers(mNumberOfPlayers);
-        for (GameSetupItem item : data) {
-            mConfig.setRoleEnabled(item.getRole(), item.isChecked());
-        }
-        mConfig.save(mActivity);
-    }
-
-    private class GameSetupItem {
-
-        private Avalon.Role role;
-        private boolean checked;
-        private boolean selectable;
-
-
-        public GameSetupItem(Avalon.Role role, boolean checked, boolean selectable) {
-            this.role = role;
-            this.checked = checked;
-            this.selectable = selectable;
-        }
-
-        public Avalon.Role getRole() {
-            return role;
-        }
-
-        public void setRole(Avalon.Role role) {
-            this.role = role;
-        }
-
-        public boolean isChecked() {
-            return checked;
-        }
-
-        public void setChecked(boolean checked) {
-            this.checked = checked;
-        }
-
-        public boolean isSelectable() {
-            return selectable;
-        }
-
-        public void setSelectable(boolean selectable) {
-            this.selectable = selectable;
-        }
-    }
-
-    private class GameSetupRecyclerViewAdapter
-            extends RecyclerView.Adapter<GameSetupRecyclerViewAdapter.ViewHolder> {
-
-        private List<GameSetupItem> data;
-
-        public GameSetupRecyclerViewAdapter(List<GameSetupItem> data) {
-            this.data = data;
-        }
-
-        class ViewHolder extends RecyclerView.ViewHolder {
-            public ImageView imageView;
-            public TextView name;
-            public TextView description;
-            public CheckBox checkBox;
-
-            public ViewHolder(View v) {
-                super(v);
-                imageView = (ImageView) v.findViewById(R.id.character_image_view);
-                name = (TextView) v.findViewById(R.id.character_name);
-                description = (TextView) v.findViewById(R.id.character_description);
-                checkBox = (CheckBox) v.findViewById(R.id.character_checkbox);
+        if (mUserList != null && !mUserList.isEmpty()) {
+            int i = 0;
+            for (User user : mUserList) {
+                if (user.getId() != -1) { // Not system auto assigned names -->
+                    list.get(i).setName(user.getName());
+                }
+                i++;
             }
         }
 
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ViewHolder(LayoutInflater
-                            .from(parent.getContext())
-                            .inflate(R.layout.listitem_game_setup, parent, false));
-        }
-
-        @Override
-        public void onBindViewHolder(final ViewHolder holder, final int position) {
-            final GameSetupItem mainItem = data.get(position);
-            final Avalon.Role role = mainItem.getRole();
-
-            holder.imageView.setImageResource(role.getImgResId());
-            holder.name.setText(role.getTitleResId());
-            holder.description.setText(role.getDescResId());
-            holder.checkBox.setChecked(mainItem.isChecked());
-
-            holder.checkBox.setVisibility(mainItem.isSelectable() ? View.VISIBLE : View.GONE);
-
-            holder.checkBox.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                    if (mainItem.isChecked()) {
-                        mRule.notifyRoleRemoved(role);
-                        for (GameSetupItem item : data) {
-                            if (item.getRole() == role) continue;
-                            if (!mRule.isRoleSelectable(item.getRole(), mNumberOfPlayers)) {
-                                item.setSelectable(false);
-                                item.setChecked(false);
-                                mRule.notifyRoleRemoved(item.getRole());
-                            } else {
-                                item.setSelectable(true);
-                                item.setChecked(mRule.isRoleSelected(item.getRole()));
-                            }
-                        }
-                        mainItem.setChecked(false);
-                    } else {
-                        mRule.notifyRoleSelected(role);
-                        for (GameSetupItem item : data) {
-                            if (item.getRole() == role) continue;
-                            if (item.isChecked()) continue;
-                            item.setSelectable(
-                                    mRule.isRoleSelectable(
-                                            item.getRole(), mNumberOfPlayers));
-                            if (!item.isSelectable()) continue;
-                            item.setChecked(mRule.isRoleSelected(item.getRole()));
-                        }
-                        mainItem.setChecked(true);
-                    }
-                    mAdapter.notifyDataSetChanged();
-                }
-            });
-        }
-
-        @Override
-        public int getItemCount() {
-            return data.size();
-        }
+        return list;
     }
 }

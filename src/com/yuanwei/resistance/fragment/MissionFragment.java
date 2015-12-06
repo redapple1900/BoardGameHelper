@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.yuanwei.resistance.R;
-import com.yuanwei.resistance.constant.Constants;
 import com.yuanwei.resistance.ui.fragment.BasePlotFragment;
 
 import java.util.Random;
@@ -61,7 +60,7 @@ public class MissionFragment extends BasePlotFragment implements OnClickListener
 
         int identity = getArguments().getInt("identity");
 
-        if (identity == Constants.RESISTANT) {
+        if (identity > 0) { // TODO make things readable
             negative.setVisibility(View.INVISIBLE);
         } else {
             negative.setTag("negative");

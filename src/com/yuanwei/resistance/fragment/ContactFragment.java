@@ -27,7 +27,6 @@ public class ContactFragment extends Fragment{
 				
 				@Override
 				public void onClick(View v) {
-					// TODO Auto-generated method stub
 					 Intent i = new Intent(Intent.ACTION_SEND);
 						i.setType("message/rfc822");
 						i.putExtra(Intent.EXTRA_EMAIL, new String[]{"reclapple@gmail.com"});  

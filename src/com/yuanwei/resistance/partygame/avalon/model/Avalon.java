@@ -1,8 +1,8 @@
 package com.yuanwei.resistance.partygame.avalon.model;
 
 import com.yuanwei.resistance.R;
-import com.yuanwei.resistance.constant.Constants;
 import com.yuanwei.resistance.model.protocol.Game;
+import com.yuanwei.resistance.partygame.origin.model.Resistance.Option;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -15,10 +15,6 @@ public class Avalon implements Game {
     private static Avalon mGame;
 
     private Map<Integer, Role> mRoleMap;
-
-    private Map<Integer, Integer> mMinPassMap;
-
-    private Map<Integer, Map<Integer, Integer>> mMissionMembersMap;
 
     private Role[] mDefaultRoles = {
             Role.LOYALIST, Role.MINION
@@ -35,26 +31,13 @@ public class Avalon implements Game {
             Role.OBERON, Role.MORGANA, Role.LANCELOT_ARTHUR, Role.LANCELOT_MORDRED
     };
 
+    private Option[] mOptions = {Option.ALLOW_PASS, Option.MANUEL_GAME_OVER};
+
     private Avalon() {
         mRoleMap = new HashMap<>(mRoles.length * 2);
 
         for (Role role : mRoles) {
             mRoleMap.put(role.getRoleId(), role);
-        }
-
-        mMinPassMap = new HashMap<>();
-
-        mMissionMembersMap = new HashMap<>();
-
-        for (int i = getMinPlayers(); i<= getMaxPlayers(); i++){
-            mMinPassMap.put(i, Constants.NumOfMinPass[i]);
-
-            Map map = new HashMap();
-
-            for (int j = 1; j <= 5; j++) {
-                map.put(i, Constants.NumOfMembersPerMission[i][j-1]);
-            }
-            mMissionMembersMap.put(i, map);
         }
     }
 
@@ -66,19 +49,8 @@ public class Avalon implements Game {
         return mGame;
     }
 
-    public int getNumberForMission(int total, int mission) {
-        return Constants.NumOfMembersPerMission[total][mission-1];
-    }
-    // How many success are needed for a mission
-    public int getSuccess(int total, int mission) {
-        return getNumberForMission(total, mission) - getFailure(total, mission) + 1;
-    }
-
-    public int getFailure(int total, int mission) {
-        if (total >= 7 && mission == 4) {
-            return 2;
-        }
-        return 1;
+    public Option[] getOptions() {
+        return mOptions;
     }
 
     @Override
@@ -132,9 +104,8 @@ public class Avalon implements Game {
     }
 
     public enum Role implements com.yuanwei.resistance.model.protocol.Role {
-        LOYALIST(100, R.string.role_resistant, R.string.role_resistant_short_desc, R.drawable.role_lancelot_good),
-        MINION(-100, R.string.role_spy, R.string.role_spy_short_desc, R.drawable.role_lancelot_evil),
-        // TODO: Repleace with formal pictures
+        LOYALIST(100, R.string.role_loyalist, R.string.role_resistant_short_desc, R.drawable.role_loyalist),
+        MINION(-100, R.string.role_minion, R.string.role_spy_short_desc, R.drawable.role_minion),
         MERLIN(101, R.string.option_merlin, R.string.option_merlin_short_desc, R.drawable.role_merlin),
         ASSASSIN(-101, R.string.option_assassin, R.string.option_assassin_short_desc, R.drawable.role_assassin),
 

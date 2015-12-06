@@ -13,7 +13,7 @@ import org.json.JSONObject;
  */
 public abstract class BaseSwitcher extends Staff {
 
-    public static final int PRIMARY = 1;
+    public static final int PRIMARY = -2;
     
     public static final int SECONDARY = -1;
 

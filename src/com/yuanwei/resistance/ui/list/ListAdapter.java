@@ -49,7 +49,6 @@ public class ListAdapter extends BaseAdapter {
 	}
 
 	public void removeItem(int position) {
-		// TODO Auto-generated method stub
 		if (this.getCount() > 0) {
 			mItems.remove(position);
 		}
@@ -93,20 +92,16 @@ public class ListAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
-
 		return mItems.size();
 	}
 
 	@Override
 	public Object getItem(int arg0) {
-		// TODO Auto-generated method stub
 		return mItems.get(arg0);
 	}
 
 	@Override
 	public long getItemId(int arg0) {
-		// TODO Auto-generated method stub
 		return arg0;
 	}
 

@@ -14,7 +14,6 @@ import com.yuanwei.resistance.R;
 import java.util.LinkedList;
 import java.util.List;
 
-// TODO::Remove its usage
 public class GridAdapter extends BaseAdapter {
     static final int MaxRounds = 5;
 

@@ -17,16 +17,15 @@ import com.yuanwei.resistance.ui.fragment.BasePlotDialogFragment;
 public class NumberPickDialogFragment extends BasePlotDialogFragment
         implements NumberPicker.OnValueChangeListener {
 
-    // TODO: Clear
     public static final String CLEAR_SELECTION = "NumberPickDialogFragment.Clear";
-    public static final String TAG = "NumberPickDialogFragment";
+    public static final String SET_SELECTION = "NumberPickDialogFragment.Set";
 
     private int prev, next;
     private String type;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        type = TAG;
+        type = SET_SELECTION;
         prev = getArguments().getInt(Constants.TOTAL_PLAYERS_KEY, 8);
         next = Integer.MAX_VALUE;
 

@@ -2,6 +2,7 @@ package com.yuanwei.resistance;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
@@ -49,6 +50,9 @@ public class PrepareActivity extends BasePlotActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
+                        Intent intent = new Intent();
+                        intent.setClass(getParent(), WelcomeActivity.class);
+                        startActivity(intent);
                         finish();
 
                     }
@@ -83,39 +87,4 @@ public class PrepareActivity extends BasePlotActivity {
 
         getSupportFragmentManager().beginTransaction().add(R.id.content, fragment).commit();
     }
-    /*
-    private void shufflePicture() {
-
-        try {
-            if (share.getString(Constants.THEME, "").equals(Constants.THEME_MILITARY)) { //TODO: Should use a global variable to denote the 'Theme';
-
-                pictures = getResources().obtainTypedArray(R.array.images);
-
-            } else {
-
-                pictures = getResources().obtainTypedArray(R.array.icon);
-            }
-
-            int count = 10;// TODO: Should not use hardcode number;
-            int temp[] = new int[count];
-
-            for (int i = 0; i < count; i++) {
-                temp[i] = pictures.getResourceId(i, -1);
-            }
-            Random random = new Random(System.currentTimeMillis());
-            for (int i = temp.length - 1; i > 0; i--) {
-                int index = random.nextInt(i + 1);
-                // Simple swap
-                int a = temp[index];
-                temp[index] = temp[i];
-                temp[i] = a;
-            }
-            for (int i = TOTAL_PLAYERS - 1; i >= 0; i--) {
-                gamerList.get(i).setResId(temp[i]);
-            }
-        } finally {
-            pictures.recycle();
-        }
-    }
-        */
 }

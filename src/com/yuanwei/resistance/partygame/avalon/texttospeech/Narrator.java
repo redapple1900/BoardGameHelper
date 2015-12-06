@@ -34,7 +34,7 @@ public class Narrator extends BaseResistanceNarrator {
     private void say(Config config) {
 
         if (TEST_MODE) {
-            mTTS.setSpeechRate(2.0f);
+            mTTS.setSpeechRate(2.5f);
         }
 
         boolean allDisabled = true;

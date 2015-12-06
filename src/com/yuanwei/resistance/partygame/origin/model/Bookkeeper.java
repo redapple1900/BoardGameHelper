@@ -1,10 +1,14 @@
 package com.yuanwei.resistance.partygame.origin.model;
 
+import android.content.Context;
 import android.support.v4.util.Pair;
 
+import com.yuanwei.resistance.constant.Constants;
 import com.yuanwei.resistance.model.Gamer;
 import com.yuanwei.resistance.model.User;
 import com.yuanwei.resistance.moderator.BaseSwitcher;
+import com.yuanwei.resistance.partygame.avalon.model.Avalon;
+import com.yuanwei.resistance.partygame.origin.model.Resistance.GameEnd;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,8 +22,10 @@ import java.util.Map;
  *
  */
 public class Bookkeeper {
+    // TODO: create state for what fragment should show and the GridFragment
+    private int mGame;
 
-    private Resistance.GameEnd mGameEnd;
+    private GameEnd mGameEnd;
 
     // Raw data
     public List<User> mUserList;
@@ -40,7 +46,9 @@ public class Bookkeeper {
     // Game Results
     public List<Integer> mGameResults;
 
-    public Bookkeeper(List<User> userList, List<Gamer> gamerList) {
+    public Bookkeeper(int game, List<User> userList, List<Gamer> gamerList) {
+
+        mGame = game;
 
         mUserList = userList;
 
@@ -52,7 +60,7 @@ public class Bookkeeper {
             mGamerMap.put(mUserList.get(i), mGamerList.get(i));
         }
 
-        mGameEnd = Resistance.GameEnd.NOT_FINISHED;
+        mGameEnd = GameEnd.NOT_FINISHED;
 
         mTeamResults = new ArrayList<>();
 
@@ -63,7 +71,7 @@ public class Bookkeeper {
         mMissionExecutionResults = new ArrayList<>();
     }
 
-    public void keepMissionResults(List<Integer> list) {
+    public void keepMissionList(List<Integer> list) {
 
         List<User> users = mTeamResults.get(mTeamResults.size() - 1);
 
@@ -101,7 +109,7 @@ public class Bookkeeper {
         mProposeResults.add(result);
     }
 
-    public void updateMissionResults(int result) {
+    public void updateMissionResult(int result) {
 
         for (Gamer gamer : mGamerList) {
             gamer.addMissionResult(Resistance.NEUTRAL);
@@ -118,7 +126,7 @@ public class Bookkeeper {
     /**
      * When game is over, reveal the 'fail's
      */
-    public void updateGameResults(Resistance.GameEnd end) {
+    public void updateGameResults(Context context, GameEnd end) {
 
         mGameEnd = end;
 
@@ -132,6 +140,34 @@ public class Bookkeeper {
             }
             round ++;
         }
+
+        if (mGame == Constants.ORIGIN && end != GameEnd.NOT_FINISHED) {
+            for (Gamer gamer : mGamerList) {
+                gamer.setRoleName(
+                        context.getString(
+                                Resistance.getInstance().findRoleById(
+                                        gamer.getRoleId()).getTitleResId()));
+            }
+            return;
+        }
+
+        if (end == GameEnd.ASSASSINATION) {
+            for (Gamer gamer : mGamerList) {
+                if (gamer.getRoleId() < 0) {
+                    gamer.setRoleName(
+                            context.getString(
+                                    Avalon.getInstance().findRoleById(
+                                            gamer.getRoleId()).getTitleResId()));
+                }
+            }
+        } else if (end != GameEnd.NOT_FINISHED) {
+            for (Gamer gamer : mGamerList) {
+                gamer.setRoleName(
+                        context.getString(
+                                Avalon.getInstance().findRoleById(
+                                        gamer.getRoleId()).getTitleResId()));
+            }
+        }
     }
 
     public Gamer getGamer(User user) {
@@ -142,7 +178,19 @@ public class Bookkeeper {
         return mUserList.get(index);
     }
 
-    public Resistance.GameEnd getGameEnd() {
+    public GameEnd getGameEnd() {
         return this.mGameEnd;
+    }
+
+    public void swap(int roleId0, int roleId1) {
+        for (Gamer gamer : mGamerList) {
+            if (gamer.getRoleId() == roleId0) {
+                gamer.setRoleId(roleId1);
+                continue;
+            }
+            if (gamer.getRoleId() ==roleId1) {
+                gamer.setRoleId(roleId0);
+            }
+        }
     }
 }

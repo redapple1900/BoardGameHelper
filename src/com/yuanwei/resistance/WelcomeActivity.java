@@ -10,12 +10,13 @@ import android.support.v4.view.ViewPager;
 
 import com.yuanwei.resistance.constant.Constants;
 import com.yuanwei.resistance.fragment.ContactFragment;
-import com.yuanwei.resistance.fragment.CustomGameFragment;
 import com.yuanwei.resistance.fragment.QuickStartFragment;
+import com.yuanwei.resistance.model.User;
 import com.yuanwei.resistance.model.protocol.PlotHost;
 import com.yuanwei.resistance.model.protocol.PlotListener;
 import com.yuanwei.resistance.util.GeneralMethodSet;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 /**
@@ -34,7 +35,6 @@ public class WelcomeActivity extends FragmentActivity implements PlotHost, PlotL
     SectionsPagerAdapter mSectionsPagerAdapter;
     private QuickStartFragment quickstartFragment;
     private ContactFragment contactFragment;
-    private CustomGameFragment customGameFragment;
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -58,7 +58,7 @@ public class WelcomeActivity extends FragmentActivity implements PlotHost, PlotL
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-        mViewPager.setCurrentItem(1, true);
+        mViewPager.setCurrentItem(0, true);
 
     }
 
@@ -67,6 +67,7 @@ public class WelcomeActivity extends FragmentActivity implements PlotHost, PlotL
         startActivity((new Intent()
                 .putExtra("Cards", type)
                 .putExtra(Constants.GAME, extra)
+                .putExtra("gamerList", new ArrayList<User>())
                 .setClass(this, SetupActivity.class)));
         finish();
     }

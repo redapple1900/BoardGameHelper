@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,16 +9,19 @@
         android:id="@+id/title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/small_image_size"
         android:textSize="@dimen/text_size"
         android:textStyle="bold"
+        android:layout_margin="@dimen/small_image_size"
+        android:drawablePadding="@dimen/padding_layout"
         android:textAppearance="?android:attr/textAppearanceLarge"/>
 
-    <AutoCompleteTextView
-        android:id="@+id/autoCompleteTextView1"
+    <TextView
+        android:id="@+id/subtitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_margin="@dimen/small_image_size"
+        android:textSize="@dimen/text_size"
         android:ems="15" />
 
     <LinearLayout
@@ -34,11 +35,25 @@
         android:showDividers="beginning|middle|end">
 
         <Button
+            android:id="@+id/neutral"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:layout_weight="1"
+            android:maxWidth="120dp"
+            android:background="@drawable/mybutton"
+            android:padding="1dp"
+            android:text="@string/cancel"
+            android:textColor="#FF000000"
+            android:visibility="gone"/>
+
+        <Button
             android:id="@+id/negative"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
             android:layout_weight="1"
+            android:maxWidth="120dp"
             android:background="@drawable/mybutton"
             android:padding="1dp"
             android:text="@string/cancel"
@@ -50,6 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="6dp"
             android:layout_weight="1"
+            android:maxWidth="120dp"
             android:background="@drawable/mybutton"
             android:padding="1dp"
             android:text="@string/OK"
@@ -58,5 +74,3 @@
     </LinearLayout>
 
 </LinearLayout>
-
-

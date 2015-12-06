@@ -8,11 +8,21 @@ import android.os.Parcelable;
  */
 public  class Params implements Parcelable {
 
+    // TODO:: This is very similar to Resistance#GameEnd. Better to find a way to unify
+    // Also states in BaseGamingResistantFragment
     public static final int GAME_NOT_OVER = 0;
 
     public static final int RESISTANCE_WIN = 1;
 
     public static final int SPY_WIN = 2;
+
+    public static final int ASSASINATION = 3;
+
+    public static final int LOYALIST_WIN = 4;
+
+    public static final int MINION_WIN = 5;
+
+    public static final int REMOVE_USER = 6;
 
     public int getStats() {
         return stats;
@@ -89,7 +99,7 @@ public  class Params implements Parcelable {
     
     public static class Builder{
 
-        public Builder setStats(int stats) {
+        public Builder setStatus(int stats) {
             this.stats = stats;
             return this;
         }

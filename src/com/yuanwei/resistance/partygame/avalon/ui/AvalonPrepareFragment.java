@@ -36,7 +36,7 @@ public class AvalonPrepareFragment extends BasePrepareFragment {
     protected void initUtility() {
         super.initUtility();
 
-        mConfig = new Config();
+        mConfig = new Config(getGameId());
 
         mConfig.load(getActivity());
 

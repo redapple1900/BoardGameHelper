@@ -16,6 +16,8 @@ public class Gamer implements Parcelable {
 
     private boolean leader;
 
+    private String roleName;
+
     public List<Integer> results;
 
     public Gamer(Parcel parcel) {
@@ -34,6 +36,10 @@ public class Gamer implements Parcelable {
         this.roleId = roleId;
 
         results = new ArrayList<>(round);
+
+        leader = false;
+
+        roleName = "";
     }
 
     public int getRoleId() {
@@ -45,6 +51,15 @@ public class Gamer implements Parcelable {
 
     public void setRoleId(int roleId) {
         this.roleId = roleId;
+    }
+
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
     public void setLeader (boolean leader) {
@@ -71,6 +86,8 @@ public class Gamer implements Parcelable {
     @Override
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(roleId);
+        parcel.writeBooleanArray(new boolean[] {leader});
+        parcel.writeString(roleName);
         parcel.writeList(results);
     }
 

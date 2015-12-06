@@ -11,6 +11,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.TypedArray;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -42,6 +44,7 @@ import com.yuanwei.resistance.util.Roles;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -76,9 +79,8 @@ public abstract class BasePrepareFragment extends BaseMultiSceneFragment
     protected ArrayList<User> mUserList;
     protected SharedPreferences share;
     /*View */
-    protected AlertDialog.Builder mShowRoleDialogBuilder;
     private AlertDialog mTransitDialog;
-    private Dialog mInputNameDialog;
+    private Dialog mInputNameDialog, mRoleDialog;
 
     /* Utility */
     protected Announcer mAnnouncer;
@@ -89,14 +91,11 @@ public abstract class BasePrepareFragment extends BaseMultiSceneFragment
 
         share = PreferenceManager.getDefaultSharedPreferences(getActivity());
 
-        mUserList = getArguments().getParcelableArrayList("gamerList");
+        mUserList = getArguments().getParcelableArrayList(Constants.USERLIST_KEY);
 
         mNumberOfPlayers = mUserList.size();
 
-        // Shuffle identity
-        Collections.shuffle(mUserList, new Random(System.currentTimeMillis()));
-
-        // Shuffle pictures
+        // Begin:Read pictures resource and Shuffle pictures
         TypedArray pictures;
 
         if (share.getString(Constants.THEME, "").equals(Constants.THEME_MILITARY)) {
@@ -105,15 +104,22 @@ public abstract class BasePrepareFragment extends BaseMultiSceneFragment
             pictures = getResources().obtainTypedArray(R.array.icon);
         }
 
-        int i = 0;
-        for (User user : mUserList) {
-            user.setResId(pictures.getResourceId(i, -1));
-            i++;
+        List<Integer> picturesList = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            picturesList.add(pictures.getResourceId(i, -1));
         }
 
         pictures.recycle();
 
-        Collections.shuffle(mUserList, new Random(System.currentTimeMillis()));
+        Collections.shuffle(picturesList, new Random(System.currentTimeMillis()));
+        // End:Read pictures resource and Shuffle pictures
+
+        int i = 0;
+        for (User user : mUserList) {
+            user.setResId(picturesList.get(i));
+            i++;
+        }
     }
 
     protected void initUtility(){
@@ -142,9 +148,10 @@ public abstract class BasePrepareFragment extends BaseMultiSceneFragment
     }
 
     protected void initTopView(View view) {
-        TextView textview_gameSetting = (TextView) view.findViewById(R.id.prepare_top_textview);
-        textview_gameSetting.setText(getString(
-                R.string.string_gamesetting_main,
+        TextView party_members = (TextView) view.findViewById(R.id.prepare_top_textview);
+        party_members.setText(getString(
+                getGameId() == Constants.ORIGIN ?
+                        R.string.party_members : R.string.party_members_avalon,
                 Constants.getNormalPlayers(mNumberOfPlayers),
                 Constants.getSpyPlayers(mNumberOfPlayers)));
     }
@@ -158,35 +165,6 @@ public abstract class BasePrepareFragment extends BaseMultiSceneFragment
         intent.setClass(getActivity(), GameActivity.class);
         startActivity(intent);
         getActivity().finish();
-    }
-
-    protected void showPlayerRoleDialog() {
-
-        if (mShowRoleDialogBuilder == null) {
-            mShowRoleDialogBuilder = new AlertDialog.Builder(getActivity(), AlertDialog.THEME_HOLO_DARK);
-            mShowRoleDialogBuilder
-                    .setCancelable(false)
-                    .setPositiveButton(
-                            getString(R.string.confirmation),
-                            new DialogInterface.OnClickListener() {
-
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    mAnnouncer.next();
-                                }
-                            });
-        }
-
-        Role role = Roles.findRole(
-                        getGameId(),
-                        mUserList.get(mAnnouncer.getCount()).getIdentity());
-
-        mShowRoleDialogBuilder.setTitle(
-                getString(R.string.show_role_game_prepare_activity)
-                        + getString(role.getTitleResId()))
-                .setIcon(role.getImgResId())
-                .setMessage(role.getDescResId())
-                .show();
     }
 
     @Override
@@ -312,13 +290,70 @@ public abstract class BasePrepareFragment extends BaseMultiSceneFragment
         mTransitDialog.show();
     }
 
+    protected void showPlayerRoleDialog() {
+        if (mRoleDialog == null) {
+            mRoleDialog = new Dialog(getActivity());
+            mRoleDialog.setCancelable(false);
+        }
+
+        Role role = Roles.findRole(
+                getGameId(),
+                mUserList.get(mAnnouncer.getCount()).getIdentity());
+
+        mRoleDialog.setContentView(R.layout.dialog_regular_view);
+
+        mRoleDialog.getWindow().setBackgroundDrawable(
+                new ColorDrawable(android.graphics.Color.TRANSPARENT));
+
+        final TextView title = (TextView) mRoleDialog.findViewById(R.id.title);
+
+        title.setText(getString(
+                    R.string.show_role_game_prepare_activity, getString(role.getTitleResId())));
+
+        title.setTextColor(getResources().getColor(android.R.color.black));
+
+        Drawable drawable = getResources().getDrawable(role.getImgResId());
+        int rec = (int) getResources().getDimension(R.dimen.itemSize);
+
+        if (drawable != null)
+            drawable.setBounds(0, 0, rec, rec);
+
+        title.setCompoundDrawables(drawable, null, null, null);
+
+        final TextView subtitle = (TextView) mRoleDialog.findViewById(R.id.subtitle);
+        subtitle.setText(getString(role.getDescResId()));
+
+        final Button affirmative = (Button) mRoleDialog.findViewById(R.id.affirmative);
+
+        affirmative.setText(getString(R.string.confirmation));
+
+        affirmative.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mAnnouncer.next();
+                mRoleDialog.dismiss();
+            }
+        });
+
+        final Button negative = (Button) mRoleDialog.findViewById(R.id.negative);
+
+        negative.setVisibility(View.GONE);
+
+        mRoleDialog.show();
+    }
+
     private void showInputNameDialog() {
         if (mInputNameDialog == null) {
             mInputNameDialog = new Dialog(getActivity());
-
             mInputNameDialog.setContentView(R.layout.view_dialog_input_name);
-            mInputNameDialog.setTitle(R.string.string_builder_inputname_title_main);
+            mInputNameDialog.getWindow().setBackgroundDrawable(
+                    new ColorDrawable(android.graphics.Color.TRANSPARENT));
             mInputNameDialog.setCancelable(false);
+
+            final TextView tv = (TextView) mInputNameDialog
+                    .findViewById(R.id.title);
+            tv.setText(getString(R.string.input_name_title));
+            tv.setTextColor(getResources().getColor(android.R.color.black));
 
             final AutoCompleteTextView ed = (AutoCompleteTextView) mInputNameDialog
                     .findViewById(R.id.autoCompleteTextView1);

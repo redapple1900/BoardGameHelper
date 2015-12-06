@@ -10,26 +10,25 @@ import com.yuanwei.resistance.util.GeneralMethodSet;
 public class QuickPrefsActivity extends PreferenceActivity {
 
     @SuppressWarnings("deprecation")
-	@Override
+    @Override
     public void onCreate(Bundle savedInstanceState) {
 
-  super.onCreate(savedInstanceState);
-	GeneralMethodSet gms=new GeneralMethodSet();
-	gms.updateLanguage(this);	
-	gms=null;
+        super.onCreate(savedInstanceState);
+        GeneralMethodSet gms = new GeneralMethodSet();
+        gms.updateLanguage(this);
 
-  addPreferencesFromResource(R.xml.preferences);
-  
+        addPreferencesFromResource(R.xml.preferences);
     }
-    @Override 
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if(keyCode == KeyEvent.KEYCODE_BACK ){
-			  startActivity(new Intent(this,WelcomeActivity.class));
-			  finish();
-		}
 
-		return super.onKeyDown(keyCode, event);
-	}
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            startActivity(new Intent(this, WelcomeActivity.class));
+            finish();
+        }
+
+        return super.onKeyDown(keyCode, event);
+    }
 
 
 }

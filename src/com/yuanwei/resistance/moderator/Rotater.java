@@ -49,6 +49,7 @@ public class Rotater extends Staff {
         }
         mListener.onRoundStart();
         mCount ++;
+        mCount %= mTotal;
         mListener.onRoundComplete();
     }
 

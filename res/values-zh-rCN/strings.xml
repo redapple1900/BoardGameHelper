@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">桌游助手:抵抗组织</string>
     <string name="action_settings">setting</string>
     <!-- Exit Dialog -->
@@ -15,8 +14,13 @@
     <string name="button_quickstartfragment_setting">设置</string>
     <string name="send_email">发送</string>
     <string name="string_gametitle">桌游助手</string>
-    <string name="string_gamesubtitle">抵抗组织</string>
+    <string name="resistance">抵抗组织</string>
+    <string name="avalon">阿瓦隆</string>
     <string name="string_gameversion">版本 1.00</string>
+    <!--WelcomeActivity QuickStartTransition DialogFragment -->
+    <string name="if_have_cards">有牌么？</string>
+    <string name="have_cards">有的</string>
+    <string name="have_no_cards">没有</string>
     <!--WelcomeActivity QuickStartFragment -->
     <string name="string_readytoplay_quickstart">开始</string>
     <string name="string_rules_welcome">规则说明</string>
@@ -36,24 +40,30 @@
     <string name="button_manu_mangement">帮助</string>
     <string name="toast_customgame">不好意思，至少需要5人才能开始游戏</string>
     <string name="string_manu">添加新人：添加不知道姓名的玩家。\n\n 添加熟人：添加知道姓名的玩家。\n\n点击上方头像可以去掉指定玩家。\n\n剩下两个按钮意义不需要解释吧。\n\n玩家只要输入一次姓名，今后游戏中都能继续使用，无需多次重复添加。</string>
-    <string name="string_dialog_inputname_cancel">取消</string>
-    <string name="string_dialog_inputname_OK">确定</string>
+    <string name="cancel">取消</string>
+    <string name="OK">确定</string>
+    <!-- SetupActivity -->
+    <string name="game_setup_button_total">总人数: %1$d</string>
+    <string name="game_setup_button_total_spy">间谍: %1$d</string>
+    <string name="game_setup_button_total_spy_avalon">魔王方: %1$d</string>
+    <string name="enjoy_game">玩得愉快！</string>
     <!--MainActivity  -->
     <string name="string_player_main">玩家</string>
-    <string name="show_role_game_prepare_activity">你的角色：</string>
+    <string name="show_role_game_prepare_activity">你的角色：%1$s</string>
     <string name="confirmation">我知道了</string>
-    <string name="string_builder_inputname_title_main">你好，请输入名字</string>
+    <string name="input_name_title">你好，请输入名字</string>
 
     <string name="string_toast1_main">输入名字的话，下次再玩就不用输入了哦</string>
     <string name="string_toast2_main">牌发完了</string>
     <string name="string_button1_main">显示身份</string>
     <string name="string_button2_main">开始游戏</string>
-    <string name="role_resistant_short_desc">\n你是抵抗组织一名忠诚的成员</string>
-    <string name="role_spy_short_desc">\n你是帝国打入抵抗组织的一名间谍</string>
-    <string name="transit_message">请把平板交给下一个玩家</string>
-    <string name="last_transit_message">请把平板交给队长</string>
+    <string name="role_resistant_short_desc">基本角色, 只能执行任务. 目标为成功完成三次任务</string>
+    <string name="role_spy_short_desc">基本角色, 可以破坏任务. 目标为趁机破坏三次任务</string>
+    <string name="transit_message">请把设备交给下一个玩家</string>
+    <string name="last_transit_message">请把设备交给队长</string>
+    <string name="party_members">抵抗组织:%1$d 间谍:%2$d</string>
+    <string name="party_members_avalon">亚瑟方:%1$d 魔王方:%2$d</string>
     <!--  GameActivity  -->
-    <string name="string_gplus_not_installed">"不好意思，目前只能在G+上分享 "</string>
     <string name="replay">再来一局</string>
     <string name="rate">评价游戏</string>
     <string name="string_game_button_wechat">微信分享</string>
@@ -70,11 +80,11 @@
     <string name="string_topstatus1_game">讨论投票</string>
     <string name="string_topstatus2_game">执行任务</string>
     <string name="string_topstatus3_game">再来一局</string>
-    <string name="string_builder_title_winresult_game">任务成功!</string>
+    <string name="mission_win_title">任务成功!</string>
     <string name="string_toast_lastpropose_game"> 第五次组队必须成功</string>
-    <string name="string_builder_message_winresult_game">在诸位队员的共同努力之下，这次任务圆满完成。</string>
-    <string name="string_builder_title_loseresult_game">任务失败!</string>
-    <string name="string_builder_message_loseresult_game">很不幸，由于间谍的蓄意破坏，这次任务失败了</string>
+    <string name="mission_win_message">在诸位队员的共同努力之下，这次任务圆满完成。</string>
+    <string name="mission_lose_title">任务失败!</string>
+    <string name="mission_lose_message">很不幸，由于间谍的蓄意破坏，这次任务失败了</string>
     <string name="string_message_failvotes_game">有%1$d人破坏任务</string>
     <string name="string_message_failvote_game">有一人破坏了任务</string>
     <string name="string_toast2_game">应用没有安装</string>
@@ -101,20 +111,18 @@
               无论任务成功或者失败，根据提示，下一位玩家担任队长，重新开始组队。</string>
     <string name="string_rules4">如果发现bug，有关于应用本身的意见，以及新游戏的想法，请通过该页面输入框或者电邮reclapple@gmail.com联系我，我会尽快改进。</string>
     <string name="string_rules3">5.心得技巧:\n间谍玩家一定要在拿到平板或者手机前想好自己的选择。\n\n抵抗军玩家不要轻易通过别人的组队，队伍里面混进一个间谍就能破坏整个任务.\n</string>
-    <string name="string_gamesetting_main">叛军人数:%1$d 间谍人数:%2$d</string>
     <string name="sabotage">破坏任务</string>
     <string name="execute">执行任务</string>
-
-    <string name="string_thievies_win_large">抵抗军获胜！！</string>
+    <!-- END GAME -->
+    <string name="string_thievies_win_avalon">亚瑟方获胜！！</string>
     <string name="string_thievies_win">抵抗军获胜！！</string>
     <string name="string_spies_win">间谍获胜！！</string>
-    <string name="string_spies_win_large">间谍获胜！！</string>
+    <string name="string_spies_win_avalon">魔王方获胜！！</string>
     <string name="string_message_timer">开始投票</string>
     <string name="playsound">播放语音</string>
     <string name="string_playsound_toast">您的音量太低，请调节音量</string>
     <string name="string_share_title">感觉不错？</string>
     <string name="string_share_content">抵抗组织真是个有意思的聚会游戏。</string>
-
 
     <!-- MainActivity PlaySound Dialog -->
     <string name="string_main_sound_title">再等等</string>
@@ -127,37 +135,40 @@
     <string name="script_spies_close_eyes">间谍请闭眼</string>
     <string name="script_open_eyes">大家请睁眼</string>
     <!-- Avalon scripts -->
-    <string name="script_extend_fists">Everyone close your eyes and extend your hand into a fist in front of you.</string>
-    <string name="script_evil_find_each_other">Minions of Mordred, open your eyes and look around so that you know all agents of Evil.</string>
-    <string name="script_evil_find_each_other_except_oberon">Minions of Mordred (except Oberon), open your eyes and look around so that you know all agents of Evil.</string>
-    <string name="script_evil_close_eyes">Minions of Mordred, close your eyes.</string>
-    <string name="script_evil_be_known">Minions of Mordred, extend your thumb so that Merlin will know of you.</string>
-    <string name="script_evil_be_known_except_mordred">Minions of Mordred (except Mordred himself), extend your thumb so that Merlin will know of you.</string>
-    <string name="script_merlin_know_evil">Merlin, open your eyes and see the agents of Evil.</string>
-    <string name="script_evil_hide">Minions of Mordred, put your thumbs down and re-form your hand into a fist.</string>
-    <string name="script_merlin_close_eyes">Merlin, close your eyes.</string>
-    <string name="script_merlin_be_known">Merlin, extend your thumb so that Percival may know of you.</string>
-    <string name="script_merlin_morgana_be_known">Merlin and Morgana, extend your thumb so that Percival may know of you.</string>
-    <string name="script_percival_know_merlin">Percival, open your eyes so that you may know Merlin.</string>
-    <string name="script_percival_know_merlin_morgana">Percival, open your eyes so that you may know Merlin and Morgana.</string>
-    <string name="script_merlin_hide">Merlin, put your thumb down and form your hand into a fist.</string>
-    <string name="script_merlin_morgana_hide">Merlin and Morgana, put your thumbs down and form your hand into a fist.</string>
-    <string name="script_percival_close_eyes">Percival, close your eyes.</string>
-    <string name="script_lancelot_know_each_other">Lancelot, open your eyes to reveal your counterpart.</string>
-    <string name="script_lancelot_close_eyes">Lancelot, close your eyes.</string>
+    <string name="script_extend_fists">请大家闭眼，将一只手放在前面.</string>
+    <string name="script_evil_find_each_other">魔王方成员们，请睁眼，环顾四周，找到你们的同伴</string>
+    <string name="script_evil_find_each_other_except_oberon">除了奥伯龙以外的魔王方成员们，请睁眼，环顾四周，寻找你们的同伴</string>
+    <string name="script_evil_close_eyes">魔王方成员们，闭上眼睛</string>
+    <string name="script_evil_be_known">魔王方成员们，伸出大拇指，让墨林看到你们</string>
+    <string name="script_evil_be_known_except_mordred">除了魔王本人之外魔王方成员们，伸出大拇指，让墨林看到你们</string>
+    <string name="script_merlin_know_evil">墨林，请睁眼，寻找魔王方的成员.</string>
+    <string name="script_evil_hide">魔王方成员们，放下大拇指</string>
+    <string name="script_merlin_close_eyes">墨林，请闭眼</string>
+    <string name="script_merlin_be_known">墨林，伸出大拇指，让派西瓦尔看到你.</string>
+    <string name="script_merlin_morgana_be_known">墨林和莫甘娜，伸出大拇指，让派西瓦尔看到你们</string>
+    <string name="script_percival_know_merlin">派西瓦尔, 请睁眼，寻找墨林.</string>
+    <string name="script_percival_know_merlin_morgana">派西瓦尔, 请睁眼，寻找墨林与莫甘娜.</string>
+    <string name="script_merlin_hide">墨林，放下大拇指.</string>
+    <string name="script_merlin_morgana_hide">墨林和莫甘娜，放下大拇指.</string>
+    <string name="script_percival_close_eyes">派西瓦尔, 请闭眼.</string>
+    <string name="script_lancelot_know_each_other">两位兰斯洛特，请睁眼，寻找对方.</string>
+    <string name="script_lancelot_close_eyes">两位兰斯洛特，请闭眼.</string>
     <!-- ListView UI -->
-    <string name="option_merlin_assassin">Merlin/Assassin</string>
-    <string name="option_merlin_assassin_description">Merlin knows evil, must remain hidden</string>
-    <string name="option_percival">Percival</string>
-    <string name="option_percival_description">Knows Merlin</string>
-    <string name="option_mordred">Mordred</string>
-    <string name="option_mordred_description">Unknown to Merlin</string>
-    <string name="option_oberon">Oberon</string>
-    <string name="option_oberon_description">Unknown to Evil</string>
-    <string name="option_morgana">Morgana</string>
-    <string name="option_morgana_description">Appears as Merlin</string>
-    <string name="option_lancelot_v3">Lancelot (Variant #3)</string>
-    <string name="option_lancelot_v3_description">Good and Evil Lancelots know each other</string>
+    <string name="option_merlin">墨林</string>
+    <string name="option_merlin_short_desc">知道除魔王本人之外的魔王方成员。必须保持隐匿以防被刺客暗杀</string>
+    <string name="option_assassin">刺客</string>
+    <string name="option_assassin_short_desc">如果亚瑟方赢得三次任务，刺客有一次机会刺杀墨林</string>
+    <string name="option_percival">派西瓦尔</string>
+    <string name="option_percival_short_desc">知道墨林身份，但会受到莫甘娜误导</string>
+    <string name="option_mordred">魔王</string>
+    <string name="option_mordred_short_desc">墨林不知道谁是魔王</string>
+    <string name="option_oberon">奥伯龙</string>
+    <string name="option_oberon_short_desc">与其他魔王方成员互不知晓</string>
+    <string name="option_morgana">莫甘娜</string>
+    <string name="option_morgana_short_desc">能误导派西瓦尔</string>
+    <string name="option_lancelot_arthur">亚瑟之兰斯洛特</string>
+    <string name="option_lancelot_mordred">魔王之兰斯洛特</string>
+    <string name="option_lancelot_v3_short_desc">知道另一个兰斯洛特身份</string>
     <!-- String Array -->
     <string name="array_language">language</string>
     <string name="array_languageValues">languageValues</string>
@@ -165,12 +176,23 @@
     <string name="array_themeValues">themeValues</string>
     <string name="array_images">images</string>
     <string name="array_icon">icon</string>
-    <string name="option_blind_spy_short_desc">Spies do not know their partners</string>
-    <string name="option_allow_pass">Allow Mission Pass</string>
-    <string name="option_allow_pass_short_desc">The leader may pass this round intead of proposing a team (May lead to Game Over).</string>
-    <string name="option_manuel_game_over">Manuel Game Over</string>
-    <string name="option_manuel_game_over_short_desc">The app will not judge if a game is actually over.</string>
-    <string name="next">Next</string>
-
-
+    <string name="option_blind_spy">独狼间谍</string>
+    <string name="option_blind_spy_short_desc">间谍相互不知道同伙</string>
+    <string name="option_allow_pass">无能队长</string>
+    <string name="option_allow_pass_short_desc">队长可以放弃组队，会导致组队失败.</string>
+    <string name="option_manuel_game_over">手动任务</string>
+    <string name="option_manuel_game_over_short_desc">程序不会在最后一轮任务执行之前判断游戏能否结束</string>
+    <string name="next">继续</string>
+    <string name="assassination_choose_target">刺客,谁是墨林?</string>
+    <string name="language_not_available">这台设备不会说汉语.</string>
+    <string name="role_loyalist">亚瑟战士</string>
+    <string name="role_minion">魔王仆从</string>
+    <string name="lancelot_swap">两位兰斯洛特，你们的身份调换了.</string>
+    <string name="option">选项</string>
+    <string name="role">角色</string>
+    <string name="replay_dialog_title">还是同一批人么？</string>
+    <string name="affirmative">是的</string>
+    <string name="negative">不是</string>
+    <string name="remove_gamer">请点要离开的人，完成后请点\'再来一局\'</string>
+    <string name="string">取消</string>
 </resources>

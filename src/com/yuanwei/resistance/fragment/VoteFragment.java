@@ -28,11 +28,20 @@ public class VoteFragment extends BasePlotFragment {
                              Bundle savedInstanceState) {
         TAG = getArguments().getString("name");
 
-        View v = inflater.inflate(R.layout.fragment_vote, container, false);
-        Button button_negative = (Button) v.findViewById(R.id.button_nay_vote);
-        Button button_positive = (Button) v.findViewById(R.id.button_aye_vote);
+        View v = inflater.inflate(R.layout.fragment_mission, container, false);
+
+        Button button_negative = (Button) v.findViewById(R.id.secondary);
+        Button button_positive = (Button) v.findViewById(R.id.primary);
+
+        button_negative.setBackgroundResource(R.drawable.vote_nay);
+        button_positive.setBackgroundResource(R.drawable.vote_aye);
+
+        button_negative.setText(getString(R.string.string_vote_nay));
+        button_positive.setText(getString(R.string.string_vote_aye));
+
         button_negative.setOnTouchListener(new ButtonOnTouchListener(getActivity()));
         button_positive.setOnTouchListener(new ButtonOnTouchListener(getActivity()));
+
         button_negative.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {

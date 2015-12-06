@@ -48,7 +48,10 @@ public class Resistance implements Game {
     }
 
     public static int getNumberForMission(int total, int mission) {
-        return Constants.NumOfMembersPerMission[total][mission];
+        if (Constants.NumOfMembersPerMission[total].length > mission)
+            return Constants.NumOfMembersPerMission[total][mission];
+        else
+            return 0;
     }
     // How many success are needed for a mission
     public static int getSuccess(int total, int mission) {
@@ -197,6 +200,7 @@ public class Resistance implements Game {
         NOT_FINISHED,
         RESISTANCE_WIN,
         SPY_WIN_MISSION,
-        SPY_WIN_PROPOSE
+        SPY_WIN_PROPOSE,
+        ASSASSINATION
     }
 }

@@ -29,27 +29,30 @@
     <string name="string_clear_customgame">Clear\nList</string>
     <string name="string_startgame_customgame">Start\nGame</string>
     <string name="string_newplayer_customgame">New Player</string>
-    <string name="string_dialog_inputname_cancel">Cancel</string>
-    <string name="string_dialog_inputname_OK">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="OK">OK</string>
+    <!-- SetupActivity -->
+    <string name="enjoy_game">Enjoy Game!</string>
     <!-- MainActivity -->
     <string name="string_player_main">player</string>
-    <string name="show_role_game_prepare_activity">Your Identity:\n</string>
+    <string name="show_role_game_prepare_activity">Your Identity:%1$s</string>
     <string name="confirmation">Got it.</string>
-    <string name="string_builder_inputname_title_main">Hello, can I have your name?</string>
-    <string name="string_toast2_main">All cards Out</string>
+    <string name="input_name_title">Hello, can I have your name?</string>
+    <string name="string_toast2_main">All cards are out</string>
     <string name="string_toast1_main">The app will store your name if you provided one.</string>
     <string name="string_button1_main">Show your idetity</string>
     <string name="string_button2_main">Let\'s start!</string>
-    <string name="role_resistant_short_desc">Try to find spies. Make mission success to win the game.</string>
-    <string name="role_spy_short_desc">Invisible to Resistant. Fail mission to win the game</string>
-    <string name="transit_message">Please pass the phone to the next player</string>
-    <string name="last_transit_message">Please pass the phone to the leader</string>
+    <string name="role_resistant_short_desc">Basic Character.Can not fail mission. Succeed 3 missions to win the game.</string>
+    <string name="role_spy_short_desc">Basic Character. May fail mission. Fail 3 missions to win the game.</string>
+    <string name="transit_message">Please pass the device to the next player</string>
+    <string name="last_transit_message">Please pass the device to the leader</string>
     <!-- MainActivity PlaySound Dialog -->
     <string name="string_main_sound_title">Finally..</string>
     <string name="string_main_sound_positive">All Ready!</string>
     <string name="string_main_sound_neutral">Play Sound</string>
     <string name="string_main_sound_message">Do spies know each other?\n\nIf not, click the "Play Sound" button.\nOr someone may narrate the following scripts.\n </string>
-
+    <string name="party_members">Resistance:%1$d Spy:%2$d</string>
+    <string name="party_members_avalon">Loyalists:%1$d Minions:%2$d</string>
     <!-- GameActivity Bottom Table -->
     <string name="string_caption_bottom1_game">Vote</string>
     <string name="string_caption_bottom2_game">Player</string>
@@ -68,11 +71,11 @@
     <string name="string_topstatus1_game">Discussion</string>
     <string name="string_topstatus2_game">Action</string>
     <string name="string_topstatus3_game">One more!</string>
-    <string name="string_builder_title_winresult_game">Success!</string>
+    <string name="mission_win_title">Success!</string>
     <string name="string_toast_lastpropose_game">The 5th team propose must pass</string>
-    <string name="string_builder_message_winresult_game">Mission succeeded! Thanks for the effort from everyone</string>
-    <string name="string_builder_title_loseresult_game">Fail!</string>
-    <string name="string_builder_message_loseresult_game">Mission fails!</string>
+    <string name="mission_win_message">Mission succeeded! Thanks for the effort from everyone</string>
+    <string name="mission_lose_title">Fail!</string>
+    <string name="mission_lose_message">Mission fails!</string>
 
     <string name="string_message_failvotes_game">%1$d Players failed the mission</string>
     <string name="string_message_failvote_game">1 Player failed the mission</string>
@@ -87,7 +90,7 @@
     <string name="string_builder_negative_game">Back</string>
     <string name="string_button_timer">Stop Discussion</string>
     <string name="string_title_veto_game">Rejected</string>
-    <string name="string_message_veto_game">Your proposal did not pass.\n \nPlase pass the phone to the next leader</string>
+    <string name="string_message_veto_game">Your proposal did not pass.\n \nPlease pass the device to the next leader</string>
     <string name="string_leader">Leader</string>
     <string name="string_hint_excution">Press fingerprint</string>
     <!-- WelcomeActivity HelpFragment -->
@@ -100,31 +103,36 @@
     If the group does not approve the mission by a simple majority, leadership passes to the next player.\n\nIf the group cannot approve a mission team after five attempts, the spies win.\n\nOnce a mission team is chosen, it votes by secret ballot whether the mission succeeds or fails.\n\nResistance members will always vote for success, but spies have the option of voting for success or failure.\n\n
     It usually only takes one spy on the mission team to sabotage a mission, but sometimes the fourth mission requires two.\n\nIf three missions succeed, the Resistance wins. If three fail, the spies win. \n\nAnd finally, the last, but most important rule of all:\n\n
         You are allowed to say anything, to any one, at any time,as long as it is said publicly. </string>
-    <string name="string_gamesetting_main">Resistance:%1$d Spy:%2$d</string>
 
     <string name="sabotage">Fail </string>
     <string name="execute">Execute </string>
 
-    <string name="string_message_timer">Let\'s VOTE!</string>
+    <string name="string_message_timer">VOTE!</string>
     <string name="playsound">Play sound</string>
     <string name="string_playsound_toast">Volume too low, please adjust the volume</string>
     <string name="send_email">Send</string>
     <!--WelcomeActivity QuickStart Fragment -->
     <string name="string_gametitle">Board Game Helper</string>
-    <string name="string_gamesubtitle">Resistance</string>
+    <string name="resistance">Resistance</string>
+    <string name="avalon">Avalon</string>
     <string name="string_gameversion">version 1.00</string>
+    <!--WelcomeActivity QuickStartTransition DialogFragment -->
+    <string name="if_have_cards">Do you have cards and tokens?</string>
+    <string name="have_cards">Yes I do</string>
+    <string name="have_no_cards">No. I do not</string>
     <!--CustomGameActivity and Fragment -->
     <string name="button_manu_mangement">Help:</string>
     <string name="toast_customgame">Sorry we need at least 5 players</string>
     <string name="string_manu">Add Stranger:Use this button if you don\'n t know some player\'s name。\n\n Add:Use this for friends and acquitances.\n\nClick someone\'s name to remove</string>
     <!--GameSetupActivity and Fragment -->
     <string name="game_setup_button_total">Total Players: %1$d</string>
+    <string name="game_setup_button_total_spy">Spies: %1$d</string>
+    <string name="game_setup_button_total_spy_avalon">Minions: %1$d</string>
     <!-- END GAME -->
-    <string name="string_gplus_not_installed">"Sorry. Google Plus Not Installed. "</string>
     <string name="string_thievies_win">Resistance Operatives Win!</string>
-    <string name="string_thievies_win_large">Resistance Operatives Win!</string>
+    <string name="string_thievies_win_avalon">Arthur\'s Loyalists Win!</string>
     <string name="string_spies_win">Spies Win!</string>
-    <string name="string_spies_win_large">Spies Win!</string>
+    <string name="string_spies_win_avalon">Modred\'s Minions Win!</string>
     <string name="string_share_title">Feel Good?</string>
     <string name="string_share_content">We played the board game Resistance by this app. It is quite funny experience!</string>
     <!-- Resistance scripts -->
@@ -155,15 +163,15 @@
     <string name="option_merlin">Merlin</string>
     <string name="option_merlin_short_desc">Knows minions except Mordred, must remain hidden</string>
     <string name="option_assassin">Assassin</string>
-    <string name="option_assassin_short_desc">Can kill Merlin to win the Game</string>
+    <string name="option_assassin_short_desc">If loyalist win 3 missions, Assassin has one change to kill Merlin to win the Game</string>
     <string name="option_percival">Percival</string>
-    <string name="option_percival_short_desc">Knows Merlin</string>
+    <string name="option_percival_short_desc">Knows Merlin but may be confused by Morgana. Help Merlin to exclude minions from mission.</string>
     <string name="option_mordred">Mordred</string>
     <string name="option_mordred_short_desc">Unknown to Merlin</string>
     <string name="option_oberon">Oberon</string>
     <string name="option_oberon_short_desc">Unknown to other minions</string>
     <string name="option_morgana">Morgana</string>
-    <string name="option_morgana_short_desc">Appears as Merlin</string>
+    <string name="option_morgana_short_desc">Appears as Merlin to confuse Percival.</string>
     <string name="option_lancelot_arthur">Lancelot for Arthur</string>
     <string name="option_lancelot_mordred">Lancelot for Mordred</string>
     <string name="option_lancelot_v3_short_desc">Knows the other Lancelot</string>
@@ -176,8 +184,6 @@
     <string name="array_icon">icon</string>
 
     <string name="title_activity_game_setup">GameSetupActivity</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="option_blind_spy">Blind Spy</string>
     <string name="option_blind_spy_short_desc">Spies do not know their partners</string>
     <string name="option_allow_pass">Can Pass Mission</string>
@@ -185,4 +191,16 @@
     <string name="option_manuel_game_over">Manual Game</string>
     <string name="option_manuel_game_over_short_desc">This APP will not determine if one party is doom to lose</string>
     <string name="next">Next</string>
+    <string name="assassination_choose_target">Assassin, who is Merlin?</string>
+    <string name="language_not_available">This device can not speak English.</string>
+    <string name="role_loyalist">Loyalist</string>
+    <string name="role_minion">Minion</string>
+    <string name="lancelot_swap">Lancelot, your roles have been swapped.</string>
+    <string name="option">OPTION</string>
+    <string name="role">ROLE</string>
+    <string name="replay_dialog_title">Still same group of players?</string>
+    <string name="affirmative">Yes</string>
+    <string name="negative">No</string>
+    <string name="remove_gamer">Who will leave? Tap them to remove. </string>
+    <string name="string">Cancel</string>
 </resources>
