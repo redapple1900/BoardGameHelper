@@ -55,8 +55,21 @@ import java.util.TimerTask;
 public abstract class BasePrepareFragment extends BaseMultiSceneFragment
         implements OnAnnounceListener {
 
-    public abstract int getGameId();
+    /* Data */
+    private static final String DOUBLE = "double";
+    private static final String PRESS = "press";
+    protected int mNumberOfPlayers;
+    protected ArrayList<User> mUserList;
+    protected SharedPreferences share;
+    /* Utility */
+    protected Announcer mAnnouncer;
+    protected GridRecyclerViewAdapter mGridRecycleViewAdapter;
+    protected GridLayoutManager mGridLayoutManager;
+    /*View */
+    private AlertDialog mTransitDialog;
+    private Dialog mInputNameDialog, mRoleDialog;
 
+    public abstract int getGameId();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,22 +83,6 @@ public abstract class BasePrepareFragment extends BaseMultiSceneFragment
 
         return v;
     }
-
-    /* Data */
-    private static final String DOUBLE = "double";
-    private static final String PRESS = "press";
-
-    protected int mNumberOfPlayers;
-    protected ArrayList<User> mUserList;
-    protected SharedPreferences share;
-    /*View */
-    private AlertDialog mTransitDialog;
-    private Dialog mInputNameDialog, mRoleDialog;
-
-    /* Utility */
-    protected Announcer mAnnouncer;
-    protected GridRecyclerViewAdapter mGridRecycleViewAdapter;
-    protected GridLayoutManager mGridLayoutManager;
 
     protected void initData() {
 
@@ -231,7 +228,7 @@ public abstract class BasePrepareFragment extends BaseMultiSceneFragment
     @Override
     public void onIntroduceDone() {
 
-        showTransitDialog(mAnnouncer.getCount() + 1 == mNumberOfPlayers);
+        showTransitDialog(mAnnouncer.getCount() == mNumberOfPlayers);
     }
 
     @Override

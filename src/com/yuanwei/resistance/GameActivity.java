@@ -91,7 +91,7 @@ public class GameActivity extends BasePlotActivity {
                     public void onClick(DialogInterface dialog, int which) {
 
                         Intent intent = new Intent();
-                        intent.setClass(getParent(), WelcomeActivity.class);
+                        intent.setClass(GameActivity.this, WelcomeActivity.class);
                         startActivity(intent);
                         finish();
                     }

@@ -115,7 +115,7 @@
     <string name="string_gametitle">Board Game Helper</string>
     <string name="resistance">Resistance</string>
     <string name="avalon">Avalon</string>
-    <string name="string_gameversion">version 1.00</string>
+    <string name="string_gameversion">version 0.99</string>
     <!--WelcomeActivity QuickStartTransition DialogFragment -->
     <string name="if_have_cards">Do you have cards and tokens?</string>
     <string name="have_cards">Yes I do</string>

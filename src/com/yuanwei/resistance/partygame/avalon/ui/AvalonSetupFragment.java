@@ -29,6 +29,16 @@ public class AvalonSetupFragment extends BaseSetupFragment {
 
 
     public static final String TAG = "AvalonSetupFragment";
+    /* Data */
+    private List<RoleItem> roles;
+    private List<OptionItem> options;
+    private List<User> mUserList;
+    /* Presenter, Adapter and Utility */
+    private RoleSetupRecyclerViewAdapter mRoleAdapter;
+    private SetupRule mRule;
+    private OptionSetupRecyclerViewAdapter mOptionAdapter;
+    private SectionRecyclerViewAdapter mSectionAdapter;
+    private Config mConfig;
 
     public static AvalonSetupFragment createInstance(boolean isGameNeeded, ArrayList<User> list) {
         AvalonSetupFragment fragment = new AvalonSetupFragment();
@@ -45,18 +55,6 @@ public class AvalonSetupFragment extends BaseSetupFragment {
         saveConfig();
         super.onDestroyView();
     }
-
-    /* Data */
-    private List<RoleItem> roles;
-    private List<OptionItem> options;
-    private List<User> mUserList;
-
-    /* Presenter, Adapter and Utility */
-    private RoleSetupRecyclerViewAdapter mRoleAdapter;
-    private SetupRule mRule;
-    private OptionSetupRecyclerViewAdapter mOptionAdapter;
-    private SectionRecyclerViewAdapter mSectionAdapter;
-    private Config mConfig;
 
     @Override
     public int getGameId() {
@@ -174,7 +172,7 @@ public class AvalonSetupFragment extends BaseSetupFragment {
         switch (type) {
             case NumberPickDialogFragment.CLEAR_SELECTION:
                 clearSelection();
-            case NumberPickDialogFragment.TAG:
+            case NumberPickDialogFragment.SET_SELECTION:
                 mNumberOfPlayers = extra;
                 // Update the view
                 updateTopView();

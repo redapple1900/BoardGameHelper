@@ -180,6 +180,7 @@ public class GridFragment extends BasePlotFragment {
                 break;
             case Params.REMOVE_USER:
                 textView.setText(R.string.remove_gamer);
+                textView.setTextSize(getResources().getDimension(R.dimen.small_text_size));
                 textView.setVisibility(View.VISIBLE);
                 break;
             default:
