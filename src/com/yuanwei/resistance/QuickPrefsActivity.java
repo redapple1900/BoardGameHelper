@@ -29,6 +29,4 @@ public class QuickPrefsActivity extends PreferenceActivity {
 
         return super.onKeyDown(keyCode, event);
     }
-
-
 }

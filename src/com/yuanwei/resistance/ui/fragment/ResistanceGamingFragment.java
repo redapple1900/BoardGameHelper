@@ -353,6 +353,7 @@ public class ResistanceGamingFragment extends BaseResistanceGamingFragment
                     mVoteSwitcher.increment(BaseSwitcher.SECONDARY);
                 break;
             case SELECTION:
+                // TODO: use book keeper for all
                 mTeamMemberSelector.select(mLeaderRotater.getItem(extra));
                 break;
             case OVER:

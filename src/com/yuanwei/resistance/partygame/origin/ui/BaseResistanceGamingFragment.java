@@ -196,7 +196,7 @@ public abstract class BaseResistanceGamingFragment extends BaseMultiSceneFragmen
             public void run() {
                 mTransitDialog.dismiss();
             }
-        }, 1000);
+        }, 2000);
 
         mTransitDialog.show();
     }
@@ -213,7 +213,7 @@ public abstract class BaseResistanceGamingFragment extends BaseMultiSceneFragmen
             public void run() {
                 mTransitDialog.dismiss();
             }
-        }, 1000);
+        }, 2000);
 
         mTransitDialog.show();
     }
@@ -277,9 +277,11 @@ public abstract class BaseResistanceGamingFragment extends BaseMultiSceneFragmen
         final TextView subtitle = (TextView) dialog.findViewById(R.id.subtitle);
 
         if (getMissionResult()) {
-            String titleText = getString(R.string.mission_win_title) + "\n"
-                    + (getFailCount()> 0 ? getString(R.string.string_message_failvotes_game, getFailCount())
-                    : "");
+            String titleText = getFailCount() == 0 ?
+                    getString(R.string.mission_win_title) :
+                    getString(R.string.mission_win_title)
+                            + " "
+                            + (getString(R.string.string_message_failvotes_game, getFailCount()));
             title.setText(titleText);
             title.setTextColor(getResources().getColor(android.R.color.black));
 
@@ -297,9 +299,8 @@ public abstract class BaseResistanceGamingFragment extends BaseMultiSceneFragmen
                     + ":" + getLeader().getName());
         } else {
             String titleText = getString(R.string.mission_lose_title)
-                    + "\n"
-                    + getString(
-                    R.string.string_message_failvotes_game, getFailCount());
+                    + " "
+                    + getString(R.string.string_message_failvotes_game, getFailCount());
             title.setText(titleText);
             title.setTextColor(getResources().getColor(android.R.color.black));
 

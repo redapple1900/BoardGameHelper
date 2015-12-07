@@ -282,7 +282,7 @@ public abstract class BasePrepareFragment extends BaseMultiSceneFragment
             public void run() {
                 mTransitDialog.dismiss();
             }
-        }, 1000);
+        }, 2000);
 
         mTransitDialog.show();
     }

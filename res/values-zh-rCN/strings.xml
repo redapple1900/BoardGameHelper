@@ -84,7 +84,6 @@
     <string name="mission_lose_title">任务失败!</string>
     <string name="mission_lose_message">很不幸，由于间谍的蓄意破坏，这次任务失败了</string>
     <string name="string_message_failvotes_game">有%1$d人破坏任务</string>
-    <string name="string_message_failvote_game">有一人破坏了任务</string>
     <string name="string_toast2_game">应用没有安装</string>
     <string name="string_toast1_game">队伍满了,点击成员头像可将其排除出队伍</string>
     <string name="string_builder_message_team_propose_game">您要选择以上成员作为执行本次任务的人选，确定么？如果确定，任务人选不能再更换。</string>

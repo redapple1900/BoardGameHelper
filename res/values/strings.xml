@@ -77,8 +77,7 @@
     <string name="mission_lose_title">Fail!</string>
     <string name="mission_lose_message">Mission fails!</string>
 
-    <string name="string_message_failvotes_game">%1$d Players failed the mission</string>
-    <string name="string_message_failvote_game">1 Player failed the mission</string>
+    <string name="string_message_failvotes_game">Number of Fail: %1$d</string>
     <string name="replay">One More!</string>
     <string name="rate">Rate me!</string>
     <string name="string_game_button_wechat">Share on WeChat</string>

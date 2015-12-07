@@ -122,6 +122,7 @@ public class GridFragment extends BasePlotFragment {
 
                                 int diff = isSelected ? -1 : 1;
                                 count += diff;
+                                //TODO:: no hard coding
                                 getPlotListener().onEventStart("selection", position);
                                 mGridRecycleViewAdapter.toggleSelected(position);
                                 mGridRecycleViewAdapter.notifyItemChanged(position);
@@ -180,7 +181,6 @@ public class GridFragment extends BasePlotFragment {
                 break;
             case Params.REMOVE_USER:
                 textView.setText(R.string.remove_gamer);
-                textView.setTextSize(getResources().getDimension(R.dimen.small_text_size));
                 textView.setVisibility(View.VISIBLE);
                 break;
             default:
