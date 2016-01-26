@@ -1,5 +1,8 @@
 package com.yuanwei.resistance.moderator;
 
+import android.util.Log;
+
+import com.yuanwei.resistance.BuildConfig;
 import com.yuanwei.resistance.model.User;
 import com.yuanwei.resistance.moderator.protocol.OnActListener;
 
@@ -10,12 +13,9 @@ import java.util.List;
  */
 public class Rotater extends Staff {
 
-    // TODO: persistance
-    private static final String PREF_KEY = "com.yuanwei.resistance.rotator";
+    private static final String ROTATE_START_LOG = "Rotate Start: ";
 
-    protected static final String TOTAL_COUNT_KEY = "total_count";
-
-    protected static final String CURRENT_COUNT_KEY = "current_count";
+    private static final String ROTATE_COMPLETED_LOG = "Rotate Complete: ";
 
     protected int mTotal;
 
@@ -48,13 +48,20 @@ public class Rotater extends Staff {
             return;
         }
         mListener.onRoundStart();
+        if (BuildConfig.DEBUG) {
+            Log.d(getTag(), ROTATE_START_LOG + mCount);
+        }
         mCount ++;
         mCount %= mTotal;
         mListener.onRoundComplete();
+
+        if (BuildConfig.DEBUG) {
+            Log.d(getTag(), ROTATE_COMPLETED_LOG + mCount);
+        }
     }
 
     public int getCount() {
-        return mCount;
+        return mCount == mTotal ? 0 : mCount;
     }
 
     public User getItem(int index) {
@@ -67,15 +74,13 @@ public class Rotater extends Staff {
         return mList.get(index);
     }
 
-    /* TODO: add advanced api
-    public void add (int index, Gamer gamer) {
-        mTotal ++;
+    @Override
+    public Staff load(Object... objects) {
+        super.load(objects);
+        mCount = (int) objects[0];
+        return this;
     }
-    public void remove (int index, Gamer gamer) {
 
-    }
-    public void swap
-    */
     public interface OnRotateListener extends OnActListener{
         void onRoundStart();
         void onRoundComplete();

@@ -13,7 +13,7 @@
         android:paddingRight="@dimen/activity_horizontal_margin" />
 
     <Button
-        android:id="@+id/button_quickstart"
+        android:id="@+id/quickstart"
         android:layout_width="@dimen/button_width_quickstart"
         android:layout_height="wrap_content"
         android:layout_below="@+id/spinner_quickstart"
@@ -26,28 +26,25 @@
         android:textStyle="bold"
         android:typeface="serif" />
 
-    <!--
-
     <Button
-        android:id="@+id/button_customgame_quickstart"
+        android:id="@+id/resume_quickstart"
         android:layout_width="@dimen/button_width_quickstart"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button_quickstart"
+        android:layout_below="@+id/quickstart"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/button_gap"
         android:alpha="0.9"
         android:background="@drawable/mybutton"
-        android:text="@string/title_section1"
+        android:text="@string/resume_game"
         android:textSize="@dimen/text_size"
         android:textStyle="bold"
         android:typeface="serif" />
-        -->
 
     <Button
-        android:id="@+id/button_setting_quickstart"
+        android:id="@+id/setting_quickstart"
         android:layout_width="@dimen/button_width_quickstart"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/button_quickstart"
+        android:layout_below="@+id/resume_quickstart"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/button_gap"
         android:alpha="0.9"
@@ -86,8 +83,8 @@
         android:id="@+id/textView_version"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:text="@string/string_gameversion" />
 

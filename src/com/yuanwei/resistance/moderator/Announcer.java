@@ -1,10 +1,10 @@
 package com.yuanwei.resistance.moderator;
 
+import android.util.Log;
+
+import com.yuanwei.resistance.BuildConfig;
 import com.yuanwei.resistance.model.User;
 import com.yuanwei.resistance.moderator.protocol.OnAnnounceListener;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,19 +12,12 @@ import java.util.List;
 /**
  * Created by chenyuanwei on 15/10/22.
  *
- *
  */
 public class Announcer extends Staff {
 
-    private static final String PREF_KEY = "com.yuanwei.resistance.announcer";
-
-    protected static final String CURRENT_STEP_KEY = "current_step";
-
-    protected static final String TOTAL_COUNT_KEY = "total_count";
-
-    protected static final String CURRENT_COUNT_KEY = "current_count";
-
-    protected static final Step[] STEPS = {Step.START, Step.INTRODUCE, Step.DONE};
+    private static final String INTRODUCE_START_LOG = "introduce started";
+    private static final String INTRODUCE_LOG = "introduced";
+    private static final String INTRODUCE_COMPLETE_LOG = "introduce completed";
 
     protected int mTotal;
 
@@ -62,13 +55,16 @@ public class Announcer extends Staff {
 
         if (mCurrentStep == Step.START) {
             mCurrentStep = Step.INTRODUCE;
+            if (BuildConfig.DEBUG) Log.d(getTag(), INTRODUCE_START_LOG);
             mListener.onIntroduceStart();
         } else if (mCurrentStep == Step.INTRODUCE) {
             mCurrentStep = Step.DONE;
+            if (BuildConfig.DEBUG) Log.d(getTag(), INTRODUCE_LOG);
             mListener.onIntroduce();
         } else if (mCurrentStep == Step.DONE) {
             mCurrentStep = Step.START;
             mCount ++;
+            if (BuildConfig.DEBUG) Log.d(getTag(), INTRODUCE_COMPLETE_LOG);
             mListener.onIntroduceDone();
         }
     }
@@ -86,40 +82,6 @@ public class Announcer extends Staff {
             return null;
 
         return mList.get(mCount);
-    }
-
-    //////////////////////////////////////////////////////////////////////////
-    // Serialization
-
-    @Override
-    protected String getInternalTag() {
-        if (getTag() != null)
-            return PREF_KEY;
-        else
-            return PREF_KEY + getTag();
-    }
-
-    @Override
-    protected void saveToJSONObj(JSONObject obj) {
-        super.saveToJSONObj(obj);
-        try {
-            obj.put(TOTAL_COUNT_KEY, mTotal);
-            obj.put(CURRENT_COUNT_KEY, mCount);
-            obj.put(CURRENT_STEP_KEY, mCurrentStep.ordinal());
-        } catch (JSONException e) {
-            // Nothing going to happen
-        }
-    }
-
-    @Override
-    protected void loadFromJSONObj(JSONObject obj) {
-        super.loadFromJSONObj(obj);
-
-        mTotal = obj.optInt(TOTAL_COUNT_KEY);
-
-        mCount = obj.optInt(CURRENT_COUNT_KEY);
-
-        mCurrentStep = STEPS[obj.optInt(CURRENT_STEP_KEY)];
     }
 
     private enum Step{

@@ -1,18 +1,10 @@
 package com.yuanwei.resistance.ui.fragment;
 
-import android.content.ActivityNotFoundException;
-import android.content.Intent;
-import android.net.Uri;
-import android.widget.Toast;
-
-import com.yuanwei.resistance.R;
-import com.yuanwei.resistance.SetupActivity;
 import com.yuanwei.resistance.constant.Constants;
 import com.yuanwei.resistance.fragment.MissionFragment;
 import com.yuanwei.resistance.model.User;
 import com.yuanwei.resistance.moderator.Announcer;
 import com.yuanwei.resistance.moderator.BaseSwitcher;
-import com.yuanwei.resistance.moderator.Director;
 import com.yuanwei.resistance.moderator.Elector;
 import com.yuanwei.resistance.moderator.Rotater;
 import com.yuanwei.resistance.moderator.Scorer;
@@ -25,7 +17,8 @@ import com.yuanwei.resistance.moderator.protocol.OnCountListener;
 import com.yuanwei.resistance.moderator.protocol.OnSwitchListener;
 import com.yuanwei.resistance.partygame.avalon.model.Avalon;
 import com.yuanwei.resistance.partygame.origin.model.Resistance;
-import com.yuanwei.resistance.partygame.origin.model.Resistance.GameEnd;
+import com.yuanwei.resistance.partygame.origin.model.Resistance.GameStatus;
+import com.yuanwei.resistance.partygame.origin.model.StateKeeper;
 import com.yuanwei.resistance.partygame.origin.ui.BaseResistanceGamingFragment;
 
 import java.util.ArrayList;
@@ -35,14 +28,11 @@ import java.util.List;
  * Created by chenyuanwei on 15/10/25.
  */
 public class ResistanceGamingFragment extends BaseResistanceGamingFragment
-    implements OnAnnounceListener {
-
+        implements OnAnnounceListener {
     // TODO: too hacky
     private int SUCCEED = Resistance.WIN;
 
     private int FAILED = Resistance.LOSE;
-
-    private Director mDirector;
 
     private Staff mDiscussionStaff;
 
@@ -59,7 +49,6 @@ public class ResistanceGamingFragment extends BaseResistanceGamingFragment
     private Rotater mLeaderRotater;
 
     protected void initStaff() {
-        mDirector = new Director(getActivity());
 
         mDiscussionStaff = new Staff(new OnActListener() {
             @Override
@@ -71,7 +60,7 @@ public class ResistanceGamingFragment extends BaseResistanceGamingFragment
             public void onComplete() {
                 hideFragment(DISCUSSION);
 
-                mVoteSwitcher.prepare(1, 1, 1).report(mDirector).initiate();
+                mVoteSwitcher.prepare(1, 1, 1).initiate();
             }
         });
 
@@ -79,39 +68,51 @@ public class ResistanceGamingFragment extends BaseResistanceGamingFragment
 
             @Override
             public void onCountChange(int before, int after) {
+                // TODO:: no hard coded number
                 if (after == 5) {
                     mBookkeeper.updateGameResults(
                             getActivity(),
-                            Resistance.GameEnd.SPY_WIN_PROPOSE);
+                            GameStatus.SPY_WIN);
+                    mStateKeeper.keep(StateKeeper.State.OVER);
                     mLeaderRotater.complete();
                     mGameElector.complete();
                 }
+                mStateKeeper.keep(StateKeeper.PROPOSE_KEY, after);
                 updateStatusView(PROPOSE, after);
             }
 
             @Override
             public void onInitiate() {
-                updateStatusView(PROPOSE, 0);
+                updateStatusView(PROPOSE, mProposeScorer.getCount());
             }
 
             @Override
             public void onComplete() {
+                mStateKeeper.keep(StateKeeper.PROPOSE_KEY, 0);
             }
         });
 
-        // TODO: This is indeed a terrible use logic handler
         mVoteSwitcher = new Switcher(new OnSwitchListener() {
             @Override
             public void onSwitch(int flag) {
 
                 switch (flag) {
+                    case BaseSwitcher.PRIMARY:
+                        mBookkeeper.keepVote(Resistance.Vote.APPROVAL);
+                        mStateKeeper.keep(StateKeeper.State.MISSION);
+                        mProposeScorer.complete();
+                        break;
                     case BaseSwitcher.SECONDARY:
+                        showTransitDialog();
+                        mBookkeeper.keepVote(Resistance.Vote.VETO);
+                        mLeaderRotater.rotate();
                         mProposeScorer.increment();
                         break;
                 }
 
                 mVoteSwitcher.complete();
             }
+
             @Override
             public void onInitiate() {
                 showFragment(VOTE);
@@ -120,15 +121,7 @@ public class ResistanceGamingFragment extends BaseResistanceGamingFragment
             @Override
             public void onComplete() {
                 hideFragment(VOTE);
-
-                if (mVoteSwitcher.isPrimaryReached()) {
-                    mBookkeeper.updateProposeResults(Resistance.Propose.APPROVAL);
-                    startMission();
-                } else {
-                    mBookkeeper.updateProposeResults(Resistance.Propose.VETO);
-                    mLeaderRotater.rotate();
-                    startPropose();
-                }
+                step(mStateKeeper.getState());
             }
         });
 
@@ -136,27 +129,52 @@ public class ResistanceGamingFragment extends BaseResistanceGamingFragment
 
             @Override
             public void onSwitch(int flag) {
-                mBookkeeper.keepGameResults(mGameElector.provide());
+                mLeaderRotater.complete();
+                mBookkeeper.keepMissionResult(mGameElector.provide());
+
+                GameStatus status = GameStatus.SPY_WIN;
+                StateKeeper.State state = StateKeeper.State.OVER;
 
                 if (flag == BaseSwitcher.PRIMARY) {
                     if (getGameId() == Constants.AVALON
                             && mConfig.isRoleEnabled(Avalon.Role.ASSASSIN)) {
-                        mBookkeeper.updateGameResults(getActivity(), GameEnd.ASSASSINATION);
-                    } else
-                        mBookkeeper.updateGameResults(getActivity(), GameEnd.RESISTANCE_WIN);
-                } else {
-                    mBookkeeper.updateGameResults(getActivity(), GameEnd.SPY_WIN_MISSION);
+                        status = GameStatus.ASSASSINATION;
+                        state = StateKeeper.State.ASSASSINATION;
+                    } else {
+                        status = GameStatus.RESISTANCE_WIN;
+                    }
                 }
+
+                mStateKeeper.keep(state);
+                mBookkeeper.updateGameResults(getActivity(), status);
             }
 
             @Override
             public void onInitiate() {
-                updateStatusView(WIN, 0);
-                updateStatusView(LOSE, 0);
+                updateStatusView(WIN, mGameElector.getPrimaryCount());
+                updateStatusView(LOSE, mGameElector.getSecondaryCount());
+                updateStatusView(MISSION, Resistance.getNumberForMission(
+                        mConfig.getNumberOfPlayers(),
+                        mGameElector.getCount()));
+
+                mProposeScorer.prepare(5).load(mStateKeeper.getPropose()).initiate();
+                mLeaderRotater.prepare(mUserList).load(mStateKeeper.getLeader()).initiate();
             }
 
             @Override
-            public void onComplete() {}
+            public void onComplete() {
+                if (mBookkeeper.getGameStatus() == GameStatus.ASSASSINATION) {
+                    String name = "";
+                    for (User user : mUserList) {
+                        if (mBookkeeper.getGamer(user).getRoleId()
+                                == Avalon.Role.ASSASSIN.getRoleId()) {
+                            name = user.getName();
+                            break;
+                        }
+                    }
+                    showTransitDialog(name);
+                }
+            }
         });
 
         mMissionElector = new Elector(new OnSwitchListener() {
@@ -171,30 +189,43 @@ public class ResistanceGamingFragment extends BaseResistanceGamingFragment
                         break;
                 }
             }
+
             @Override
             public void onInitiate() {
             }
 
             @Override
             public void onComplete() {
-                mBookkeeper.keepMissionList(mMissionElector.provide());
+                mBookkeeper.keepMissionExecution(mMissionElector.provide());
 
-                mGameElector.vote(
-                        mMissionElector.isPrimaryReached() ?
-                                BaseSwitcher.PRIMARY :
-                                BaseSwitcher.SECONDARY);
+                mGameElector.vote(mMissionElector.isPrimaryReached() ?
+                        BaseSwitcher.PRIMARY :
+                        BaseSwitcher.SECONDARY);
 
-                mLeaderRotater.rotate();
-
-                if (mGameElector.isPrimaryReached() || mGameElector.isSecondaryReached()){
-                    mLeaderRotater.complete();
+                StateKeeper.State state = StateKeeper.State.PROPOSE;
+                if (mGameElector.isPrimaryReached()) {
+                    state = mConfig.isRoleEnabled(Avalon.Role.ASSASSIN) ?
+                            StateKeeper.State.ASSASSINATION :
+                            StateKeeper.State.OVER;
                 }
 
-                mProposeScorer.prepare(5).report(mDirector).initiate();
-                startPropose();
+                if (mGameElector.isSecondaryReached()) {
+                    state = StateKeeper.State.OVER;
+                }
+
+                mStateKeeper.keep(state);
+                mStateKeeper.keep(StateKeeper.ROUND_KEY, mGameElector.getCount());
+                mStateKeeper.keep(StateKeeper.WIN_KEY, mGameElector.getPrimaryCount());
+                mStateKeeper.keep(StateKeeper.LOSE_KEY, mGameElector.getSecondaryCount());
 
                 updateStatusView(WIN, mGameElector.getPrimaryCount());
                 updateStatusView(LOSE, mGameElector.getSecondaryCount());
+
+                mLeaderRotater.rotate();
+
+                showDialog(MISSION);
+
+                step(mStateKeeper.getState());
             }
         });
 
@@ -206,27 +237,31 @@ public class ResistanceGamingFragment extends BaseResistanceGamingFragment
 
             @Override
             public void onInitiate() {
-                updateStatusView(MISSION,
-                        Resistance.getNumberForMission(
-                                mConfig.getNumberOfPlayers(),
-                                mGameElector.getCount()));
+                updateStatusView(MISSION, Resistance.getNumberForMission(
+                        mConfig.getNumberOfPlayers(),
+                        mGameElector.getCount()));
                 showFragment(PROPOSE);
             }
 
             @Override
             public void onComplete() {
-                mBookkeeper.keepProposeResults(mTeamMemberSelector.provide());
+                mBookkeeper.keepPropose(mTeamMemberSelector.provide());
 
                 hideFragment(PROPOSE);
 
                 if (!mConfig.isOptionEnabled(Resistance.Option.MANUEL_GAME_OVER) &&
                         mProposeScorer.getCount() == 4) {
-                    mBookkeeper.updateProposeResults(Resistance.Propose.APPROVAL);
-                    startMission();
+                    mBookkeeper.keepVote(Resistance.Vote.APPROVAL);
+                    mStateKeeper.keep(StateKeeper.State.MISSION);
+
+                    mProposeScorer.complete();
+
+                    step(mStateKeeper.getState());
+
                     return;
                 }
 
-                mDiscussionStaff.report(mDirector).initiate();
+                mDiscussionStaff.initiate();
             }
         });
 
@@ -236,50 +271,41 @@ public class ResistanceGamingFragment extends BaseResistanceGamingFragment
 
             @Override
             public void onInitiate() {
-                mBookkeeper.getGamer(mLeaderRotater.getItem(0)).setLeader(true);
+                mBookkeeper.getGamer(mLeaderRotater.getCount()).setLeader(true);
             }
 
             @Override
             public void onRoundStart() {
-                mBookkeeper.getGamer(
-                        mLeaderRotater.getItem(mLeaderRotater.getCount())).setLeader(false);
+                mBookkeeper.getGamer(mLeaderRotater.getCount()).setLeader(false);
             }
 
             @Override
             public void onRoundComplete() {
-                mBookkeeper.getGamer(
-                        mLeaderRotater.getItem(mLeaderRotater.getCount())).setLeader(true);
-
-                if (mBookkeeper.getGameEnd() == GameEnd.ASSASSINATION) {
-                    String name = "";
-                    for (User user : mUserList) {
-                        if (mBookkeeper.getGamer(user).getRoleId()
-                                == Avalon.Role.ASSASSIN.getRoleId()) {
-                            name = user.getName();
-                            break;
-                        }
-                    }
-                    showTransitDialog(name);
-                } else if (mBookkeeper.getLastPropose() == Resistance.Propose.APPROVAL) {
-                    showMissionResultDialog();
-                } else {
-                    showTransitDialog();
-                }
+                mBookkeeper.getGamer(mLeaderRotater.getCount()).setLeader(true);
+                mStateKeeper.keep(StateKeeper.LEADER_KEY, mLeaderRotater.getCount());
             }
 
             @Override
             public void onComplete() {
-                mBookkeeper.getGamer(
-                        mLeaderRotater.getItem(mLeaderRotater.getCount())).setLeader(false);
+                mBookkeeper.getGamer(mLeaderRotater.getCount()).setLeader(false);
             }
         });
 
-        // TODO: DO not hard code constants
-        mGameElector.prepare(5, 3, 3).report(mDirector).initiate();
+        mTeamMemberSelector.setTag(SELECTION);
 
-        mProposeScorer.prepare(5).report(mDirector).initiate();
+        mDiscussionStaff.setTag(DISCUSSION);
 
-        mLeaderRotater.prepare(mUserList).report(mDirector).initiate();
+        mVoteSwitcher.setTag(VOTE);
+
+        mMissionAnnouncer.setTag("announcer");
+
+        mMissionElector.setTag(MISSION);
+
+        mGameElector.setTag("game");
+
+        mProposeScorer.setTag(PROPOSE);
+
+        mLeaderRotater.setTag("leader");
     }
 
     @Override
@@ -289,6 +315,8 @@ public class ResistanceGamingFragment extends BaseResistanceGamingFragment
 
     @Override
     public void onIntroduceStart() {
+        mStateKeeper.keep(
+                StateKeeper.GAMER_KEY, mBookkeeper.getIndex(mMissionAnnouncer.getCurrentItem()));
         showTransitDialog();
         showFragment(PRESS);
     }
@@ -329,9 +357,10 @@ public class ResistanceGamingFragment extends BaseResistanceGamingFragment
             case PROPOSE:
                 if (extra == BaseSwitcher.PRIMARY)
                     mTeamMemberSelector.complete();
+                    // TODO: NO Writes in these methods
                 else {
-                    mBookkeeper.keepProposeResults(new ArrayList<User>());
-                    mBookkeeper.updateProposeResults(Resistance.Propose.PASS);
+                    mBookkeeper.keepPropose(new ArrayList<User>());
+                    mBookkeeper.keepVote(Resistance.Vote.PASS);
 
                     hideFragment(PROPOSE);
 
@@ -353,12 +382,12 @@ public class ResistanceGamingFragment extends BaseResistanceGamingFragment
                     mVoteSwitcher.increment(BaseSwitcher.SECONDARY);
                 break;
             case SELECTION:
-                // TODO: use book keeper for all
-                mTeamMemberSelector.select(mLeaderRotater.getItem(extra));
+                mTeamMemberSelector.select(mBookkeeper.getUser(extra));
                 break;
             case OVER:
                 if (extra == BaseSwitcher.PRIMARY) {
-                    showReplayRemoveUserDialog();
+                    clear();
+                    showDialog(type);
                 } else
                     rateAppOnGooglePlay();
                 break;
@@ -368,36 +397,29 @@ public class ResistanceGamingFragment extends BaseResistanceGamingFragment
 
                 if (roleId < 0) return;
 
-                if (roleId == Avalon.Role.MERLIN.getRoleId()) {
-                    mBookkeeper.updateGameResults(getActivity(), GameEnd.SPY_WIN_MISSION);
-                } else {
-                    mBookkeeper.updateGameResults(getActivity(), GameEnd.RESISTANCE_WIN);
-                }
-                hideFragment(PROPOSE);
-                showFragment(OVER);
+                mStateKeeper.keep(StateKeeper.State.OVER);
+
+                mBookkeeper.updateGameResults(
+                        getActivity(),
+                        roleId == Avalon.Role.MERLIN.getRoleId() ?
+                                GameStatus.SPY_WIN :
+                                GameStatus.RESISTANCE_WIN);
+
+                hideFragment(ASSASSINATION);
+                step(mStateKeeper.getState());
                 break;
             case REPLAY: // Event comes from a dialog
                 if (extra == BaseSwitcher.PRIMARY) {
-                    myStartActivity(new Intent()
-                            .putExtra("Cards", Constants.GAME_WITHOUT_CARDS)
-                            .putExtra(Constants.GAME, getGameId())
-                            .putExtra(Constants.USERLIST_KEY, mUserList)
-                            .setClass(getActivity(), SetupActivity.class));
-                    getActivity().finish();
+                    startSetupActivity();
                 } else {
-                    hideFragment(PROPOSE);
+                    hideFragment(ASSASSINATION);
                     hideFragment(OVER);
                     showFragment(REMOVE);
                 }
                 break;
             case REMOVE:
                 if (extra == BaseSwitcher.PRIMARY) {
-                    myStartActivity(new Intent()
-                            .putExtra("Cards", Constants.GAME_WITHOUT_CARDS)
-                            .putExtra(Constants.GAME, getGameId())
-                            .putExtra(Constants.USERLIST_KEY, mUserList)
-                            .setClass(getActivity(), SetupActivity.class));
-                    getActivity().finish();
+                    startSetupActivity();
                 } else if (extra == BaseSwitcher.SECONDARY) {
                     rateAppOnGooglePlay();
                 } else {
@@ -407,62 +429,50 @@ public class ResistanceGamingFragment extends BaseResistanceGamingFragment
     }
 
     @Override
-    public int getGameId() {
-        return mConfig.getGame();
-    }
-
-    @Override
-    protected int getCurrentPlayerIdentity() {
-        return mBookkeeper.getGamer(mMissionAnnouncer.getCurrentItem()).getRoleId();
-    }
-
-    @Override
-    protected  User getLeader() {
-        return mLeaderRotater.getItem(mLeaderRotater.getCount());
-    }
-
-    @Override
-    protected  User getCurrentGamer() {
-        return mMissionAnnouncer.getCurrentItem();
-    }
-
-    @Override
-    protected boolean getMissionResult() {
-        return mGameElector.getLastItem() == BaseSwitcher.PRIMARY;
-    }
-
-    @Override
-    protected int getMissionLimit() {
-        return Resistance.getNumberForMission(mConfig.getNumberOfPlayers(), mGameElector.getCount());
-    }
-
-    @Override
-    protected int getFailCount() {
-        return mMissionElector.getSecondaryCount();
-    }
-
-    @Override
     protected void start() {
-        startPropose();
+        mGameElector.prepare(5, 3, 3)
+                .load(mStateKeeper.getRound(), mStateKeeper.getWin(), mStateKeeper.getLose())
+                .initiate();
+        step(mStateKeeper.getState());
     }
 
+    private void step(StateKeeper.State state) {
+        switch (state) {
+            case PROPOSE:
+                startPropose();
+                break;
+            case MISSION:
+                startMission();
+                break;
+            case OVER:
+                mGameElector.complete();
+                showFragment(OVER);
+                break;
+            case ASSASSINATION:
+                showFragment(ASSASSINATION);
+                break;
+        }
+    }
+
+    /**
+     * Tip: Never keep state/log in following action methods.
+     */
     private void startPropose() {
+
+        if (!mProposeScorer.isInitiated()) {
+            mProposeScorer.prepare(5).initiate();
+        }
 
         int total = mConfig.getNumberOfPlayers();
         int round = mGameElector.getCount();
         mTeamMemberSelector
                 .prepare(Resistance.getNumberForMission(total, round))
-                .report(mDirector)
                 .initiate();
+
+        mStateKeeper.keep(StateKeeper.State.PROPOSE);
     }
 
     private void startMission() {
-        mProposeScorer.complete();
-
-        List<User> list = mBookkeeper.getLastProposeList();
-
-        mBookkeeper.keepTeamResults(list);
-
         if (mGameElector.getCount() > 0 && getGameId() == Constants.AVALON &&
                 mConfig.isRoleEnabled(Avalon.Role.LANCELOT_ARTHUR)) {
             mBookkeeper.swap(
@@ -479,14 +489,13 @@ public class ResistanceGamingFragment extends BaseResistanceGamingFragment
                 num,
                 Resistance.getSuccess(total, round),
                 Resistance.getFailure(total, round))
-                .report(mDirector)
                 .initiate();
 
         if (maybeEndGame()) {
             return;
         }
 
-        mMissionAnnouncer.prepare(list).report(mDirector).initiate();
+        mMissionAnnouncer.prepare(mBookkeeper.getLastPropose()).initiate();
     }
 
     private boolean maybeEndGame() {
@@ -503,10 +512,10 @@ public class ResistanceGamingFragment extends BaseResistanceGamingFragment
 
         if (mGameElector.getPrimaryCount() == 2) {
             int possibleSuccess = 0;
-            List<User> list = mBookkeeper.getLastProposeList();
+            List<User> list = mBookkeeper.getLastPropose();
             for (User user : list) {
                 if (mBookkeeper.getGamer(user).getRoleId() > 0) { // TODO: make it human readable
-                    possibleSuccess ++;
+                    possibleSuccess++;
                 }
             }
             if (possibleSuccess >= Resistance.getSuccess(total, mission)) {
@@ -517,10 +526,10 @@ public class ResistanceGamingFragment extends BaseResistanceGamingFragment
 
         if (mGameElector.getSecondaryCount() == 2) {
             int possibleFail = 0;
-            List<User> list = mBookkeeper.getLastProposeList();
+            List<User> list = mBookkeeper.getLastPropose();
             for (User user : list) {
-                if (mBookkeeper.getGamer(user).getRoleId() < 0){ // TODO: make it human readable
-                    possibleFail ++;
+                if (mBookkeeper.getGamer(user).getRoleId() < 0) { // TODO: make it human readable
+                    possibleFail++;
                 }
             }
             if (possibleFail >= Resistance.getFailure(total, mission)) {
@@ -541,31 +550,5 @@ public class ResistanceGamingFragment extends BaseResistanceGamingFragment
             }
         }
         mMissionElector.complete();
-    }
-
-    // TODO:: make it as a utility
-    //On click event for rate this app button
-    private void rateAppOnGooglePlay() {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        //Try Google play
-        intent.setData(Uri.parse("market://details?id=" + "com.yuanwei.resistance"));
-        if (!myStartActivity(intent)) {
-            //Market (Google play) app seems not installed, let's try to open a webbrowser
-            intent.setData(Uri.parse("https://play.google.com/store/apps/details?" + "com.yuanwei.resistance"));
-            if (!myStartActivity(intent)) {
-                //Well if this also fails, we have run out of options, inform the user.
-                Toast.makeText(getActivity(), "Could not open Google Play, please install the market app.", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    private boolean myStartActivity(Intent intent) {
-        try {
-            startActivity(intent);
-            return true;
-        } catch (ActivityNotFoundException e) {
-            Toast.makeText(getActivity(), getString(R.string.string_toast2_game), Toast.LENGTH_SHORT).show();
-            return false;
-        }
     }
 }

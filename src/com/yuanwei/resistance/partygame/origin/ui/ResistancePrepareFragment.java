@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.yuanwei.resistance.constant.Constants;
 import com.yuanwei.resistance.model.User;
-import com.yuanwei.resistance.partygame.origin.Config;
+import com.yuanwei.resistance.partygame.avalon.Config;
 import com.yuanwei.resistance.partygame.origin.texttospeech.Narrator;
 import com.yuanwei.resistance.ui.fragment.BasePrepareFragment;
 
@@ -16,8 +16,6 @@ import java.util.ArrayList;
 public class ResistancePrepareFragment extends BasePrepareFragment {
 
     public static final String TAG = "ResistancePrepareFragment";
-
-    private Config mConfig;
 
     public static ResistancePrepareFragment createInstance(ArrayList<User> users) {
         ResistancePrepareFragment fragment = new ResistancePrepareFragment();
@@ -38,8 +36,8 @@ public class ResistancePrepareFragment extends BasePrepareFragment {
 
         setNarrator(new Narrator(getActivity(), mTTS));
 
-        mConfig = new Config();
+        Config config = new Config(Constants.ORIGIN);
 
-        mConfig.load(getActivity());
+        config.load(getActivity());
     }
 }

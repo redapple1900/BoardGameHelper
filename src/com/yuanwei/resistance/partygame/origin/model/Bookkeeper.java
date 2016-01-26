@@ -1,14 +1,21 @@
 package com.yuanwei.resistance.partygame.origin.model;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.util.Pair;
+import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
 import com.yuanwei.resistance.constant.Constants;
 import com.yuanwei.resistance.model.Gamer;
 import com.yuanwei.resistance.model.User;
 import com.yuanwei.resistance.moderator.BaseSwitcher;
 import com.yuanwei.resistance.partygame.avalon.model.Avalon;
-import com.yuanwei.resistance.partygame.origin.model.Resistance.GameEnd;
+import com.yuanwei.resistance.partygame.origin.model.Resistance.GameStatus;
+import com.yuanwei.resistance.partygame.origin.model.Resistance.Role;
+import com.yuanwei.resistance.partygame.origin.model.Resistance.Vote;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,29 +29,29 @@ import java.util.Map;
  *
  */
 public class Bookkeeper {
-    // TODO: create state for what fragment should show and the GridFragment
-    private int mGame;
 
-    private GameEnd mGameEnd;
-
+    // Results of missions in a game
+    public List<Integer> mMissionResults;
     // Raw data
-    public List<User> mUserList;
-
-    public List<Gamer> mGamerList;
-
-    public Map<User, Gamer> mGamerMap;
-
-    // Misssion Results
-    public List<List<User>> mProposeListResults;
-
-    public List<Resistance.Propose> mProposeResults;
-
-    public List<List<User>> mTeamResults;
-
-    public List<List<Pair<User, Integer>>> mMissionExecutionResults;
-
-    // Game Results
-    public List<Integer> mGameResults;
+    private List<User> mUserList;
+    private List<Gamer> mGamerList;
+    private transient Map<User, Gamer> mGamerMap;
+    private transient Map<User, Integer> mIndex;
+    // Proposed team
+    private List<List<Integer>> mProposedTeams;
+    // Vote
+    @SerializedName("votelist")
+    private List<Vote> mVoteResults;
+    // Team for the mission
+    private transient List<List<Integer>> mTeam; /* Derived */
+    // Results of mission execution
+    private List<List<Integer>> mExecutionResults;
+    // Success and Sabotages of a mission
+    private transient List<Pair<Integer, Integer>> mMissionExecutionList;
+    // Execution of each participant in the mission
+    private transient List<List<Pair<Integer, Integer>>> mMissionExecutionDetails;
+    private int mGame;
+    private GameStatus mGameStatus;
 
     public Bookkeeper(int game, List<User> userList, List<Gamer> gamerList) {
 
@@ -56,130 +63,211 @@ public class Bookkeeper {
 
         mGamerMap = new HashMap<>();
 
+        for (int i = 0; i < mUserList.size(); i++) {
+            mGamerMap.put(mUserList.get(i), mGamerList.get(i));
+        }
+
+        mIndex = new HashMap<>();
+
+        for (int i = 0; i < mUserList.size(); i++) {
+            mIndex.put(mUserList.get(i), i);
+        }
+
+        mGameStatus = GameStatus.NOT_FINISHED;
+
+        mProposedTeams = new ArrayList<>();
+
+        mVoteResults = new ArrayList<>();
+
+        mTeam = new ArrayList<>();
+
+        mExecutionResults = new ArrayList<>();
+
+        mMissionResults = new ArrayList<>();
+
+        mMissionExecutionList = new ArrayList<>();
+
+        mMissionExecutionDetails = new ArrayList<>();
+    }
+
+    private Bookkeeper() {
+    }
+
+    /**
+     * This is a temporary way to initiate bookkeeper after GSON deserialization
+     */
+    public Bookkeeper initiate() {
+        mGamerMap = new HashMap<>();
+
         for (int i = 0; i < mUserList.size(); i++){
             mGamerMap.put(mUserList.get(i), mGamerList.get(i));
         }
 
-        mGameEnd = GameEnd.NOT_FINISHED;
+        mIndex = new HashMap<>();
 
-        mTeamResults = new ArrayList<>();
-
-        mProposeResults = new ArrayList<>();
-
-        mProposeListResults = new ArrayList<>();
-
-        mMissionExecutionResults = new ArrayList<>();
-    }
-
-    public void keepMissionList(List<Integer> list) {
-
-        List<User> users = mTeamResults.get(mTeamResults.size() - 1);
-
-        List<Pair<User, Integer>> executionResults = new ArrayList<>(mTeamResults.size());
-
-        for (int i = 0; i < users.size(); i++) {
-            executionResults.add(new Pair<>(users.get(i), list.get(i)));
+        for (int i = 0; i < mUserList.size(); i++) {
+            mIndex.put(mUserList.get(i), i);
         }
 
-        mMissionExecutionResults.add(executionResults);
+        if (mProposedTeams != null && mVoteResults != null) {
+            mTeam = new ArrayList<>();
+            for (int i = 0, j = mVoteResults.size(); i < j; i++) {
+                if (mVoteResults.get(i) == Vote.APPROVAL)
+                    mTeam.add(mProposedTeams.get(i));
+            }
+        }
+        // TODO: temporary way of fix
+        if (mProposedTeams.size() != mVoteResults.size()) {
+            mProposedTeams.remove(mProposedTeams.size() - 1);
+        }
+
+        mMissionExecutionList = new ArrayList<>();
+
+        if (mExecutionResults != null) {
+            mMissionExecutionDetails = new ArrayList<>();
+            for (int i = 0, j = mExecutionResults.size(); i < j; i++) {
+                updateExecutionResults(i, mExecutionResults.get(i));
+            }
+        }
+        return this;
     }
 
-    public void keepGameResults(List<Integer> list) {
-        mGameResults = list;
+    public void clear(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        prefs.edit().putString(Constants.BOOKKEEPER_KEY, "").apply();
     }
 
-    public void keepProposeResults(List<User> list) {
-        mProposeListResults.add(list);
+    public void keepPropose(List<User> list) {
+        mProposedTeams.add(getIndexList(list));
     }
 
-    public void keepTeamResults(List<User> list) {
-        mTeamResults.add(list);
+    public void keepMissionExecution(List<Integer> list) {
+
+        mExecutionResults.add(list);
+
+        updateExecutionResults(mTeam.size() - 1, list);
     }
 
-    public List<User> getLastProposeList() {
-        return mProposeListResults.get(mProposeListResults.size() - 1);
+    private void updateExecutionResults(int round, List<Integer> list) {
+        List<Integer> indices = mTeam.get(round);
+
+        List<Pair<Integer, Integer>> executionResults = new ArrayList<>();
+        int success = 0, sabotage = 0;
+
+        for (int i = 0; i < indices.size(); i++) {
+            int execution = list.get(i);
+            executionResults.add(new Pair<>(indices.get(i), execution));
+            if (execution == BaseSwitcher.PRIMARY)
+                success++;
+            else
+                sabotage++;
+        }
+        mMissionExecutionList.add(new Pair<>(success, sabotage));
+        mMissionExecutionDetails.add(executionResults);
     }
 
-    public Resistance.Propose getLastPropose() {
-        return mProposeResults.get(mProposeResults.size() - 1);
+    public void keepMissionResult(List<Integer> list) {
+        mMissionResults = list;
     }
 
-    public void updateProposeResults(Resistance.Propose result) {
-
-        mProposeResults.add(result);
+    public void keepVote(Vote result) {
+        mVoteResults.add(result);
+        if (result == Vote.APPROVAL) {
+            mTeam.add(mProposedTeams.get(mProposedTeams.size() - 1));
+        }
     }
 
     public void updateMissionResult(int result) {
+        // TODO:: Use some number more explictly.
+        mMissionResults.add(result == Resistance.WIN ? BaseSwitcher.PRIMARY : BaseSwitcher.SECONDARY);
 
         for (Gamer gamer : mGamerList) {
             gamer.addMissionResult(Resistance.NEUTRAL);
         }
 
-        List<User> team = mTeamResults.get(mTeamResults.size() - 1);
+        List<Integer> team = mTeam.get(mTeam.size() - 1);
 
-        for (User user : team) {
+        for (Integer i : team) {
             if (result == Resistance.WIN || result == Resistance.LOSE)
-                mGamerMap.get(user).setCurrentMissionResult(result);
+                mGamerList.get(i).setCurrentMissionResult(result);
         }
     }
 
     /**
      * When game is over, reveal the 'fail's
      */
-    public void updateGameResults(Context context, GameEnd end) {
+    public void updateGameResults(Context context, GameStatus status) {
 
-        mGameEnd = end;
+        mGameStatus = status;
 
         int round = 0;
 
-        for (List<Pair<User, Integer>> list : mMissionExecutionResults) {
-            for (Pair<User, Integer> pair : list) {
+        for (List<Pair<Integer, Integer>> list : mMissionExecutionDetails) {
+            for (Pair<Integer, Integer> pair : list) {
                 // TODO: Create an enum for mission execution result
                 if (pair.second == BaseSwitcher.SECONDARY)
-                mGamerMap.get(pair.first).results.set(round, Resistance.SABOTAGE);
+                    mGamerList.get(pair.first).results.set(round, Resistance.SABOTAGE);
             }
             round ++;
         }
 
-        if (mGame == Constants.ORIGIN && end != GameEnd.NOT_FINISHED) {
+        if (mGame == Constants.ORIGIN && status != GameStatus.NOT_FINISHED) {
             for (Gamer gamer : mGamerList) {
-                gamer.setRoleName(
-                        context.getString(
-                                Resistance.getInstance().findRoleById(
-                                        gamer.getRoleId()).getTitleResId()));
+                Role role = Resistance.getInstance().findRoleById(gamer.getRoleId());
+                gamer.setRoleName(context.getString(role.getTitleResId()));
             }
             return;
         }
 
-        if (end == GameEnd.ASSASSINATION) {
+        if (status == GameStatus.ASSASSINATION) {
             for (Gamer gamer : mGamerList) {
                 if (gamer.getRoleId() < 0) {
-                    gamer.setRoleName(
-                            context.getString(
-                                    Avalon.getInstance().findRoleById(
-                                            gamer.getRoleId()).getTitleResId()));
+                    Avalon.Role role = Avalon.getInstance().findRoleById(gamer.getRoleId());
+                    gamer.setRoleName(context.getString(role.getTitleResId()));
                 }
             }
-        } else if (end != GameEnd.NOT_FINISHED) {
+        } else if (status != GameStatus.NOT_FINISHED) {
             for (Gamer gamer : mGamerList) {
-                gamer.setRoleName(
-                        context.getString(
-                                Avalon.getInstance().findRoleById(
-                                        gamer.getRoleId()).getTitleResId()));
+                Avalon.Role role = Avalon.getInstance().findRoleById(gamer.getRoleId());
+                gamer.setRoleName(context.getString(role.getTitleResId()));
             }
         }
+    }
+
+    public List<User> getLastPropose() {
+        return getUserList(mProposedTeams.get(mProposedTeams.size() - 1));
+    }
+
+    public List<Pair<Integer, Integer>> getMissionExecutionResult() {
+        return mMissionExecutionList;
+    }
+
+    public List<Integer> getMissionResult() {
+        return mMissionResults;
+    }
+
+    public int getIndex(User user) {
+        return mIndex.get(user);
+    }
+
+    public int getGameId() {
+        return mGame;
     }
 
     public Gamer getGamer(User user) {
         return mGamerMap.get(user);
     }
 
+    public Gamer getGamer(int index) {
+        return mGamerList.get(index);
+    }
+
     public User getUser(int index) {
         return mUserList.get(index);
     }
 
-    public GameEnd getGameEnd() {
-        return this.mGameEnd;
+    public GameStatus getGameStatus() {
+        return mGameStatus;
     }
 
     public void swap(int roleId0, int roleId1) {
@@ -191,6 +279,65 @@ public class Bookkeeper {
             if (gamer.getRoleId() ==roleId1) {
                 gamer.setRoleId(roleId0);
             }
+        }
+    }
+
+    public ArrayList<User> getUserList() {
+        return (ArrayList<User>) mUserList;
+    }
+
+    public ArrayList<Gamer> getGamerList() {
+        return (ArrayList<Gamer>) mGamerList;
+    }
+
+    private List<User> getUserList(List<Integer> list) {
+        List<User> result = new ArrayList<>();
+
+        for (Integer i : list) {
+            result.add(mUserList.get(i));
+        }
+
+        return result;
+    }
+
+    private List<Integer> getIndexList(List<User> list) {
+        List<Integer> result = new ArrayList<>();
+
+        for (User user : list) {
+            result.add(mIndex.get(user));
+        }
+
+        return result;
+    }
+
+    public static class Agent {
+
+        Gson gson;
+        String PREF_KEY = Constants.BOOKKEEPER_KEY;
+
+        //////////////////////////////////////////////////////////////////////////
+        // Serialization
+
+        public Agent() {
+            gson = new Gson();
+        }
+
+        public void save(Context context, Bookkeeper bookkeeper) {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+            String result = gson.toJson(bookkeeper);
+            Log.d("Resistance: JSON", result);
+            prefs.edit().putString(PREF_KEY, result).apply();
+        }
+
+        public Bookkeeper load(Context context) {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+
+            String json = prefs.getString(PREF_KEY, "");
+
+            if ("".equals(json)) {
+                return null;
+            }
+            return gson.fromJson(json, Bookkeeper.class);
         }
     }
 }

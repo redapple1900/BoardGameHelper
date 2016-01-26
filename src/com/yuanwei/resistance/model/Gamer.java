@@ -11,14 +11,23 @@ import java.util.List;
  */
 public class Gamer implements Parcelable {
 
+    public static final Parcelable.Creator<Gamer> CREATOR = new Creator<Gamer>() {
+
+        @Override
+        public Gamer createFromParcel(Parcel parcel) {
+            return new Gamer(parcel);
+        }
+
+        @Override
+        public Gamer[] newArray(int i) {
+            return new Gamer[i];
+        }
+    };
+    public List<Integer> results;
     // Resistance/Avalon specific identity;
     private int roleId;
-
     private boolean leader;
-
     private String roleName;
-
-    public List<Integer> results;
 
     public Gamer(Parcel parcel) {
 
@@ -45,14 +54,14 @@ public class Gamer implements Parcelable {
     public int getRoleId() {
         return roleId;
     }
-    public List<Integer> getResults () {
-        return this.results;
-    }
 
     public void setRoleId(int roleId) {
         this.roleId = roleId;
     }
 
+    public List<Integer> getResults() {
+        return this.results;
+    }
 
     public String getRoleName() {
         return roleName;
@@ -62,15 +71,15 @@ public class Gamer implements Parcelable {
         this.roleName = roleName;
     }
 
-    public void setLeader (boolean leader) {
-        this.leader = leader;
-    }
-
     public boolean isLeader() {
         return this.leader;
     }
 
-    public void addMissionResult(int result){
+    public void setLeader(boolean leader) {
+        this.leader = leader;
+    }
+
+    public void addMissionResult(int result) {
         results.add(result);
     }
 
@@ -90,17 +99,4 @@ public class Gamer implements Parcelable {
         parcel.writeString(roleName);
         parcel.writeList(results);
     }
-
-    public static final Parcelable.Creator<Gamer> CREATOR = new Creator<Gamer>() {
-
-        @Override
-        public Gamer createFromParcel(Parcel parcel) {
-            return new Gamer(parcel);
-        }
-
-        @Override
-        public Gamer[] newArray(int i) {
-            return new Gamer[i];
-        }
-    };
 }

@@ -192,4 +192,6 @@
     <string name="negative">不是</string>
     <string name="remove_gamer">请点要离开的人，完成后请点\'再来一局\'</string>
     <string name="string">取消</string>
+    <string name="resume_game">Resume</string>
+    <string name="save_quit"><![CDATA[Save & Quit]]></string>
 </resources>

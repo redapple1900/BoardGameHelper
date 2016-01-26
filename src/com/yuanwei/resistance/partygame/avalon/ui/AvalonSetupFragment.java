@@ -20,6 +20,7 @@ import com.yuanwei.resistance.ui.list.RoleSetupRecyclerViewAdapter.RoleItem;
 import com.yuanwei.resistance.ui.list.SectionRecyclerViewAdapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -111,7 +112,7 @@ public class AvalonSetupFragment extends BaseSetupFragment {
 
     @Override
     protected void initAdapter() {
-        mRoleAdapter = new RoleSetupRecyclerViewAdapter(roles);
+        mRoleAdapter = new RoleSetupRecyclerViewAdapter(getActivity(), roles);
         mRoleAdapter.setOnRoleCheckListener(new RoleSetupRecyclerViewAdapter.OnRoleCheckListener() {
             @Override
             public void onToggle(RoleItem mainItem) {
@@ -251,6 +252,8 @@ public class AvalonSetupFragment extends BaseSetupFragment {
             list.add(evil);
             invisible--;
         }
+
+        Collections.shuffle(list);
 
         if (mUserList != null && !mUserList.isEmpty()) {
             int i = 0;

@@ -9,15 +9,6 @@ public class Constants {
      */
     public static final int RESISTANT = 100;
     public static final int SPY = -100;
-
-    public static int[] NumOfMinPass = {0, 0, 0, 0, 0, 3, 4, 4, 5, 5, 6};
-    public static int[][] NumOfMembersPerMission = {{}, {}, {}, {}, {},
-            {2, 3, 2, 3, 3},
-            {2, 3, 4, 3, 4},
-            {2, 3, 3, 4, 4},
-            {3, 4, 4, 5, 5},
-            {3, 4, 4, 5, 5},
-            {3, 4, 4, 5, 5}};
     /**
      * Some constants
      */
@@ -29,6 +20,16 @@ public class Constants {
     public static final String GAME_WITHOUT_CARDS = "game_without_cards";
     public static final String GAME = "game";
     public static final String USERLIST_KEY = "gamerList";
+    //DataSet could be inputed fromJSON files.
+    public static final String BOOKKEEPER_KEY = "com.yuanwei.resistance.bookKeeper";
+    public static int[] NumOfMinPass = {0, 0, 0, 0, 0, 3, 4, 4, 5, 5, 6};
+    public static int[][] NumOfMembersPerMission = {{}, {}, {}, {}, {},
+            {2, 3, 2, 3, 3},
+            {2, 3, 4, 3, 4},
+            {2, 3, 3, 4, 4},
+            {3, 4, 4, 5, 5},
+            {3, 4, 4, 5, 5},
+            {3, 4, 4, 5, 5}};
 
     public static int getNormalPlayers(int Total_players) {
         switch (Total_players) {
@@ -67,6 +68,5 @@ public class Constants {
                 return 0;
         }
     }
-    //DataSet could be inputed from files.
 }
 

@@ -2,6 +2,7 @@ package com.yuanwei.resistance.moderator;
 
 import com.yuanwei.resistance.moderator.protocol.OnSwitchListener;
 
+
 /**
  * Created by chenyuanwei on 15/11/8.
  */
@@ -30,5 +31,11 @@ public class Switcher extends BaseSwitcher {
 
     public final void decrement(int side) {
         decrement(side, 1);
+    }
+
+    @Override
+    public Staff load(Object... objects) {
+        super.load(objects);
+        return this;
     }
 }

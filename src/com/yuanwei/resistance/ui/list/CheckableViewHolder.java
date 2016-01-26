@@ -8,23 +8,28 @@ import android.widget.TextView;
 
 import com.yuanwei.resistance.R;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Created by chenyuanwei on 15/11/26.
  */
 public class CheckableViewHolder extends RecyclerView.ViewHolder {
 
+    @Bind(R.id.character_container)
     public View container;
+    @Bind(R.id.character_name)
     public TextView name;
+    @Bind(R.id.character_description)
     public TextView description;
+    @Bind(R.id.character_image_view)
     public ImageView image;
+    @Bind(R.id.character_checkbox)
     public CheckBox checkBox;
 
     public CheckableViewHolder(View v) {
         super(v);
-        container = v.findViewById(R.id.character_container);
-        name = (TextView) v.findViewById(R.id.character_name);
-        description = (TextView) v.findViewById(R.id.character_description);
-        image = (ImageView) v.findViewById(R.id.character_image_view);
-        checkBox = (CheckBox) v.findViewById(R.id.character_checkbox);
+
+        ButterKnife.bind(this, v);
     }
 }

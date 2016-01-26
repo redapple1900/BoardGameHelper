@@ -1,9 +1,9 @@
 package com.yuanwei.resistance.moderator;
 
-import com.yuanwei.resistance.moderator.protocol.OnSwitchListener;
+import android.util.Log;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.yuanwei.resistance.BuildConfig;
+import com.yuanwei.resistance.moderator.protocol.OnSwitchListener;
 
 /**
  * Created by chenyuanwei on 15/10/25.
@@ -17,15 +17,7 @@ public abstract class BaseSwitcher extends Staff {
     
     public static final int SECONDARY = -1;
 
-    private static final String PREF_KEY = "com.yuanwei.resistance.brancher";
-
-    private static final String TOTAL_COUNT_KEY = "total_count";
-
-    private static final String CURRENT_COUNT_KEY = "current_count";
-
-    private static final String PRIMARY_TAG = ".primary_accountant";
-
-    private static final String SECONDARY_TAG = ".secondary_accountant";
+    private static final String SWITCH_LOG = "Switch to: ";
     
     private int mTotal;
     
@@ -49,7 +41,7 @@ public abstract class BaseSwitcher extends Staff {
         super(listener);
         mListener = listener;
     }
-    
+
     protected BaseSwitcher prepare(int total, int primary, int secondary) {
         mTotal = total;
         mPrimaryTotal = primary;
@@ -79,11 +71,19 @@ public abstract class BaseSwitcher extends Staff {
         if (mPrimaryCount >= mPrimaryTotal && !mPrimaryReached) {
             mPrimaryReached = true;
             mListener.onSwitch(PRIMARY);
+
+            if (BuildConfig.DEBUG) {
+                Log.d(getTag(), SWITCH_LOG + PRIMARY);
+            }
         }
 
         if (mSecondaryCount >= mSecondaryTotal && !mSecondaryReached) {
             mSecondaryReached = true;
             mListener.onSwitch(SECONDARY);
+
+            if (BuildConfig.DEBUG) {
+                Log.d(getTag(), SWITCH_LOG + SECONDARY);
+            }
         }
 
     }
@@ -126,47 +126,12 @@ public abstract class BaseSwitcher extends Staff {
     }
 
     @Override
-    protected String getInternalTag() {
-        if (getTag() != null)
-            return PREF_KEY;
-        else
-            return PREF_KEY + getTag();
-    }
-
-    @Override
-    protected void saveToJSONObj(JSONObject obj) {
-        
-        try {
-            obj.put(TOTAL_COUNT_KEY, mTotal);
-
-            obj.put(CURRENT_COUNT_KEY, mCurrent);
-
-            obj.put(TOTAL_COUNT_KEY + PRIMARY_TAG, mPrimaryTotal);
-
-            obj.put(CURRENT_COUNT_KEY + PRIMARY_TAG, mPrimaryCount);
-
-            obj.put(TOTAL_COUNT_KEY + SECONDARY_TAG, mSecondaryTotal);
-
-            obj.put(CURRENT_COUNT_KEY + SECONDARY_TAG, mSecondaryCount);
-            
-        } catch (JSONException e) {
-            // Nothing going to happen
+    public Staff load(Object... objects) {
+        mCurrent = (int) objects[0];
+        if (objects.length >= 3) {
+            mPrimaryCount = (int) objects[1];
+            mSecondaryCount = (int) objects[2];
         }
-    }
-
-    @Override
-    protected void loadFromJSONObj(JSONObject obj) {
-        
-        mTotal = obj.optInt(TOTAL_COUNT_KEY);
-        
-        mCurrent = obj.optInt(CURRENT_COUNT_KEY);
-
-        mPrimaryTotal = obj.optInt(TOTAL_COUNT_KEY + PRIMARY_TAG);
-
-        mPrimaryCount = obj.optInt(CURRENT_COUNT_KEY + PRIMARY_TAG);
-
-        mSecondaryTotal = obj.optInt(TOTAL_COUNT_KEY + SECONDARY_TAG);
-
-        mSecondaryCount = obj.optInt(CURRENT_COUNT_KEY + SECONDARY_TAG);
+        return this;
     }
 }

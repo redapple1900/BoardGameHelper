@@ -18,10 +18,9 @@ import java.util.Map;
 
 public class Config extends BaseConfig{
 
-	private int mGame;
-
+    private static final String NUM_OF_PLAYERS_KEY = "number_of_players";
+    private int mGame;
 	private Map<Role, Boolean> mRoles = new HashMap<>();
-
 	private Map<Resistance.Option, Boolean> mOptions = new HashMap<>();
 
 	public Config(int game) {
@@ -47,19 +46,15 @@ public class Config extends BaseConfig{
 		mOptions.put(option, enabled);
 	}
 
+    //////////////////////////////////////////////////////////////////////////
+    // Serialization
+
 	public boolean isOptionEnabled(Resistance.Option option) {
 		if (mOptions.containsKey(option)) {
 			return mOptions.get(option);
 		}
 		return false;
 	}
-
-	//////////////////////////////////////////////////////////////////////////
-	// Serialization
-
-	private static final String PREF_KEY = "com.yuanwei.avalon.config";
-
-	private static final String NUM_OF_PLAYERS_KEY = "number_of_players";
 
 	public void save(Context context) {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -106,7 +101,12 @@ public class Config extends BaseConfig{
 		catch (JSONException e) {
 			// Not going to happen
 		}
-	}
+    }
+
+    public void clear(Context context) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        prefs.edit().putString(getPrefKey(mGame), "").apply();
+    }
 
 	private String getPrefKey(int game) {
 		switch (game) {

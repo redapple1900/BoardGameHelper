@@ -201,4 +201,6 @@
     <string name="negative">No</string>
     <string name="remove_gamer">Who will leave? Tap them to remove. </string>
     <string name="string">Cancel</string>
+    <string name="resume_game">Resume</string>
+    <string name="save_quit"><![CDATA[Save & Quit]]></string>
 </resources>
