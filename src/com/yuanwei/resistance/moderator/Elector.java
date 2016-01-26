@@ -17,6 +17,15 @@ public class Elector extends BaseSwitcher{
     }
 
     @Override
+    public Staff load(Object... objects) {
+        super.load(objects);
+        if (objects.length >= 4 && objects[3] instanceof List) {
+            mList = (List<Integer>) objects[3];
+        }
+        return this;
+    }
+
+    @Override
     public Elector prepare(int total, int primary, int secondary) {
         super.prepare(total, primary, secondary);
         mList = new ArrayList<>(total);

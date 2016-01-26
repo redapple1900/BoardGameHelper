@@ -1,5 +1,6 @@
 package com.yuanwei.resistance.partygame.origin.model;
 
+import com.google.gson.annotations.SerializedName;
 import com.yuanwei.resistance.R;
 import com.yuanwei.resistance.constant.Constants;
 import com.yuanwei.resistance.model.protocol.Game;
@@ -20,6 +21,12 @@ public class Resistance implements Game {
 
     public static final int NEUTRAL = 0;
 
+    public static GameStatus[] Status = {
+            GameStatus.NOT_FINISHED,
+            GameStatus.RESISTANCE_WIN,
+            GameStatus.SPY_WIN,
+            GameStatus.ASSASSINATION};
+
     private static Resistance mGame;
 
     private Map<Integer, Role> mRoleMap;
@@ -31,7 +38,6 @@ public class Resistance implements Game {
     private Role[] mRoles = {Role.RESISTANT, Role.SPY};
 
     private Option[] mOptions = {Option.BLIND_SPY, /*Option.ALLOW_PASS,*/ Option.MANUEL_GAME_OVER};
-
 
     private Resistance() {
         mRoleMap = new HashMap<>(mRoles.length * 2);
@@ -180,12 +186,17 @@ public class Resistance implements Game {
         }
     }
 
-    public enum Propose {
+    public enum Vote {
+        @SerializedName("0")
         UNKNOWN,
+        @SerializedName("1")
         APPROVAL,
+        @SerializedName("2")
         VETO,
+        @SerializedName("3")
         PASS
-}
+    }
+
     public enum Execution {
         EXECUTION,
         SABOTAGE
@@ -196,11 +207,16 @@ public class Resistance implements Game {
         FAIL
     }
 
-    public enum GameEnd {
+    public enum GameStatus {
+        @SerializedName("0")
         NOT_FINISHED,
+        @SerializedName("1")
         RESISTANCE_WIN,
-        SPY_WIN_MISSION,
-        SPY_WIN_PROPOSE,
-        ASSASSINATION
+        @SerializedName("2")
+        SPY_WIN,
+        @SerializedName("3")
+        ASSASSINATION,
+        @SerializedName("4")
+        MODIFYING_USERS;
     }
 }

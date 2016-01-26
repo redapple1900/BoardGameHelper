@@ -28,17 +28,17 @@ public class WelcomeActivity extends FragmentActivity implements PlotHost, PlotL
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
      * {@link android.support.v4.app.FragmentPagerAdapter} derivative, which
-     * will keepProposeResults every loaded fragment in memory. If this becomes too memory
+     * will keepPropose every loaded fragment in memory. If this becomes too memory
      * intensive, it may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     SectionsPagerAdapter mSectionsPagerAdapter;
-    private QuickStartFragment quickstartFragment;
-    private ContactFragment contactFragment;
     /**
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
+    private QuickStartFragment quickstartFragment;
+    private ContactFragment contactFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +67,7 @@ public class WelcomeActivity extends FragmentActivity implements PlotHost, PlotL
         startActivity((new Intent()
                 .putExtra("Cards", type)
                 .putExtra(Constants.GAME, extra)
-                .putExtra("gamerList", new ArrayList<User>())
+                .putExtra(Constants.USERLIST_KEY, new ArrayList<User>())
                 .setClass(this, SetupActivity.class)));
         finish();
     }

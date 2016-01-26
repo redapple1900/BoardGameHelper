@@ -17,56 +17,11 @@ import java.util.List;
 public class OptionSetupRecyclerViewAdapter
         extends RecyclerView.Adapter<CheckableViewHolder> {
 
-    public static class OptionItem {
-
-        private Resistance.Option option;
-        private boolean checked;
-
-        public OptionItem(Resistance.Option option, boolean checked) {
-            this.option = option;
-            this.checked = checked;
-        }
-
-        public Resistance.Option getOption() {
-            return option;
-        }
-
-        public void setOption(Resistance.Option option) {
-            this.option = option;
-        }
-
-        public boolean isChecked() {
-            return checked;
-        }
-
-        public void setChecked(boolean checked) {
-            this.checked = checked;
-        }
-    }
-
     private List<OptionItem> data;
 
     public OptionSetupRecyclerViewAdapter(List<OptionItem> data) {
         this.data = data;
     }
-
-    /*
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-
-        public TextView name;
-        public TextView description;
-        public ImageView image;
-        public CheckBox checkBox;
-
-        public ViewHolder(View v) {
-            super(v);
-            name = (TextView) v.findViewById(R.id.character_name);
-            description = (TextView) v.findViewById(R.id.character_description);
-            image = (ImageView) v.findViewById(R.id.character_image_view);
-            checkBox = (CheckBox) v.findViewById(R.id.character_checkbox);
-        }
-    }
-    */
 
     @Override
     public CheckableViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -99,5 +54,32 @@ public class OptionSetupRecyclerViewAdapter
     @Override
     public int getItemCount() {
         return data.size();
+    }
+
+    public static class OptionItem {
+
+        private Resistance.Option option;
+        private boolean checked;
+
+        public OptionItem(Resistance.Option option, boolean checked) {
+            this.option = option;
+            this.checked = checked;
+        }
+
+        public Resistance.Option getOption() {
+            return option;
+        }
+
+        public void setOption(Resistance.Option option) {
+            this.option = option;
+        }
+
+        public boolean isChecked() {
+            return checked;
+        }
+
+        public void setChecked(boolean checked) {
+            this.checked = checked;
+        }
     }
 }

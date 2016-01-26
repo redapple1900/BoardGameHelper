@@ -9,15 +9,17 @@ public abstract class BaseConfig {
 
     protected int mCount;
 
-    public void setNumberOfPlayers(int count) {
-        mCount = count;
-    }
-
     public int getNumberOfPlayers() {
         return mCount;
+    }
+
+    public void setNumberOfPlayers(int count) {
+        mCount = count;
     }
 
     public abstract void save(Context context);
 
     public abstract void load(Context context);
+
+    public abstract void clear(Context context);
 }

@@ -153,10 +153,10 @@ public abstract class BasePrepareFragment extends BaseMultiSceneFragment
                 Constants.getSpyPlayers(mNumberOfPlayers)));
     }
 
-    protected void startNextActivity() {
+    protected void startGameActivity() {
         Intent intent = new Intent();
         Bundle bundle = new Bundle();
-        bundle.putParcelableArrayList("gamerList", mUserList);
+        bundle.putParcelableArrayList(Constants.USERLIST_KEY, mUserList);
         bundle.putInt(Constants.GAME, getGameId());
         intent.putExtras(bundle);
         intent.setClass(getActivity(), GameActivity.class);
@@ -172,7 +172,7 @@ public abstract class BasePrepareFragment extends BaseMultiSceneFragment
                 break;
             case DOUBLE:
                 if (extra == DoubleButtonFragment.PRIMARY) {
-                    startNextActivity();
+                    startGameActivity();
                 } else if (extra == DoubleButtonFragment.SECONDARY) {
                     playSound();
                 }
@@ -418,39 +418,5 @@ public abstract class BasePrepareFragment extends BaseMultiSceneFragment
         }
 
         mGridRecycleViewAdapter.notifyItemChanged(current);
-    }
-
-    private void showTerminationDialog() {
-        AlertDialog.Builder mTerminationDialogBuilder =
-                new AlertDialog.Builder(getActivity(), AlertDialog.THEME_HOLO_DARK);
-
-        mTerminationDialogBuilder
-                .setTitle(getString(R.string.string_main_sound_title))
-                .setCancelable(false)
-                .setPositiveButton(
-                        getString(R.string.string_main_sound_positive),
-                        new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                    startNextActivity();
-                            }})
-                .setNeutralButton(
-                        getString(R.string.string_main_sound_neutral),
-                        new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                playSound();
-                            }
-                        });
-
-        mTerminationDialogBuilder.setMessage(getString(R.string.string_main_sound_message)
-                + "\n\n" + getString(R.string.script_close_eyes) + "\n\n"
-                + getString(R.string.script_spies_find_each_other) + "\n\n"
-                + getString(R.string.script_spies_close_eyes) + "\n\n"
-                + getString(R.string.script_open_eyes));
-
-        mTerminationDialogBuilder.show();
     }
 }

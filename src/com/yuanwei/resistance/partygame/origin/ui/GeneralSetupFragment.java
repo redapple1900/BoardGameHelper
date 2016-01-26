@@ -25,6 +25,11 @@ public class GeneralSetupFragment extends BaseSetupFragment {
     public static final String TAG = "ResistanceSetupFragment";
 
     private List<User> mUserList;
+    /* Data */
+    private List<OptionItem> data;
+    /* Presenter, Adapter and Utility */
+    private OptionSetupRecyclerViewAdapter mAdapter;
+    private Config mConfig;
 
     public static GeneralSetupFragment createInstance(boolean isGameNeeded, ArrayList<User> list) {
         GeneralSetupFragment fragment = new GeneralSetupFragment();
@@ -34,7 +39,6 @@ public class GeneralSetupFragment extends BaseSetupFragment {
         fragment.setArguments(bundle);
         return fragment;
     }
-
 
     @Override
     public int getGameId() {
@@ -64,15 +68,8 @@ public class GeneralSetupFragment extends BaseSetupFragment {
         super.onDestroyView();
     }
 
-    /* Data */
-    private List<OptionItem> data;
-
-    /* Presenter, Adapter and Utility */
-    private OptionSetupRecyclerViewAdapter mAdapter;
-    private Config mConfig;
-
     protected void initNarrator() {
-        // mTTS is from parent class
+        // mTTS is fromJSON parent class
         setNarrator(new Narrator(getActivity(), mTTS));
     }
 

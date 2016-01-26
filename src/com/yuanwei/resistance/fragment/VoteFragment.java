@@ -11,8 +11,15 @@ import com.yuanwei.resistance.moderator.BaseSwitcher;
 import com.yuanwei.resistance.ui.fragment.BasePlotFragment;
 import com.yuanwei.resistance.ui.widget.ButtonOnTouchListener;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class VoteFragment extends BasePlotFragment {
 
+    @Bind(R.id.primary)
+    Button button_positive;
+    @Bind(R.id.secondary)
+    Button button_negative;
     private String TAG;
 
     public static VoteFragment createInstance(String name) {
@@ -30,8 +37,7 @@ public class VoteFragment extends BasePlotFragment {
 
         View v = inflater.inflate(R.layout.fragment_mission, container, false);
 
-        Button button_negative = (Button) v.findViewById(R.id.secondary);
-        Button button_positive = (Button) v.findViewById(R.id.primary);
+        ButterKnife.bind(this, v);
 
         button_negative.setBackgroundResource(R.drawable.vote_nay);
         button_positive.setBackgroundResource(R.drawable.vote_aye);
@@ -58,5 +64,4 @@ public class VoteFragment extends BasePlotFragment {
         });
         return v;
     }
-
 }

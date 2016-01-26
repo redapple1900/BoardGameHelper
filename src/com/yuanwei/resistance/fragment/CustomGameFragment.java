@@ -41,7 +41,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+// TODO:: clear it up
 public class CustomGameFragment extends Fragment {
+    public static final String ARG_ITEM_ID = "item_id";
     private PlayerDataSource datasource;
     private ImageView mImageView;
     private GridView grid;
@@ -52,7 +54,6 @@ public class CustomGameFragment extends Fragment {
     private ListAdapter mListAdapter;
     private ListView listView;
     private Dialog dialog;
-    public static final String ARG_ITEM_ID = "item_id";
     //private Spinner spinner;
     private Button bn_stranger, bn_friend, bn_clear, bn_start;
 

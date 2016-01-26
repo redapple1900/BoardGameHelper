@@ -4,20 +4,28 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * A data object records general info of a role in a game. It is independent of a real person
+ * A data object records general info of a role in a game. It is representation of a real person
  * Created by chenyuanwei on 15/7/5.
  */
 public class User implements Parcelable {
 
+    public static final Parcelable.Creator<User> CREATOR = new Creator<User>() {
+
+        @Override
+        public User createFromParcel(Parcel parcel) {
+            return new User(parcel);
+        }
+
+        @Override
+        public User[] newArray(int i) {
+            return new User[i];
+        }
+    };
     private long id;
-
     private String name;
-
     // Game specific identity;
     private int identity;
-
     private int resId;
-
     private String pic_url;
 
     public User(Parcel parcel) {
@@ -40,33 +48,6 @@ public class User implements Parcelable {
 
     public User() {
     }
-
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeLong(id);
-        parcel.writeStringArray(new String[]{name, pic_url});
-        parcel.writeIntArray(new int[]{resId, identity});
-
-    }
-
-    public static final Parcelable.Creator<User> CREATOR = new Creator<User>() {
-
-        @Override
-        public User createFromParcel(Parcel parcel) {
-            return new User(parcel);
-        }
-
-        @Override
-        public User[] newArray(int i) {
-            return new User[i];
-        }
-    };
 
     public long getId() {
         return id;
@@ -111,5 +92,18 @@ public class User implements Parcelable {
     public User setPicUrl(String pic_url) {
         this.pic_url = pic_url;
         return this;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeLong(id);
+        parcel.writeStringArray(new String[]{name, pic_url});
+        parcel.writeIntArray(new int[]{resId, identity});
+
     }
 }

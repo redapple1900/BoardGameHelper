@@ -39,7 +39,6 @@ public class Selector<T> extends Scorer implements Recordable<T>{
         return mList;
     }
 
-
     public final void select(T t) {
         if (t == null) return;
 

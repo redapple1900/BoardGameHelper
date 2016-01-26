@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
 import com.yuanwei.resistance.R;
 import com.yuanwei.resistance.model.Gamer;
 import com.yuanwei.resistance.model.User;
@@ -18,13 +19,14 @@ import com.yuanwei.resistance.partygame.origin.model.Resistance;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Created by chenyuanwei on 15/11/17.
  */
 public class GridRecyclerViewAdapter 
         extends RecyclerView.Adapter<GridRecyclerViewAdapter.ViewHolder> {
-    
-    final static int MaxRounds = 5;
 
     private Context mContext;
 
@@ -56,8 +58,8 @@ public class GridRecyclerViewAdapter
                     onItemToggleListener.onToggle(view, position, isSelected);
             }
         });
-        
-        holder.profile.setImageResource(model.getUser().getResId());
+
+        Picasso.with(mContext).load(model.getUser().getResId()).into(holder.profile);
         
         holder.name.setText(model.getUser().getName());
         
@@ -76,57 +78,22 @@ public class GridRecyclerViewAdapter
         List<Integer> badges = model.getGamer().getResults();
 
         // TODO:: FIND a way to implement multirow, current way is too hacky
-        /*
-        if (badges.size() > holder.tokens.getChildCount()) {
-            ImageView badge = (ImageView) LayoutInflater
-                    .from(mContext)
-                    .inflate(R.layout.grid_item_badge_view, holder.tokens, false);
-
-            int result = badges.get(badges.size() - 1);
-
-            switch (result){
-                case Resistance.WIN:
-                    badge.setImageResource(R.drawable.token_win);
-                    break;
-                case Resistance.LOSE:
-                    badge.setImageResource(R.drawable.token_fail);
-                    break;
-                case Resistance.NEUTRAL:
-                    badge.setImageResource(R.drawable.token_neutral);
-                    break;
-            }
-
-            holder.tokens.addView(badge);
-        }
-
-
-        for (int i = 0, j = badges.size(); i < j; i++) {
-            int result = badges.get(i);
-
-            if (result == Resistance.SABOTAGE) {
-                ((ImageView) holder.tokens.getChildAt(i))
-                        .setImageResource(R.drawable.token_sabotage);
-            }
-        }
-
-        holder.tokens.invalidate();
-        */
         for (int i = 0, j = badges.size(); i < j; i++) {
 
             int result = badges.get(i);
 
             switch (result){
                 case Resistance.WIN:
-                    holder.statusBadge[i].setImageResource(R.drawable.token_win);
+                    Picasso.with(mContext).load(R.drawable.token_win).into(holder.statusBadge[i]);
                     break;
                 case Resistance.LOSE:
-                    holder.statusBadge[i].setImageResource(R.drawable.token_fail);
+                    Picasso.with(mContext).load(R.drawable.token_fail).into(holder.statusBadge[i]);
                     break;
                 case Resistance.NEUTRAL:
-                    holder.statusBadge[i].setImageResource(R.drawable.token_neutral);
+                    Picasso.with(mContext).load(R.drawable.token_neutral).into(holder.statusBadge[i]);
                     break;
                 case Resistance.SABOTAGE:
-                    holder.statusBadge[i].setImageResource(R.drawable.token_sabotage);
+                    Picasso.with(mContext).load(R.drawable.token_sabotage).into(holder.statusBadge[i]);
                     break;
             }
 
@@ -159,32 +126,27 @@ public class GridRecyclerViewAdapter
         model.setSelection(!model.isSelected());
     }
 
+    public interface OnItemToggleListener {
+        void onToggle(View view, int position, boolean isSelected);
+    }
+
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
+        @Bind(R.id.cv)
         CardView cardView;
+        @Bind(R.id.icon)
         ImageView profile;
-        //ViewGroup tokens;
-        ImageView[] statusBadge;
-
+        @Bind(R.id.text)
         TextView name;
+        @Bind(R.id.sub_text)
         TextView description;
+        @Bind({R.id.token1, R.id.token2, R.id.token3, R.id.token4, R.id.token5})
+        ImageView[] statusBadge;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            cardView = (CardView) itemView.findViewById(R.id.cv);
-            profile = (ImageView) itemView.findViewById(R.id.icon);
 
-            //tokens = (ViewGroup) itemView.findViewById(R.id.tokens);
-
-            statusBadge = new ImageView[MaxRounds];
-            statusBadge[0] = (ImageView) itemView.findViewById(R.id.token1);
-            statusBadge[1] = (ImageView) itemView.findViewById(R.id.token2);
-            statusBadge[2] = (ImageView) itemView.findViewById(R.id.token3);
-            statusBadge[3] = (ImageView) itemView.findViewById(R.id.token4);
-            statusBadge[4] = (ImageView) itemView.findViewById(R.id.token5);
-
-            name = (TextView) itemView.findViewById(R.id.text);
-            description = (TextView) itemView.findViewById(R.id.sub_text);
+            ButterKnife.bind(this, itemView);
         }
     }
 
@@ -214,9 +176,5 @@ public class GridRecyclerViewAdapter
         public User getUser() {
             return user;
         }
-    }
-
-    public interface OnItemToggleListener{
-        void onToggle(View view, int position, boolean isSelected);
     }
 }

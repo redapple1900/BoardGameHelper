@@ -1,62 +1,61 @@
 package com.yuanwei.resistance.moderator;
 
-import com.yuanwei.resistance.moderator.protocol.OnActListener;
+import android.util.Log;
 
-import org.json.JSONObject;
+import com.yuanwei.resistance.BuildConfig;
+import com.yuanwei.resistance.moderator.protocol.OnActListener;
 
 /**
  * Created by chenyuanwei on 15/10/27.
  */
 public class Staff extends BaseStaff {
 
-    private static final String PREF_KEY = "com.yuanwei.resistance.secretary";
+    private static final String INITIATED_LOG = "initiated";
+
+    private static final String COMPLETED_LOG = "completed";
+
+    private static final String TERMINATED_LOG = "terminated";
+
+    private boolean isInitiated;
 
     private OnActListener mListener;
-
-    protected Director mDirector;
 
     public Staff(OnActListener listener) {
         mListener = listener;
     }
 
-    public Staff report(Director director) {
-        director.register(this);
-        mDirector = director;
+    public Staff load(Object... objects) {
         return this;
     }
 
     public void initiate() {
+        if (BuildConfig.DEBUG) {
+            Log.d(getTag(), INITIATED_LOG);
+        }
+        isInitiated = true;
         mListener.onInitiate();
-
-        if (mDirector != null)
-            mDirector.enroll(this);
     }
 
     public void complete() {
         mListener.onComplete();
-        terminate();
+        if (BuildConfig.DEBUG) {
+            Log.d(getTag(), COMPLETED_LOG);
+        }
+        terminate(true);
     }
 
     public void terminate() {
-        if (mDirector != null)
-            mDirector.dismiss(this);
+        terminate(false);
     }
 
-    @Override
-    protected void saveToJSONObj(JSONObject obj) {
-        // Do nothing
+    public boolean isInitiated() {
+        return isInitiated;
     }
 
-    @Override
-    protected void loadFromJSONObj(JSONObject obj) {
-        // Do nothing
-    }
-
-    @Override
-    protected String getInternalTag() {
-        if (getTag() != null)
-            return PREF_KEY;
-        else
-            return PREF_KEY + getTag();
+    private void terminate(boolean isCompleted) {
+        if (!isCompleted && BuildConfig.DEBUG) {
+            Log.d(getTag(), TERMINATED_LOG);
+        }
+        isInitiated = false;
     }
 }
